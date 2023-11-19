@@ -1,6 +1,6 @@
 # LLM-playground
 
-<img src="logo/CAIS.png" alt="CAIS" width="200" height="200">
+<img src="logo/AI_RT.png" alt="CAIS" width="200" height="200">
 
 This repository demonstrates different use cases and well-knonw techniques for LLMs.
 
