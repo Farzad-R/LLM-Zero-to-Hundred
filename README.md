@@ -8,7 +8,7 @@ This repository demonstrates different use cases and well-knonw techniques for L
 ## Project description:
 <h2>WebGPT:</h2>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT"><b>**WebGPT**</b></a>: is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT"><b>WebGPT</b></a>: is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
 
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
