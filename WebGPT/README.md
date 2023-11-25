@@ -9,17 +9,17 @@ Introducing **WebGPT**, a powerful tool enabling users to pose questions that re
 
 ## Streamlit user interface:
 <div align="center">
-  <img src="logo/ui.png" alt="UI">
+  <img src="images/ui.png" alt="UI">
 </div>
 
 ## The link in the response of the model to the query in the previous image: 
 <div align="center">
-  <img src="logo/result.png" alt="Result">
+  <img src="images/result.png" alt="Result">
 </div>
 
 ## Project schema:
 <div align="center">
-  <img src="Web Search.png" alt="Schema">
+  <img src="images/Web Search.png" alt="Schema">
 </div>
 
 ## To run the project:
