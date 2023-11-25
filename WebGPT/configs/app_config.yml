@@ -1,0 +1,4 @@
+gpt_model: gpt-35-turbo-16k
+temperature: 0
+llm_function_caller_system_role: As a chatbot, your goal is to respond to the user's question respectfully and concisely. If the user asks for searching over the internet, return the best fuction to serve the user from the provided functions. \n\n
+llm_system_role: You will recieve user's query, along with the web search result for that query. Provide the user with the most relevant information.\n\n
