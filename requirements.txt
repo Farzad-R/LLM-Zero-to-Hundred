@@ -136,7 +136,6 @@ python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateu
 python-dotenv==1.0.0
 python-multipart==0.0.6
 pytz==2023.3.post1
-pywin32==305.1
 PyYAML==6.0.1
 pyzmq @ file:///C:/b/abs_655zk4a3s8/croot/pyzmq_1686601465034/work
 referencing==0.31.0
