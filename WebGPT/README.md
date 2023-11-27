@@ -23,13 +23,16 @@ Introducing **WebGPT**, a powerful tool enabling users to pose questions that re
 </div>
 
 ## To run the project:
+
+First, follow the instruction on the [root directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+
 1. Fill in your GPT API credentials in config/cfg.py
 2. activate your environment
-3. In the terminal run:
+3. Open the terminal. Make sure you are in the WebGPT directory and run:
 ```
-cd WebGPT
 streamlit run webgpt_app.py
 ```
+
 YouTube video:
 - [Link]()
 
