@@ -24,7 +24,7 @@ Introducing **WebGPT**, a powerful tool enabling users to pose questions that re
 
 ## To run the project:
 
-First, follow the instruction on the [root directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+First, follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
 
 1. Fill in your GPT API credentials in config/cfg.py
 2. activate your environment
