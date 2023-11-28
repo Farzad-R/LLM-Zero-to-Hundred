@@ -1,6 +1,6 @@
 # Function calling and addressing the LLM knowledge cut-off with real-time web search using GPT models
 
-Introducing **WebGPT**, a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
+**WebGPT** is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
 * The user-friendly interface is built using Streamlit
@@ -26,6 +26,14 @@ Introducing **WebGPT**, a powerful tool enabling users to pose questions that re
 
 First, follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
 
+Or install the dependencies individually:
+
+```
+pip install streamlit==1.28.2 streamlit-chat==0.1.1 duckduckgo-search==3.9.6 openai==0.28.0
+```
+
+Then:
+
 1. Fill in your GPT API credentials in config/cfg.py
 2. activate your environment
 3. Open the terminal. Make sure you are in the WebGPT directory and run:
@@ -34,7 +42,7 @@ streamlit run webgpt_app.py
 ```
 
 YouTube video:
-- [Link]()
+- [Link](Coming soon)
 
 Presentation:
 - [Link](https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT/presentation/slides.pdf)
