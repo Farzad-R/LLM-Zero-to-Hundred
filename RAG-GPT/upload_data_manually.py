@@ -1,4 +1,11 @@
 
+import os
+
+
+def create_directory(directory_path):
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
 
 def upload_data_manually():
     import openai
@@ -18,6 +25,7 @@ def upload_data_manually():
     chunk_overlap = app_config["splitter_config"]["chunk_overlap"]
     data_directory = app_config["directories"]["data_directory"]
     persist_directory = app_config["directories"]["persist_directory"]
+    create_directory(persist_directory)
     prepare_vectordb_instance = PrepareVectorDB(
         data_directory=data_directory,
         persist_directory=persist_directory,
