@@ -1,8 +1,8 @@
-RAG-GPT-Langchain-Chroma-Gradio
-RAG-GPT-LLAMA-Langchain-Chroma-Gradio
+LLM-Agents
+storage
 GPT3-Multinput-multioutput
-LLM-fine-tuning
 GPT2-full-pretraining
+RAG-GPT
 # Byte-compiled / optimized / DLL files
 __pycache__/
 vectorstores/

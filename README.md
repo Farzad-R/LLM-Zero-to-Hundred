@@ -12,15 +12,28 @@ This repository demonstrates different use cases and well-knonw techniques for L
 
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
-* The user-friendly interface is built using Streamlit
+* The user-friendly interface is built using Streamlit.
 * The web search supports diverse searches such as text, news, PDFs, images, videos, maps, and instant responses. 
 * Overcoming knowledge-cutoff limitations, the chatbot delivers answers based on the latest internet content.
+
+The project utilizes, [OpenAI GPT model](https://platform.openai.com/docs/models/overview), GPT model's function calling capability, [duckduckgo-search](https://pypi.org/project/duckduckgo-search/), and [streamlit](https://docs.streamlit.io/).
+
 </p>
 
-<h2>Function calling in LLAMA and GPT models:</h2>
+<h2>RAG-GPT:</h2>
 <p>
-    - <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-function-calling-tutorial"><b>LLM Function calling</b></a>:
-    The project showcases the capacity of Large Language Models (LLMs) to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"><b>RAG-GPT</b></a>: is a chatbot that enables you to chat with your documents (PDFs and Doc). The project works with two types of data:
+
+1. With documents that you have vectorized and processed beforehand.
+2. With documents that you upload while chatting with the model.
+
+The project utilizes, [OpenAI GPT model](https://platform.openai.com/docs/models/overview), [Langchain](https://python.langchain.com/docs/get_started/quickstart), [ChromaDB](https://www.trychroma.com/), and [Gradio](https://www.gradio.app/guides/quickstart). 
+</p>
+
+<h2>LLM Function Calling Tutorial:</h2>
+<p>
+    - <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-function-calling-tutorial"><b>LLM-function-calling-tutorial</b></a>:
+    showcases the capacity of Large Language Models (LLMs) to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
 </p>
 
 ## Running each project
