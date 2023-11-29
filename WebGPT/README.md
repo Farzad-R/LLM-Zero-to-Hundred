@@ -24,7 +24,7 @@
 
 ## To run the project:
 
-First, follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+First, follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-Zero-to-Hundred) to create an environment and install required libraries. 
 
 Or install the dependencies individually:
 
@@ -45,7 +45,7 @@ YouTube video:
 - [Link](Coming soon)
 
 Presentation:
-- [Link](https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT/presentation/slides.pdf)
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/WebGPT/presentation/slides.pdf)
 
 Extra read:
 - [GPT model](https://platform.openai.com/docs/models/overview) 

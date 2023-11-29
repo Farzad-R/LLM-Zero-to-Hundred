@@ -4,7 +4,7 @@ This folder contains two notebooks that show the process of function calling wit
 
 ## To run the notebooks:
 
-First, follow the instruction on the [root directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+First, follow the instruction on the [root directory](https://github.com/Farzad-R/LLM-Zero-to-Hundred) to create an environment and install required libraries. 
 
 YouTube video:
 - [Link](https://www.youtube.com/watch?v=TykMXcG5ymk)

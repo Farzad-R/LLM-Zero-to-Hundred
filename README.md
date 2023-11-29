@@ -1,4 +1,4 @@
-# LLM-playground
+# LLM-Zero-to-Hundred
 
 <div align="center">
   <img src="logo/AI_RT.png" alt="CAIS" width="300" height="250">
@@ -8,7 +8,7 @@ This repository demonstrates different use cases and well-knonw techniques for L
 ## Project description:
 <h2>WebGPT:</h2>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT"><b>WebGPT</b></a>: is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebGPT"><b>WebGPT</b></a>: is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
 
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
@@ -19,7 +19,7 @@ This repository demonstrates different use cases and well-knonw techniques for L
 
 <h2>Function calling in LLAMA and GPT models:</h2>
 <p>
-    - <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-playground/tree/master/LLM-function-calling"><b>LLM Function calling</b></a>:
+    - <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-function-calling-tutorial"><b>LLM Function calling</b></a>:
     The project showcases the capacity of Large Language Models (LLMs) to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
 </p>
 
@@ -28,7 +28,7 @@ To run the projects, you will need to install the required libraries. Follow the
 
 1. Clone the repository and navigate to the project directory.
 ```
-git clone https://github.com/Farzad-R/LLM-playground.git
+git clone https://github.com/Farzad-R/LLM-Zero-to-Hundred.git
 cd <yourproject>
 ```
 2. Create a new virtual environment using a tool like virtualenv or conda, and activate the environment:
