@@ -46,7 +46,7 @@ Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [Langcha
 <a id="LLM-function-calling-tutorial"></a>
 <h2>LLM Function Calling Tutorial:</h2>
 <p>
-    - <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-function-calling-tutorial"><b>LLM-function-calling-tutorial</b></a>:
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-function-calling-tutorial"><b>LLM-function-calling-tutorial</b></a>:
     showcases the capacity of Large Language Models (LLMs) to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
