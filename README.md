@@ -10,7 +10,7 @@ This repository demonstrates different use cases and well-knonw techniques for L
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [LLM Function Calling Tutorial](#LLM-function-calling-tutorial)
 - [ ] [LLM Agent Tutorial](coming-soon): Will be added soon.
-- [ ] [Ultimodal ChatBot](coming-soon): Will be added soon.
+- [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [LLM Full Finetuning](coming-soon): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
@@ -51,6 +51,12 @@ Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [Langcha
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 </p>
+
+
+<a id="Multimodal-ChatBot"></a>
+<h2>Multimodal-ChatBot:</h2>
+This project aims to develop a versatile chatbot capable of processing text and voice inputs, generating multimodal responses (text, voice, images), and conducting web searches to deliver accurate information. Additionally, the chatbot will be equipped to analyze documents and respond to related queries.
+
 
 ## Running each project
 To run the projects, you will need to install the required libraries. Follow the steps below to get started:
