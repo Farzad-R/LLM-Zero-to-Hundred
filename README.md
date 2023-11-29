@@ -9,11 +9,11 @@ This repository demonstrates different use cases and well-knonw techniques for L
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [LLM Function Calling Tutorial](#LLM-function-calling-tutorial)
-- [ ] [LLM Agent Tutorial](coming-soon)
-- [ ] [Ultimodal Bot](coming-soon)
-- [ ] [LLM Full Finetuning](coming-soon)
-- [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon)
-- [ ] [LLM Pretraining](coming-soon)
+- [ ] [LLM Agent Tutorial](coming-soon): Will be added soon.
+- [ ] [Ultimodal ChatBot](coming-soon): Will be added soon.
+- [ ] [LLM Full Finetuning](coming-soon): Will be added soon.
+- [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
+- [ ] [LLM Pretraining](coming-soon): Will be added soon.
 
 
 ## Project description:
