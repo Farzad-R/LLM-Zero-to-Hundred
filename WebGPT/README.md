@@ -19,7 +19,7 @@
 
 ## Project Schema
 <div align="center">
-  <img src="images/WebSearch.png" alt="Schema">
+  <img src="images/Web_Search.png" alt="Schema">
 </div>
 
 ## Running the Project

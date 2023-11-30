@@ -92,12 +92,10 @@ with container:
         chat_history = "# User chat history: " + \
             str([x for x in st.session_state['chat_history'][:-1]]) + "\n\n"
 
-        user_input_modified = "# User's query:\n\n" + user_input
-
         messages = [
             {"role": "system", "content": str(
                 llm_function_caller_system_role + chat_history)},
-            {"role": "user", "content": str(user_input_modified)}
+            {"role": "user", "content": str(user_input)}
         ]
         first_llm_response = Apputils.ask_llm_function_caller(
             gpt_model, temperature, messages, function_json_list)
