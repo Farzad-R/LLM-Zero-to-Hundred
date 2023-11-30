@@ -1,7 +1,8 @@
 directories:
   data_directory: data/docs
-  persist_directory: data/chroma/
-  custom_persist_directory: data/upload/chroma
+  data_directory_2: data/docs_2
+  persist_directory: data/vectordb/processed/chroma/
+  custom_persist_directory: data/vectordb/uploaded/chroma/
 
 embedding_model_config:
   engine: "text-embedding-ada-002"
@@ -10,7 +11,7 @@ llm_config:
     llm_system_role: "You are a chatbot. Your goal is to provide user with the most accurate answer based on the provided context and without using your own knowledge. you will receive a prompt with the the following format:
 
     # Retrieved content:
-    [page_content=(), metadata={page:'value', source:'value'}, page_content=(), metadata={page:'value', source:'value'}, page_content=(), metadata={page:'value', source:'value'}]\n\n
+    [page_content=(some content), page_content=(some content)]\n\n
 
     # User new question: 
     {question}\n\n
@@ -27,3 +28,7 @@ splitter_config:
 
 retrieval_config:
   k: 3
+
+serve:
+  port: 8000
+  

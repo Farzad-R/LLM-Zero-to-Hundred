@@ -9,6 +9,9 @@ from langchain.vectorstores import Chroma
 from typing import List, Tuple
 import re
 from dotenv import load_dotenv
+import ast
+import html
+
 load_dotenv()
 
 # Open AI configs
@@ -44,10 +47,15 @@ class ChatBot:
 
         question = "# User new question:\n" + message
         docs = vectordb.similarity_search(question, k=k)
-        retrieved_docs_str = [str(x)+"\n\n" for x in docs]
-        references = ChatBot.clean_references(retrieved_docs_str)
-        retrieved_docs_str = "# Retrieved content:\n" + str(retrieved_docs_str)
-        prompt = retrieved_docs_str + "\n\n" + question
+        references = ChatBot.clean_references(docs)
+        retrieved_docs_page_content = [
+            str(x.page_content)+"\n\n" for x in docs]
+        # retrieved_docs_links_and_page_numbers = [
+        #     x.meta_data for x in docs]
+
+        retrieved_docs_page_content = "# Retrieved content:\n" + \
+            str(retrieved_docs_page_content)
+        prompt = retrieved_docs_page_content + "\n\n" + question
         response = openai.ChatCompletion.create(
             engine=llm_engine,
             messages=[
@@ -72,30 +80,52 @@ class ChatBot:
 
     @staticmethod
     def clean_references(documents: List) -> str:
+        server_url = "http://localhost:8000"
+        documents = [str(x)+"\n\n" for x in documents]
         markdown_documents = ""
-
+        counter = 1
         for doc in documents:
-            # Extract and remove metadata
+            # print(doc)
+            # Extract content and metadata
             content, metadata = re.match(
                 r"page_content=(.*?)( metadata=\{.*\})", doc).groups()
+            metadata = metadata.split('=', 1)[1]
+            metadata_dict = ast.literal_eval(metadata)
 
             # Decode newlines and other escape sequences
             content = bytes(content, "utf-8").decode("unicode_escape")
 
-            # Replace [Inaudible] with a placeholder
-            content = content.replace("[Inaudible]", "*[inaudible speech]*")
-
-            # Improve readability by fixing spacing issues
             # Replace escaped newlines with actual newlines
             content = re.sub(r'\\n', '\n', content)
+            # Remove special tokens
+            content = re.sub(r'\s*<EOS>\s*<pad>\s*', ' ', content)
+            # Remove any remaining multiple spaces
             content = re.sub(r'\s+', ' ', content).strip()
 
-            # Convert speaker annotations to bold in markdown
-            content = re.sub(
-                r'(Instructor|Student)\s\((.*?)\)\s:', r'**\1 (\2):**', content)
+            # Decode HTML entities
+            content = html.unescape(content)
+
+            # Replace incorrect unicode characters with correct ones
+            content = content.encode('latin1').decode('utf-8', 'ignore')
+
+            # Remove or replace special characters and mathematical symbols
+            # This step may need to be customized based on the specific symbols in your documents
+            content = re.sub(r'â', '-', content)
+            content = re.sub(r'â', '∈', content)
+            content = re.sub(r'Ã', '×', content)
+            content = re.sub(r'ï¬', 'fi', content)
+            content = re.sub(r'â', '∈', content)
+            content = re.sub(r'Â·', '·', content)
+            content = re.sub(r'ï¬', 'fl', content)
+
+            pdf_url = f"{server_url}/{os.path.basename(metadata_dict['source'])}"
 
             # Append cleaned content to the markdown string with two newlines between documents
-            markdown_documents += content + "\n\n"
+            markdown_documents += f"Reference {counter}:\n" + content + "\n\n" + \
+                f"Filename: {os.path.basename(metadata_dict['source'])}" + " | " +\
+                f"Page number: {str(metadata_dict['page'])}" + " | " +\
+                f"[View PDF]({pdf_url})" "\n\n"
+            counter += 1
 
         return markdown_documents
 

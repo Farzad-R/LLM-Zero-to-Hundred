@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import yaml
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
+from typing import List, Tuple, Dict
 
 load_dotenv()  # read local .env file
 
@@ -36,11 +37,13 @@ while True:
     question = input("\n\nEnter your question or press 'q' to exit: ")
     if question.lower() == 'q':
         break
+    question = "What is attention?"
     question = "# User new question:\n" + question
     docs = vectordb.similarity_search(question, k=k)
-
-    retrieved_docs_str = [str(x)+"\n\n" for x in docs]
-    retrieved_docs_str = "# Retrieved content:\n" + str(retrieved_docs_str)
+    retrieved_docs_page_content: List[Tuple] = [
+        str(x.page_content)+"\n\n" for x in docs]
+    retrieved_docs_str = "# Retrieved content:\n\n" + \
+        str(retrieved_docs_page_content)
     prompt = retrieved_docs_str + "\n\n" + question
     response = openai.ChatCompletion.create(
         engine=llm_engine,

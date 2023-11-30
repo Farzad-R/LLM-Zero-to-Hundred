@@ -13,20 +13,21 @@ with gr.Blocks() as demo:
     #              show_share_button=False,
     #              elem_id="output_image")
     with gr.Tabs():
-        with gr.TabItem("ChatDoc"):
+        with gr.TabItem("RAG-GPT"):
             ##############
             # First ROW:
             ##############
             with gr.Row() as row_one:
                 with gr.Column(visible=False) as reference_bar:
-                    ref_output = gr.Textbox(
-                        lines=22,
-                        max_lines=22,
-                        interactive=False,
-                        type="text",
-                        label="References",
-                        show_copy_button=True
-                    )
+                    ref_output = gr.Markdown()
+                    # ref_output = gr.Textbox(
+                    #     lines=22,
+                    #     max_lines=22,
+                    #     interactive=False,
+                    #     type="text",
+                    #     label="References",
+                    #     show_copy_button=True
+                    # )
 
                 with gr.Column() as chatbot_output:
                     chatbot = gr.Chatbot(
