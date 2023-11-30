@@ -48,7 +48,6 @@ pip install gradio==4.5.0 langchain==0.0.339 openai==0.28.0 chromadb==0.4.18 PyY
 ```
 
 1. **Configuration and Execution**
-* Navigate to the config directory.
 * Open cfg.py and fill in your GPT API credentials.
 
 2. **Activate Your Environment.**

@@ -8,17 +8,11 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from typing import List, Tuple
 import re
-from dotenv import load_dotenv
 import ast
 import html
+from cfg import load_cfg
 
-load_dotenv()
-
-# Open AI configs
-openai.api_version = os.getenv("OPENAI_API_VERSION")
-openai.api_type = os.getenv("OPENAI_API_TYPE")
-openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_base = os.getenv("OPENAI_API_BASE")
+load_cfg()
 
 with open("configs/app_config.yml") as cfg:
     app_config = yaml.load(cfg, Loader=yaml.FullLoader)
