@@ -1,4 +1,4 @@
-# Fostering Robust AI Conversations with retrieval Augemented generation By Integrating OpenAI GPT Model, Langchain, ChromaDB, and Gradio
+# RAG-GPT: Fostering Robust AI Conversations with retrieval Augemented generation By Integrating OpenAI GPT Model, Langchain, ChromaDB, and Gradio
 
 **RAG-GPT** is a chatbot that enables you to chat with your documents (PDFs and Doc). The project works with two types of data:
 1. With documents that you have vectorized and processed beforehand.
