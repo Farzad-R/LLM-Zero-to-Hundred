@@ -6,7 +6,7 @@
 
 ## Streamlit user interface:
 <div align="center">
-  <img src="images/ui.png" alt="UI">
+  <img src="images/RAG-GPT UI.png" alt="RAG-GPT UI">
 </div>
 
 ## Project schema:
