@@ -22,21 +22,30 @@
   <img src="images/WebSearch.png" alt="Schema">
 </div>
 
-## To run the project:
+## Running the Project
 
-First, follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-Zero-to-Hundred) to create an environment and install required libraries. 
+To get the project up and running, you'll need to set up your environment and install the necessary dependencies. You can do this in two ways:
 
-Or install the dependencies individually:
+### Option 1: Using the Parent Directory Instructions
+
+Follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+
+### Option 2: Installing Dependencies Individually
+If you prefer to install the dependencies individually, run the following command:
 
 ```
 pip install streamlit==1.28.2 streamlit-chat==0.1.1 duckduckgo-search==3.9.6 openai==0.28.0
 ```
 
-Then:
+1. **Configuration and Execution**
+* Navigate to the config directory.
+* Open cfg.py and fill in your GPT API credentials.
+2. **Activate Your Environment.**
+3. **Ensure you are in the WebGPT directory**
+4. **Run the Application:**
 
-1. Fill in your GPT API credentials in config/cfg.py
-2. activate your environment
-3. Open the terminal. Make sure you are in the WebGPT directory and run:
+In Terminal:
+
 ```
 streamlit run webgpt_app.py
 ```
