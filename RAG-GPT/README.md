@@ -4,12 +4,12 @@
 1. With documents that you have vectorized and processed beforehand.
 2. With documents that you upload while chatting with the model.
 
-## Streamlit user interface:
+## RAG-GPT User Interface
 <div align="center">
   <img src="images/RAG-GPT UI.png" alt="RAG-GPT UI">
 </div>
 
-## Project schema:
+## Project Schema
 <div align="center">
   <img src="images/RAG-GPT_schema.png" alt="Schema">
 </div>

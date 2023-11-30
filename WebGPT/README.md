@@ -7,17 +7,17 @@
 * The web search supports diverse searches such as text, news, PDFs, images, videos, maps, and instant responses. 
 * Overcoming knowledge-cutoff limitations, the chatbot delivers answers based on the latest internet content.
 
-## Streamlit user interface:
+## Streamlit User Interface
 <div align="center">
   <img src="images/ui.png" alt="UI">
 </div>
 
-## The link in the response of the model to the query in the previous image: 
+### The link in the response of the model to the query in the previous image
 <div align="center">
   <img src="images/result.png" alt="Result">
 </div>
 
-## Project schema:
+## Project Schema
 <div align="center">
   <img src="images/WebSearch.png" alt="Schema">
 </div>
