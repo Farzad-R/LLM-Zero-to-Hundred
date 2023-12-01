@@ -1,4 +1,6 @@
 """
+HELPER: (In case you need to close the port manually.)
+
 Find the Process Using the Port:
 On Linux/macOS, you can use:
 sudo lsof -i :PORT_NUMBER
@@ -39,13 +41,59 @@ DIRECTORY1 = app_config["directories"]["data_directory"]
 DIRECTORY2 = app_config["directories"]["data_directory_2"]
 
 
-# class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, directory=DIRECTORY1, **kwargs)
+class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    """
+    Custom HTTP request handler that serves files from a single directory.
+
+    This class extends the SimpleHTTPRequestHandler and sets the serving directory to DIRECTORY1.
+
+    Example:
+    ```python
+    handler = SingleDirectoryHTTPRequestHandler
+    with socketserver.TCPServer(("", PORT), handler) as httpd:
+        print(f"Serving at port {PORT}")
+        httpd.serve_forever()
+    ```
+
+    """
+    def __init__(self, *args, **kwargs):
+        """
+        Initialize the SingleDirectoryHTTPRequestHandler.
+
+        Parameters:
+            - args: Additional positional arguments for the base class.
+            - kwargs: Additional keyword arguments for the base class.
+        """
+        super().__init__(*args, directory=DIRECTORY1, **kwargs)
 
 
 class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    """
+    Custom HTTP request handler that serves files from multiple directories.
+
+    This class extends the SimpleHTTPRequestHandler and allows serving files from DIRECTORY1 and DIRECTORY2
+    based on the first directory component in the requested path.
+
+    Example:
+    ```python
+    handler = MultiDirectoryHTTPRequestHandler
+    with socketserver.TCPServer(("", PORT), handler) as httpd:
+        print(f"Serving at port {PORT}")
+        httpd.serve_forever()
+    ```
+
+    """
     def translate_path(self, path):
+        """
+        Translate the requested path to the actual file path.
+
+        Parameters:
+            path (str): The requested path.
+
+        Returns:
+            str: The translated file path.
+
+        """
         # Split the path to get the first directory component
         parts = path.split('/', 2)
         if len(parts) > 1:

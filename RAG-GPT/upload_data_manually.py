@@ -3,11 +3,38 @@ import os
 
 
 def create_directory(directory_path):
+    """
+    Create a directory if it does not exist.
+
+    Parameters:
+        directory_path (str): The path of the directory to be created.
+
+    Example:
+    ```python
+    create_directory("/path/to/new/directory")
+    ```
+
+    """
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
 
 def upload_data_manually():
+    """
+    Upload data manually using OpenAI API and prepare a VectorDB.
+
+    This function initializes OpenAI API credentials, loads configuration from a YAML file,
+    creates necessary directories, and prepares a VectorDB instance using the specified parameters.
+
+    Example:
+    ```python
+    upload_data_manually()
+    ```
+
+    Returns:
+    None
+
+    """
     import openai
     from dotenv import load_dotenv
     from prepare_vectordb import PrepareVectorDB
