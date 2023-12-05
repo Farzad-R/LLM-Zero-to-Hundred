@@ -1,30 +1,42 @@
 """
-HELPER: (In case you need to close the port manually.)
-
-Find the Process Using the Port:
-On Linux/macOS, you can use:
-sudo lsof -i :PORT_NUMBER
-
-On Windows, you can use:
-netstat -ano | findstr :PORT_NUMBER
-============================================
-Terminate the Process:
-
-On Linux/macOS, you can use:
-sudo kill -9 PID
-
-On Windows, you can use:
-taskkill /PID typeyourPIDhere /F
-
-Replace PID with the actual process ID.
-============================================
-Verify the Port is Closed:
-
-On Linux/macOS:
-sudo lsof -i :PORT_NUMBER
+Helper for controling ports. Example is for port 8000.
 
 On Windows:
-netstat -ano | findstr :PORT_NUMBER
+
+Open Command Prompt as an administrator.
+
+Run the following command to find out which process is using port 8000:
+netstat -ano | findstr :8000
+
+
+Look for the line that has 0.0.0.0:8000 or [::]:8000 and note the PID (Process Identifier) at the end of that line.
+
+To find out which application the PID corresponds to, run:
+tasklist /fi "pid eq <PID>"
+
+Replace <PID> with the actual PID number.
+
+Once you know which application is using the port, you can decide if you want to close it. If you do, you can either close the application normally or use the following command to forcefully terminate the process:
+taskkill /PID <PID> /F
+
+Again, replace <PID> with the actual PID number.
+
+
+On macOS and Linux:
+
+
+Open Terminal.
+
+Run the following command to find out which process is using port 8000:
+sudo lsof -i :8000
+
+
+Look for the PID in the output, which is usually in the second column.
+
+To stop the process, you can use the kill command:
+sudo kill -9 <PID>
+
+Replace <PID> with the actual PID number.
 """
 
 
@@ -56,6 +68,7 @@ class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     ```
 
     """
+
     def __init__(self, *args, **kwargs):
         """
         Initialize the SingleDirectoryHTTPRequestHandler.
@@ -83,6 +96,7 @@ class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     ```
 
     """
+
     def translate_path(self, path):
         """
         Translate the requested path to the actual file path.

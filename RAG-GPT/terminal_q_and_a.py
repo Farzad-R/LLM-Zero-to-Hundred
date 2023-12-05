@@ -32,7 +32,6 @@ while True:
     question = input("\n\nEnter your question or press 'q' to exit: ")
     if question.lower() == 'q':
         break
-    question = "What is attention?"
     question = "# User new question:\n" + question
     docs = vectordb.similarity_search(question, k=k)
     retrieved_docs_page_content: List[Tuple] = [

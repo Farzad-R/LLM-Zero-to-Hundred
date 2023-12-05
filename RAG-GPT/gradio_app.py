@@ -1,5 +1,7 @@
 import gradio as gr
 from gradio_app_utils import *
+
+
 with gr.Blocks() as demo:
     ######################
     # First ROW: Image
@@ -48,10 +50,13 @@ with gr.Blocks() as demo:
                 input_txt = gr.Textbox(
                     lines=4,
                     scale=8,
-                    placeholder="Enter text and press enter, or upload a PDF file",
+                    placeholder="Enter text and press enter, or upload PDF files",
                     container=False,
                 )
 
+            ##############
+            # Third ROW:
+            ##############
             with gr.Row() as row_two:
                 text_submit_btn = gr.Button(value="Submit text")
                 sidebar_state = gr.State(False)
