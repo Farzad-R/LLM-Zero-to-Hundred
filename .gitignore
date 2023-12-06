@@ -7,7 +7,6 @@ __pycache__/
 vectorstores/
 *.py[cod]
 *$py.class
-tutorials
 flagged
 # C extensions
 *.so
