@@ -207,7 +207,7 @@ class GradioUploadFile:
     GradioUploadFile.process_uploaded_files(files_dir, chatbot_instance)
     ```
     """
-    
+
     @staticmethod
     def check_directory(directory_path):
         """
@@ -226,7 +226,7 @@ class GradioUploadFile:
             os.makedirs(directory_path)
 
     @staticmethod
-    def process_uploaded_files(files_dir: List, chatbot:List) -> Tuple:
+    def process_uploaded_files(files_dir: List, chatbot: List) -> Tuple:
         """
         Process uploaded files to prepare a VectorDB.
 
