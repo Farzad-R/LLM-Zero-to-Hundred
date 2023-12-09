@@ -1,8 +1,7 @@
 LLM-Agents
 storage
 GPT3-Multinput-multioutput
-GPT2-full-pretraining
-DeepWebQuery
+memory
 # Byte-compiled / optimized / DLL files
 __pycache__/
 vectorstores/
