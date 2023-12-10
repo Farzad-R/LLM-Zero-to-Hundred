@@ -19,7 +19,6 @@ with open("configs/app_config.yml") as cfg:
 # LLM configs
 llm_engine = app_config["llm_config"]["engine"]
 llm_system_role = app_config["llm_config"]["llm_system_role"]
-# llm_temperature = app_config["llm_config"]["temperature"]
 embedding_model = OpenAIEmbeddings()
 
 # Retrieval configs

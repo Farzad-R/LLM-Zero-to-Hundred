@@ -3,17 +3,6 @@ from gradio_app_utils import *
 
 
 with gr.Blocks() as demo:
-    ######################
-    # First ROW: Image
-    ######################
-    # with gr.Row():
-    #     gr.Image("images/header.png",
-    #              width=640,
-    #              height=228,
-    #              show_label=False,
-    #              show_download_button=False,
-    #              show_share_button=False,
-    #              elem_id="output_image")
     with gr.Tabs():
         with gr.TabItem("RAG-GPT"):
             ##############

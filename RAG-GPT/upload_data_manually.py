@@ -19,7 +19,7 @@ def create_directory(directory_path):
         os.makedirs(directory_path)
 
 
-def upload_data_manually():
+def upload_data_manually() -> None:
     """
     Upload data manually using OpenAI API and prepare a VectorDB.
 

@@ -48,11 +48,11 @@ class PrepareVectorDB:
         Initialize the PrepareVectorDB instance.
 
         Parameters:
-        - data_directory (str or List[str]): The directory or list of directories containing the documents.
-        - persist_directory (str): The directory to save the VectorDB.
-        - embedding_model_engine (str): The engine for OpenAI embeddings.
-        - chunk_size (int): The size of the chunks for document processing.
-        - chunk_overlap (int): The overlap between chunks.
+            data_directory (str or List[str]): The directory or list of directories containing the documents.
+            persist_directory (str): The directory to save the VectorDB.
+            embedding_model_engine (str): The engine for OpenAI embeddings.
+            chunk_size (int): The size of the chunks for document processing.
+            chunk_overlap (int): The overlap between chunks.
 
         """
 
@@ -101,7 +101,7 @@ class PrepareVectorDB:
         Chunk the loaded documents using the specified text splitter.
 
         Parameters:
-            - docs (List): The list of loaded documents.
+            docs (List): The list of loaded documents.
 
         Returns:
             List: A list of chunked documents.
