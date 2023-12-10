@@ -94,8 +94,8 @@ with container:
 
         messages = [
             {"role": "system", "content": str(
-                llm_function_caller_system_role + chat_history)},
-            {"role": "user", "content": str(user_input)}
+                llm_function_caller_system_role)},
+            {"role": "user", "content": chat_history + str(user_input)}
         ]
         first_llm_response = Apputils.ask_llm_function_caller(
             gpt_model, temperature, messages, function_json_list)
