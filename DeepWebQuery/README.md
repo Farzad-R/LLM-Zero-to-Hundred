@@ -1,6 +1,6 @@
 # DeepWebQuery: Combining WebGPT and RAG-GPT
 
-**DeepWebQuery** that goes beyond typical internet searches. Built on the robust foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+**DeepWebQuery** is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
 
 #### Key Features:
 * Intelligent Decision-Making: Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
