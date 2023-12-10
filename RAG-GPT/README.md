@@ -68,8 +68,8 @@ python gradio_app.py
 YouTube video:
 - [Link](Coming soon)
 
-Presentation:
-- [Link](https://github.com/Farzad-R/LLM-playground/tree/master/WebGPT/presentation/slides.pdf)
+Slides:
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
 
 Extra read:
 - [GPT model](https://platform.openai.com/docs/models/overview) 

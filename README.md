@@ -34,6 +34,9 @@ This repository demonstrates different use cases and well-known techniques for L
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) (It uses GPT model's function calling capability) - [duckduckgo-search](https://pypi.org/project/duckduckgo-search/) - [streamlit](https://docs.streamlit.io/)
 
+YouTube video:
+- [Link](Coming soon)
+
 </p>
 
 <a id="RAG-GPT"></a>
@@ -45,6 +48,9 @@ Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) (It uses G
 2. With documents that you upload while chatting with the model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [Gradio](https://www.gradio.app/guides/quickstart) 
+
+YouTube video:
+- [Link](Coming soon)
 </p>
 
 <a id="DeepWebQuery"></a>
@@ -64,6 +70,9 @@ Key Features:</br>
 * Diverse Search Capabilities: DeepWebQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
 * Overcoming Knowledge-Cutoff Limitations: This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
 
+YouTube video:
+- [Link](Coming soon)
+</p>
 
 <!-- <a id="Multimodal-ChatBot"></a>
 <h3>Multimodal-ChatBot:</h3>
@@ -77,6 +86,9 @@ This project aims to develop a versatile chatbot capable of processing text and 
     showcases the capacity of GPT models to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
+
+YouTube video:
+- [Link](Coming soon)
 </p>
 <a id="LLM-function-calling-tutorial"></a>
 <h2>Visualizing Text Vectorization:</h2>
@@ -84,7 +96,13 @@ Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/tutorials/vectorization_tutorial"><b>Visualizing Text Vectorization</b></a>: provides a comprehensive visualization of text vectorization and demonstrates the power of vector search. It further explores the vectorization on both OpenAi `text-embedding-ada-002` and the open source `BAAI/bge-large-zh-v1.5` model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [HuggingFace](https://huggingface.co/BAAI/bge-large-zh-v1.5)
+
+YouTube video:
+- [Link](Coming soon)
 </p>
+
+Slides:
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
 
 ## Running each project
 To run the projects, you will need to install the required libraries. Follow the steps below to get started:
