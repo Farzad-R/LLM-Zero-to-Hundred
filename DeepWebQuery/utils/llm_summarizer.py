@@ -15,12 +15,12 @@ class LLMSummarizer:
         contains the formatted user query along with the web search results.
 
         Parameters:
-        - search_result (List): A list containing the results of a web search.
-        - user_query (str): The user's query as a string.
-        - llm_system_role (str): The role of the LLM system to be included in the system message.
+            search_result (List): A list containing the results of a web search.
+            user_query (str): The user's query as a string.
+            llm_system_role (str): The role of the LLM system to be included in the system message.
 
         Returns:
-        - List[Dict]: A list of dictionaries, where each dictionary has two keys: 'role' and 'content'.
+            List[Dict]: A list of dictionaries, where each dictionary has two keys: 'role' and 'content'.
                     The 'role' key denotes the role of the message ('system' or 'user'), and the 'content'
                     key contains the message content.
         """

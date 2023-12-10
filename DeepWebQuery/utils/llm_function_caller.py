@@ -13,12 +13,12 @@ class LLMFuntionCaller:
         message is from the 'system' or the 'user', and a 'content' key with the actual message content.
 
         Parameters:
-        - llm_function_caller_system_role (str): A string representing the system's role or state information.
-        - input_chat_history (str): The chat history that the system should consider before generating a response.
-        - message (str): The latest message from the user that needs to be processed.
+            llm_function_caller_system_role (str): A string representing the system's role or state information.
+            input_chat_history (str): The chat history that the system should consider before generating a response.
+            message (str): The latest message from the user that needs to be processed.
 
         Returns:
-        - List[Dict]: A list containing two dictionaries, one for the system and one for the user, each with
+            List[Dict]: A list containing two dictionaries, one for the system and one for the user, each with
                          'role' and 'content' keys.
         """
         query = f"# Chat history: {input_chat_history}\n\n, # User's new query: {user_query}"
@@ -34,10 +34,10 @@ class LLMFuntionCaller:
         Generate a response from an OpenAI ChatCompletion API call with specific function calls.
 
         Parameters:
-            - gpt_model (str): The name of the GPT model to use.
-            - temperature (float): The temperature parameter for the API call.
-            - messages (List): List of message objects for the conversation.
-            - function_json_list (List): List of function JSON schemas.
+            gpt_model (str): The name of the GPT model to use.
+            temperature (float): The temperature parameter for the API call.
+            messages (List): List of message objects for the conversation.
+            function_json_list (List): List of function JSON schemas.
 
         Returns:
             The response object from the OpenAI ChatCompletion API call.

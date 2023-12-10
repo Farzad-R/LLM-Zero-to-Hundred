@@ -1,11 +1,10 @@
 import os
 import shutil
-from typing import List, Dict, Tuple
 
 
 class Apputils:
     @staticmethod
-    def create_directory(directory_path):
+    def create_directory(directory_path:str) -> None:
         """
         Create a directory if it does not exist.
 
@@ -22,7 +21,7 @@ class Apputils:
             os.makedirs(directory_path)
 
     @staticmethod
-    def remove_directory(directory_path):
+    def remove_directory(directory_path:str) -> None:
         """
         Remove a directory if it exists.
 
@@ -38,7 +37,27 @@ class Apputils:
             # Use shutil.rmtree to remove the directory even if it contains files
             shutil.rmtree(directory_path)
     @staticmethod
-    def find_latest_chroma_folder(folder_path):
+    def find_latest_chroma_folder(folder_path:str)->str:
+        """
+        Find the latest Chroma folder within the specified directory.
+
+        Args:
+            folder_path (str): The path to the directory containing Chroma folders.
+
+        Returns:
+            str: The path of the folder with the latest timestamp.
+
+        Note:
+            This method identifies Chroma folders based on their subdirectory structure,
+            extracts Unix timestamps from their names, and returns the path of the folder
+            with the latest timestamp.
+
+        Example:
+            ```python
+            latest_folder = YourClass.find_latest_chroma_folder("/path/to/chroma_folders")
+            print(latest_folder)
+            ```
+        """
         # Get a list of subdirectories in the specified folder
         subfolders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
 

@@ -70,7 +70,19 @@ class PrepareURLVectorDB:
         self.embedding = OpenAIEmbeddings()
 
     def _load_web_page(self):
-        # I assumed that the user will only ask fo one url and it is a webpage and not a youtube link.
+        """
+        Load web page content from the specified URL.
+
+        Returns:
+            List[Document]: A list of documents representing the content of the web page.
+
+        Raises:
+            Exception: If the requested link is not supported by LangChain.
+
+        Note:
+            This method assumes that the user will provide a single URL pointing to a webpage (not a YouTube link).
+            It utilizes a WebBaseLoader instance to load and extract content from the specified URL.
+        """
         try:
             loader = WebBaseLoader(self.url)
             documents = loader.load()
@@ -87,19 +99,18 @@ class PrepareURLVectorDB:
 
         Returns:
             List: A list of chunked documents.
-
         """
         print("Chunking the webpage...")
         chunked_documents = self.text_splitter.split_documents(docs)
         print("Number of chunks:", len(chunked_documents), "\n\n")
         return chunked_documents
 
-    def prepare_and_save_vectordb(self):
+    def prepare_and_save_vectordb(self) -> bool:
         """
         Load, chunk, and create a VectorDB with OpenAI embeddings, and save it.
 
         Returns:
-            Chroma: The created VectorDB.
+            bool: True, if vectorDB creation was successful. False, if the task was failed.
         """
         try:
             docs = self._load_web_page()

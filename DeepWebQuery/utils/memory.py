@@ -4,16 +4,16 @@ from typing import List
 
 class Memory:
     @staticmethod
-    def write_chat_history_to_file(chat_history_lst: List, file_path: str):
+    def write_chat_history_to_file(chat_history_lst: List, file_path: str) -> None:
         """
         Writes the chat history list to a CSV file.
 
         Parameters:
-        chat_history_lst (List[Tuple[str, str]]): The chat history list to be written to the file.
-        file_path (str): The path to the CSV file where the chat history will be written.
+            chat_history_lst (List[Tuple[str, str]]): The chat history list to be written to the file.
+            file_path (str): The path to the CSV file where the chat history will be written.
 
         Returns:
-        None
+            None
         """
         # Create a DataFrame from the chat history list
         df = pd.DataFrame(chat_history_lst, columns=[
@@ -30,16 +30,16 @@ class Memory:
                       index=False, encoding='utf-8')
 
     @staticmethod
-    def read_recent_chat_history(file_path: str, num_entries: int = 2) -> pd.DataFrame:
+    def read_recent_chat_history(file_path: str, num_entries: int = 2) -> List:
         """
         Reads the most recent entries from the chat history CSV file.
 
         Parameters:
-        file_path (str): The path to the CSV file from which to read the chat history.
-        num_entries (int): The number of recent entries to read from the chat history.
+            file_path (str): The path to the CSV file from which to read the chat history.
+            num_entries (int): The number of recent entries to read from the chat history.
 
         Returns:
-        List[str]: A list of the most recent chat history entries as strings, or an empty list if an error occurs.
+            List[str]: A list of the most recent chat history entries as strings, or an empty list if an error occurs.
         """
         try:
             recent_history = []

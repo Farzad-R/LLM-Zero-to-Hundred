@@ -15,7 +15,7 @@ class URLPrep:
     A class to check URLs within a given text for their content type.
 
     Attributes:
-        text (str): The text containing URLs to be checked.
+        url (str): The requested url by the user.
     """
 
     def __init__(self, url: str) -> None:
@@ -23,7 +23,7 @@ class URLPrep:
         Initializes the URLCheck instance with the provided text.
 
         Parameters:
-            text (str): The text containing URLs to be checked.
+            url (str): The requested url by the user.
         """
         self.url = url
         with open("configs/app_config.yml") as cfg:
