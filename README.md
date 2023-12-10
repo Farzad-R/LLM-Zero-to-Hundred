@@ -3,12 +3,12 @@
 <div align="center">
   <img src="logo/AI_RT.png" alt="CAIS" width="300" height="250">
 </div>
-This repository demonstrates different use cases and well-knonw techniques for LLMs.
+This repository demonstrates different use cases and well-known techniques for LLMs.
 
 ### List of projects:
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
-- [ ] [LLM Agent Tutorial](coming-soon): Will be added soon.
+- [x] [DeepWebQuery](#DeepWebQuery)
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [LLM Full Finetuning](coming-soon): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
