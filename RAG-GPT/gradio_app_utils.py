@@ -56,8 +56,8 @@ class ChatBot:
             vectordb = Chroma(persist_directory=custom_persist_directory,
                               embedding_function=embedding_model)
 
+        docs = vectordb.similarity_search(message, k=k)
         question = "# User new question:\n" + message
-        docs = vectordb.similarity_search(question, k=k)
         references = ChatBot.clean_references(docs)
         retrieved_docs_page_content = [
             str(x.page_content)+"\n\n" for x in docs]
@@ -114,7 +114,6 @@ class ChatBot:
         markdown_documents = ""
         counter = 1
         for doc in documents:
-            # print(doc)
             # Extract content and metadata
             content, metadata = re.match(
                 r"page_content=(.*?)( metadata=\{.*\})", doc).groups()

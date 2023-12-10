@@ -2,6 +2,7 @@ LLM-Agents
 storage
 GPT3-Multinput-multioutput
 memory
+docs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 vectorstores/

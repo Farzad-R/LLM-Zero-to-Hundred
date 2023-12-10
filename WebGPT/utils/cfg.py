@@ -18,7 +18,7 @@ def load_cfg():
     Replace "Your API TYPE," "Your API BASE," "Your API VERSION," and "Your API KEY" with your actual
     OpenAI API credentials.
     """
-    openai.api_type = "Your API TYPE"
-    openai.api_base = "Your API BASE"
-    openai.api_version = "Your API VERSION"
-    openai.api_key = "Your API KEY"
+    openai.api_type = os.getenv("OPENAI_API_TYPE")
+    openai.api_base = os.getenv("OPENAI_API_BASE")
+    openai.api_version = os.getenv("OPENAI_API_VERSION")
+    openai.api_key = os.getenv("OPENAI_API_KEY")

@@ -3,7 +3,7 @@
 <div align="center">
   <img src="logo/AI_RT.png" alt="CAIS" width="300" height="250">
 </div>
-This repository demonstrates different use cases and well-known techniques for LLMs.
+This repository showcases various applications of LLM chatbots and provides comprehensive insights into established methodologies for training and fine-tuning Language Models.
 
 ### List of projects:
 - [x] [WebGPT](#WebGPT)
@@ -74,9 +74,9 @@ YouTube video:
 - [Link](Coming soon)
 </p>
 
-<!-- <a id="Multimodal-ChatBot"></a>
+<a id="Multimodal-ChatBot"></a>
 <h3>Multimodal-ChatBot:</h3>
-This project aims to develop a versatile chatbot capable of processing text and voice inputs, generating multimodal responses (text, voice, images), and conducting web searches to deliver accurate information. Additionally, the chatbot will be equipped to analyze documents and respond to related queries. -->
+This project aims to develop a versatile chatbot capable of processing text and voice inputs, generating multimodal responses (text, voice, images), and conducting web searches to deliver accurate information. Additionally, the chatbot will be equipped to analyze documents and respond to related queries.
 
 ## Tutorial description:
 <a id="LLM-function-calling-tutorial"></a>
