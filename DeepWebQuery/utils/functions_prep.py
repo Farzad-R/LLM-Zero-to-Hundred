@@ -33,15 +33,9 @@ class PrepareFunctions:
         """
         return [
             PrepareFunctions.jsonschema(WebSearch.retrieve_web_search_results),
-            PrepareFunctions.jsonschema(WebSearch.web_search_text),
-            PrepareFunctions.jsonschema(WebSearch.web_search_pdf),
             PrepareFunctions.jsonschema(WebSearch.get_instant_web_answer),
-            # Apputils.jsonschema(WebSearch.web_search_image),
             PrepareFunctions.jsonschema(WebSearch.web_search_video),
-            PrepareFunctions.jsonschema(WebSearch.web_search_news),
-            # Apputils.jsonschema(WebSearch.web_search_map),
             PrepareFunctions.jsonschema(search_the_requested_url)
-
         ]
 
     @staticmethod
@@ -61,20 +55,12 @@ class PrepareFunctions:
         # Call the function with the given arguments
         if func_name == 'retrieve_web_search_results':
             result = WebSearch.retrieve_web_search_results(**func_args)
-        elif func_name == 'web_search_text':
-            result = WebSearch.web_search_text(**func_args)
-        elif func_name == 'web_search_pdf':
-            result = WebSearch.web_search_pdf(**func_args)
-        elif func_name == 'web_search_image':
-            result = WebSearch.web_search_image(**func_args)
-        elif func_name == 'web_search_video':
-            result = WebSearch.web_search_video(**func_args)
-        elif func_name == 'web_search_news':
-            result = WebSearch.web_search_news(**func_args)
         elif func_name == 'get_instant_web_answer':
             result = WebSearch.get_instant_web_answer(**func_args)
-        elif func_name == 'web_search_map':
-            result = WebSearch.web_search_map(**func_args)
+        elif func_name == 'web_search_video':
+            result = WebSearch.web_search_video(**func_args)
+        elif func_name == 'get_instant_web_answer':
+            result = WebSearch.get_instant_web_answer(**func_args)
         elif func_name == 'search_the_requested_url':
             result = search_the_requested_url(**func_args)
         else:

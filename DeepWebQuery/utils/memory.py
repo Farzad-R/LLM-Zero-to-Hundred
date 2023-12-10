@@ -2,7 +2,6 @@ import os
 import pandas as pd
 from typing import List
 
-
 class Memory:
     @staticmethod
     def write_chat_history_to_file(chat_history_lst: List, file_path: str):

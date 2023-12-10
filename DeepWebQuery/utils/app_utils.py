@@ -37,3 +37,22 @@ class Apputils:
         if os.path.exists(directory_path):
             # Use shutil.rmtree to remove the directory even if it contains files
             shutil.rmtree(directory_path)
+    @staticmethod
+    def find_latest_chroma_folder(folder_path):
+        # Get a list of subdirectories in the specified folder
+        subfolders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
+
+        if not subfolders:
+            print("No chroma folders found.")
+            return None
+
+        # Extract Unix timestamps from folder names
+        timestamps = [int(subfolder.split('_')[1]) for subfolder in subfolders]
+
+        # Find the index of the folder with the latest timestamp
+        latest_index = timestamps.index(max(timestamps))
+
+        # Get the path of the folder with the latest timestamp
+        latest_folder = os.path.join(folder_path, subfolders[latest_index])
+
+        return latest_folder

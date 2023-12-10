@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from typing import List
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.document_loaders import WebBaseLoader
+import traceback
 
 load_dotenv()
 
@@ -38,7 +39,7 @@ class PrepareURLVectorDB:
 
     def __init__(
             self,
-            urls: str,
+            url: str,
             persist_directory: str,
             embedding_model_engine: str,
             chunk_size: int,
@@ -49,7 +50,7 @@ class PrepareURLVectorDB:
         NOTE: __Cannot handle multiple urls for now__ 
 
         Parameters:
-        - urls (List[str]):  The list of urls.
+        - url (str):  The requested url.
         - persist_directory (str): The directory to save the VectorDB.
         - embedding_model_engine (str): The engine for OpenAI embeddings.
         - chunk_size (int): The size of the chunks for document processing.
@@ -64,15 +65,14 @@ class PrepareURLVectorDB:
             separators=["\n\n", "\n", " ", ""]
         )
         """Other options: CharacterTextSplitter, NotionDirectoryLoader, TokenTextSplitter, etc."""
-        self.urls = urls
+        self.url = url
         self.persist_directory = persist_directory
         self.embedding = OpenAIEmbeddings()
 
     def _load_web_page(self):
         # I assumed that the user will only ask fo one url and it is a webpage and not a youtube link.
         try:
-            url = self.urls[0]
-            loader = WebBaseLoader(url)
+            loader = WebBaseLoader(self.url)
             documents = loader.load()
             return documents
         except:
@@ -114,5 +114,7 @@ class PrepareURLVectorDB:
             print("Number of vectors in vectordb:",
                   vectordb._collection.count(), "\n\n")
             return True
-        except:
+        except BaseException as e:
+            print(f"Caught exception in PrepareURLVectorDB class: {e}")
+            traceback.print_exc()
             return False
