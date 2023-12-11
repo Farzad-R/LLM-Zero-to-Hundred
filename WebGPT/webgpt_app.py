@@ -154,3 +154,27 @@ if st.session_state['generated']:
             message(st.session_state["past"][i],
                     is_user=True, key=str(i) + '_user')
             message(st.session_state["generated"][i], key=str(i))
+
+# # For documentation
+# def main():
+#     """
+#     This module implements a Streamlit-based web application for a chatbot with integrated function calling and interaction with GPT models.
+
+#     The application interface is organized into a Streamlit layout, which includes:
+#     - Page configuration settings, such as title, icon, and layout.
+#     - Sidebar options for selecting the GPT model (GPT-3.5 or GPT-4), a counter, and a button to clear the conversation history.
+#     - Containers for displaying chat history and user input.
+
+#     The main functionality of the application includes:
+#     - Handling user input through a text area and a submit button.
+#     - Managing chat history and session state variables to store generated responses, past messages, model names, and chat history.
+#     - Implementing function calls to GPT models (LLM function caller and LLM chatbot) based on user input.
+#     - Displaying chat history and generated responses in the application.
+
+#     The application is designed to simulate a conversation with the chatbot, considering user input, system responses, and function calls.
+#     It leverages the Streamlit framework for creating a user-friendly and interactive web interface.
+
+#     Note: The docstring provides an overview of the module's purpose and functionality, but detailed comments within the code
+#     explain specific components, interactions, and logic throughout the implementation.
+#     """
+#     pass

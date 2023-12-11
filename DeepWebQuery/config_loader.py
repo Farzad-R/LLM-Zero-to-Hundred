@@ -11,6 +11,29 @@ load_dotenv()
 class CFG:
 
     def __init__(self) -> None:
+        """
+        Configuration class for managing various settings and parameters in the application.
+
+        This class initializes the configuration settings by loading them from the "configs/app_config.yml" file.
+        The settings include parameters for GPT function input, GPT function caller, GPT summarizer, GPT RAG, memory,
+        and OpenAI credentials.
+
+        Attributes:
+            function_json_list (List): List of functions prepared for GPT input.
+            llm_function_caller_temperature (float): Temperature parameter for the GPT function caller.
+            llm_function_caller_system_role (str): System role parameter for the GPT function caller.
+            llm_function_caller_gpt_model (str): GPT model parameter for the GPT function caller.
+            llm_summarizer_temperature (float): Temperature parameter for the GPT summarizer.
+            llm_summarizer_gpt_model (str): GPT model parameter for the GPT summarizer.
+            llm_summarizer_system_role (str): System role parameter for the GPT summarizer.
+            llm_rag_temperature (float): Temperature parameter for the GPT RAG.
+            llm_rag_gpt_model (str): GPT model parameter for the GPT RAG.
+            llm_rag_system_role (str): System role parameter for the GPT RAG.
+            memory_directory (str): Directory for storing memory in the application.
+            num_entries (int): Number of entries to be stored in the application memory.
+            persist_directory (str): Directory for persisting RAG in the application.
+            k (int): Parameter k for the RAG.
+        """
 
         with open("configs/app_config.yml") as cfg:
             app_config = yaml.load(cfg, Loader=yaml.FullLoader)

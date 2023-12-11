@@ -6,6 +6,7 @@ import openai
 import os
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
+from prepare_vectordb import PrepareVectorDB
 from typing import List, Tuple
 import re
 import ast
@@ -19,10 +20,26 @@ with open("configs/app_config.yml") as cfg:
 # LLM configs
 llm_engine = app_config["llm_config"]["engine"]
 llm_system_role = app_config["llm_config"]["llm_system_role"]
+persist_directory = app_config["directories"]["persist_directory"]
+custom_persist_directory = app_config["directories"]["custom_persist_directory"]
 embedding_model = OpenAIEmbeddings()
 
 # Retrieval configs
 k = app_config["retrieval_config"]["k"]
+embedding_model_engine = app_config["embedding_model_config"]["engine"]
+chunk_size = app_config["splitter_config"]["chunk_size"]
+chunk_overlap = app_config["splitter_config"]["chunk_overlap"]
+
+# # For documentation
+# llm_engine = "Test"
+# llm_system_role = "Test"
+# embedding_model = "Test"
+# persist_directory = "Test"
+# custom_persist_directory = "Test"
+# embedding_model_engine = "Test"
+# chunk_size=1
+# chunk_overlap=1
+# k = 1
 
 
 class ChatBot:
@@ -48,11 +65,9 @@ class ChatBot:
         """
         if data_type == "Preprocessed" or data_type == [] or data_type == None:
             # directories
-            persist_directory = app_config["directories"]["persist_directory"]
             vectordb = Chroma(persist_directory=persist_directory,
                               embedding_function=embedding_model)
         elif data_type == "Uploaded":
-            custom_persist_directory = app_config["directories"]["custom_persist_directory"]
             vectordb = Chroma(persist_directory=custom_persist_directory,
                               embedding_function=embedding_model)
 
@@ -242,11 +257,6 @@ class GradioUploadFile:
         GradioUploadFile.process_uploaded_files(files_dir, chatbot_instance)
         ```
         """
-        from prepare_vectordb import PrepareVectorDB
-        embedding_model_engine = app_config["embedding_model_config"]["engine"]
-        chunk_size = app_config["splitter_config"]["chunk_size"]
-        chunk_overlap = app_config["splitter_config"]["chunk_overlap"]
-        custom_persist_directory = app_config["directories"]["custom_persist_directory"]
         GradioUploadFile.check_directory(custom_persist_directory)
         prepare_vectordb_instance = PrepareVectorDB(data_directory=files_dir,
                                                     persist_directory=custom_persist_directory,

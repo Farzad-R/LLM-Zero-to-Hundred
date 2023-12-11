@@ -17,24 +17,11 @@ class PrepareURLVectorDB:
     with OpenAI embeddings. It provides methods to prepare and save the VectorDB.
 
     Parameters:
-        - data_directory (str or List[str]): The directory or list of directories containing the documents.
-        - persist_directory (str): The directory to save the VectorDB.
-        - embedding_model_engine (str): The engine for OpenAI embeddings.
-        - chunk_size (int): The size of the chunks for document processing.
-        - chunk_overlap (int): The overlap between chunks.
-
-    Example:
-    ```python
-    vector_db_creator = PrepareVectorDB(
-        data_directory='path/to/documents',
-        persist_directory='path/to/vectordb',
-        embedding_model_engine='openai-gpt-3.5-turbo',
-        chunk_size=500,
-        chunk_overlap=100
-    )
-    vectordb = vector_db_creator.prepare_and_save_vectordb()
-    ```
-
+        data_directory (str or List[str]): The directory or list of directories containing the documents.
+        persist_directory (str): The directory to save the VectorDB.
+        embedding_model_engine (str): The engine for OpenAI embeddings.
+        chunk_size (int): The size of the chunks for document processing.
+        chunk_overlap (int): The overlap between chunks.
     """
 
     def __init__(
@@ -46,16 +33,14 @@ class PrepareURLVectorDB:
             chunk_overlap: int
     ) -> None:
         """
-        Initialize the PrepareVectorDB instance.
-        NOTE: __Cannot handle multiple urls for now__ 
+        Initialize the PrepareVectorDB instance. It does not handle multiple urls for now.
 
         Parameters:
-        - url (str):  The requested url.
-        - persist_directory (str): The directory to save the VectorDB.
-        - embedding_model_engine (str): The engine for OpenAI embeddings.
-        - chunk_size (int): The size of the chunks for document processing.
-        - chunk_overlap (int): The overlap between chunks.
-
+            url (str):  The requested url.
+            persist_directory (str): The directory to save the VectorDB.
+            embedding_model_engine (str): The engine for OpenAI embeddings.
+            chunk_size (int): The size of the chunks for document processing.
+            chunk_overlap (int): The overlap between chunks.
         """
 
         self.embedding_model_engine = embedding_model_engine
@@ -95,7 +80,7 @@ class PrepareURLVectorDB:
         Chunk the loaded documents using the specified text splitter.
 
         Parameters:
-            - docs (List): The list of loaded documents.
+            docs (List): The list of loaded documents.
 
         Returns:
             List: A list of chunked documents.

@@ -9,6 +9,10 @@ with open("configs/app_config.yml") as cfg:
 PORT = app_config["serve"]["port"]
 DIRECTORY1 = app_config["directories"]["data_directory"]
 DIRECTORY2 = app_config["directories"]["data_directory_2"]
+# # For documentation
+# PORT = 8000
+# DIRECTORY1 = "test"
+# DIRECTORY2 = "test"
 
 
 class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -16,13 +20,6 @@ class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     Custom HTTP request handler that serves files from a single directory.
 
     This class extends the SimpleHTTPRequestHandler and sets the serving directory to DIRECTORY1.
-
-    Example:
-    ```python
-    handler = SingleDirectoryHTTPRequestHandler
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print(f"Serving at port {PORT}")
-        httpd.serve_forever()
     ```
 
     """
@@ -32,8 +29,8 @@ class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         Initialize the SingleDirectoryHTTPRequestHandler.
 
         Parameters:
-            - args: Additional positional arguments for the base class.
-            - kwargs: Additional keyword arguments for the base class.
+            args: Additional positional arguments for the base class.
+            kwargs: Additional keyword arguments for the base class.
         """
         super().__init__(*args, directory=DIRECTORY1, **kwargs)
 
@@ -44,13 +41,6 @@ class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     This class extends the SimpleHTTPRequestHandler and allows serving files from DIRECTORY1 and DIRECTORY2
     based on the first directory component in the requested path.
-
-    Example:
-    ```python
-    handler = MultiDirectoryHTTPRequestHandler
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print(f"Serving at port {PORT}")
-        httpd.serve_forever()
     ```
 
     """
@@ -64,7 +54,6 @@ class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         Returns:
             str: The translated file path.
-
         """
         # Split the path to get the first directory component
         parts = path.split('/', 2)
@@ -87,7 +76,7 @@ class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         # If there's no match, use the default directory
         return super().translate_path(path)
 
-
-with socketserver.TCPServer(("", PORT), MultiDirectoryHTTPRequestHandler) as httpd:
-    print(f"Serving at port {PORT}")
-    httpd.serve_forever()
+if __name__=="__main__":
+    with socketserver.TCPServer(("", PORT), MultiDirectoryHTTPRequestHandler) as httpd:
+        print(f"Serving at port {PORT}")
+        httpd.serve_forever()

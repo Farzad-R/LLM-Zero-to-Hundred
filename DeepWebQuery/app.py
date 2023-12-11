@@ -136,3 +136,26 @@ async def on_message(message: cl.Message):
     except BaseException as e: 
         print(f"Caught error on on_message in app.py: {e}")
         traceback.print_exc()
+
+
+# # For documentation
+# def main():
+#     """
+#     This module implements a conversational application using the Chainlit library for handling chat interactions.
+#     The application leverages multiple utility modules, including Apputils for managing application-related tasks,
+#     Memory for handling chat history storage, LLMFuntionCaller, LLMSummarizer, and LLM_RAG for interacting with
+#     different language models, PrepareFunctions for preparing input for GPT models, and CFG for managing configuration settings.
+
+#     The application is structured around the Chainlit library, defining functions to handle chat start and message events.
+#     It initializes the configuration settings using the CFG class, sets up user session data, and prepares avatars for different
+#     participants in the conversation.
+
+#     The conversation flow involves interacting with GPT models based on user messages. The application handles input processing,
+#     calls the appropriate language model (LLMFuntionCaller, LLMSummarizer, or LLM_RAG), and generates responses. It manages chat
+#     history, system responses, and user interactions. Additionally, it includes error handling to capture and log exceptions
+#     during the execution of the application.
+
+#     Note: The docstring provides an overview of the module's purpose and functionality, but detailed comments within the code
+#     explain specific steps and logic throughout the implementation.
+#     """
+#     pass
