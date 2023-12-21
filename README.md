@@ -29,7 +29,7 @@ General structure of the projects:
 ├── data                <- Contains the sample data for the project.
 ├── src                 <- Contains the source code(s) for executing the project.
 |   └── utils           <- Contains all the necesssary project's modules. 
-└──  images             <- Contains all the images used in the user interface and the README file. 
+└── images              <- Contains all the images used in the user interface and the README file. 
 ```
 NOTE: This is the general structure of the projects, however there might be small changes duo to the specific needs of each project.
 
