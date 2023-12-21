@@ -86,10 +86,10 @@ class Apputils:
         Generate a response from an OpenAI ChatCompletion API call with specific function calls.
 
         Parameters:
-            - gpt_model (str): The name of the GPT model to use.
-            - temperature (float): The temperature parameter for the API call.
-            - messages (List): List of message objects for the conversation.
-            - function_json_list (List): List of function JSON schemas.
+            gpt_model (str): The name of the GPT model to use.
+            temperature (float): The temperature parameter for the API call.
+            messages (List): List of message objects for the conversation.
+            function_json_list (List): List of function JSON schemas.
 
         Returns:
             The response object from the OpenAI ChatCompletion API call.
@@ -109,9 +109,9 @@ class Apputils:
         Generate a response from an OpenAI ChatCompletion API call without specific function calls.
 
         Parameters:
-            - gpt_model (str): The name of the GPT model to use.
-            - temperature (float): The temperature parameter for the API call.
-            - messages (List): List of message objects for the conversation.
+            gpt_model (str): The name of the GPT model to use.
+            temperature (float): The temperature parameter for the API call.
+            messages (List): List of message objects for the conversation.
 
         Returns:
             The response object from the OpenAI ChatCompletion API call.

@@ -42,7 +42,8 @@ if 'model_name' not in st.session_state:
 # ==================================
 # Sidebar:
 # ==================================
-st.sidebar.title("ChatBot with Function Calling")
+st.sidebar.title(
+    "WebGPT: Connecting GPT to the internet by leveraging Function Calling")
 st.sidebar.image("images/AI_RT.png", use_column_width=True)
 model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
 counter_placeholder = st.sidebar.empty()
