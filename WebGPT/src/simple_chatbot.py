@@ -1,10 +1,8 @@
 import streamlit as st
 from streamlit_chat import message
 import openai
-import yaml
 from PIL import Image
 from utils.load_config import LoadConfig
-from pyprojroot import here
 
 APPCFG = LoadConfig()
 
