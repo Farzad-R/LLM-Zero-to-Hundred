@@ -21,15 +21,16 @@ This repository showcases various applications of LLM chatbots and provides comp
 General structure of the projects:
 
 ```
-├── README.md           <- The top-level README for developers using this project.
-├── HELPER.md           <- Contains extra information that might be useful to know for executing the project.
-├── .env                <- dotenv file for local configuration.
-├── .here               <- Marker for project root.
-├── configs             <- Holds yml files for project configs
-├── data                <- Contains the sample data for the project.
-├── src                 <- Contains the source code(s) for executing the project.
-|   └── utils           <- Contains all the necesssary project's modules. 
-└── images              <- Contains all the images used in the user interface and the README file. 
+project folder
+  ├── README.md           <- The top-level README for developers using this project.
+  ├── HELPER.md           <- Contains extra information that might be useful to know for executing the project.
+  ├── .env                <- dotenv file for local configuration.
+  ├── .here               <- Marker for project root.
+  ├── configs             <- Holds yml files for project configs
+  ├── data                <- Contains the sample data for the project.
+  ├── src                 <- Contains the source code(s) for executing the project.
+  |   └── utils           <- Contains all the necesssary project's modules. 
+  └── images              <- Contains all the images used in the user interface and the README file. 
 ```
 NOTE: This is the general structure of the projects, however there might be small changes duo to the specific needs of each project.
 
