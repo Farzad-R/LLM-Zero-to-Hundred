@@ -3,16 +3,10 @@ from streamlit_chat import message
 import openai
 import yaml
 from PIL import Image
-from utils.cfg import load_cfg
+from utils.load_config import LoadConfig
+from pyprojroot import here
 
-load_cfg()
-
-
-with open("configs/app_config.yml") as cfg:
-    app_config = yaml.load(cfg, Loader=yaml.FullLoader)
-gpt_model = app_config["gpt_model"]
-temperature = app_config["temperature"]
-llm_system_role = "You are a useful chatbot."
+APPCFG = LoadConfig()
 
 # ===================================
 # Setting page title and header
@@ -40,7 +34,7 @@ if 'model_name' not in st.session_state:
 # Sidebar:
 # ==================================
 st.sidebar.title(
-    "WebGPT: Connecting GPT to the internet by leveraging Function Calling")
+    "WebGPT: GPT agent with access to the internet")
 st.sidebar.image("images/AI_RT.png", use_column_width=True)
 model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
 counter_placeholder = st.sidebar.empty()
@@ -81,15 +75,15 @@ with container:
 
         messages = [
             {"role": "system", "content": str(
-                llm_system_role)},
+                APPCFG.llm_system_role)},
             {"role": "user", "content": str(user_input)}
         ]
 
         # Generate response
         response = openai.ChatCompletion.create(
-            engine=gpt_model,
+            engine=APPCFG.gpt_model,
             messages=messages,
-            temperature=temperature,
+            temperature=APPCFG.temperature,
         )
         st.session_state['past'].append(user_input)
         if "content" in response.choices[0].message.keys():

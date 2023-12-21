@@ -47,7 +47,7 @@ pip install streamlit==1.28.2 streamlit-chat==0.1.1 duckduckgo-search==3.9.6 ope
 In Terminal:
 
 ```
-streamlit run webgpt_app.py
+streamlit run src\webgpt_app.py
 ```
 
 YouTube video:

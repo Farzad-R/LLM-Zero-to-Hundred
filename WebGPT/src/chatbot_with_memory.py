@@ -1,19 +1,10 @@
 import streamlit as st
 from streamlit_chat import message
 import openai
-import yaml
 from PIL import Image
-from utils.cfg import load_cfg
+from utils.load_config import LoadConfig
 
-load_cfg()
-
-
-with open("configs/app_config.yml") as cfg:
-    app_config = yaml.load(cfg, Loader=yaml.FullLoader)
-gpt_model = app_config["gpt_model"]
-temperature = app_config["temperature"]
-llm_system_role = "You are a useful chatbot."
-
+APPCFG = LoadConfig()
 
 # ===================================
 # Setting page title and header
@@ -43,7 +34,7 @@ if 'model_name' not in st.session_state:
 # Sidebar:
 # ==================================
 st.sidebar.title(
-    "WebGPT: Connecting GPT to the internet by leveraging Function Calling")
+    "WebGPT: GPT agent with access to the internet")
 st.sidebar.image("images/AI_RT.png", use_column_width=True)
 model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
 counter_placeholder = st.sidebar.empty()
@@ -81,43 +72,35 @@ with container:
         submit_button = st.form_submit_button(label='Send')
 
     if submit_button and user_input:
-        st.session_state['chat_history'].append({
-            "role": "user",
-            "content": user_input
-        })
-        if len(st.session_state['chat_history']) > 5:
-            st.session_state['chat_history'] = st.session_state['chat_history'][-5:]
+        st.session_state['chat_history'] = st.session_state['chat_history'][-2:]
         # Exclude the current user's question from the chat_history list
-        chat_history = "# User chat history: " + \
-            str([x for x in st.session_state['chat_history'][:-1]]) + "\n\n"
-
-        user_new_prompt = "# User new question: " + user_input
+        chat_history = "# Chat history:\n" + \
+            str([x for x in st.session_state['chat_history']])
+        query = f"\n\n# User new question: {user_input}"
 
         messages = [
-            {"role": "system", "content": str(
-                llm_system_role + chat_history)},
-            {"role": "user", "content": str(user_input)}
+            {"role": "system", "content": "You are a useful chatbot."},
+            {"role": "user", "content": chat_history + query}
         ]
         # Generate response
         response = openai.ChatCompletion.create(
-            engine=gpt_model,
+            engine=APPCFG.gpt_model,
             messages=messages,
-            temperature=temperature,
+            temperature=APPCFG.temperature,
         )
         st.session_state['past'].append(user_input)
         if "content" in response.choices[0].message.keys():
             st.session_state['generated'].append(
                 response["choices"][0]["message"]["content"])
-            st.session_state['chat_history'].append(
-                {"role": "system", "content":
-                    response["choices"][0]["message"]["content"]}
-            )
+            chat_history = (
+                f"## User question: {user_input}", f"## Response: {response['choices'][0]['message']['content']}\n")
+            st.session_state['chat_history'].append(chat_history)
         else:
             st.session_state['generated'].append(
                 "Something happened, please try again later.")
-            st.session_state['chat_history'].append(
-                {"role": "system", "content": "Something happened, please try again later."}
-            )
+            chat_history = str(
+                (f"User question: {user_input}", f"Response: An error occured, please try again later."))
+            st.session_state['chat_history'].append(chat_history)
 
 if st.session_state['generated']:
 
