@@ -1,3 +1,21 @@
+"""
+    This module implements a conversational application using the Chainlit library for handling chat interactions.
+    The application leverages multiple utility modules, including Apputils for managing application-related tasks,
+    Memory for handling chat history storage, LLMFuntionCaller, LLMSummarizer, and LLM_RAG for interacting with
+    different language models, PrepareFunctions for preparing input for GPT models, and CFG for managing configuration settings.
+
+    The application is structured around the Chainlit library, defining functions to handle chat start and message events.
+    It initializes the configuration settings using the CFG class, sets up user session data, and prepares avatars for different
+    participants in the conversation.
+
+    The conversation flow involves interacting with GPT models based on user messages. The application handles input processing,
+    calls the appropriate language model (LLMFuntionCaller, LLMSummarizer, or LLM_RAG), and generates responses. It manages chat
+    history, system responses, and user interactions. Additionally, it includes error handling to capture and log exceptions
+    during the execution of the application.
+
+    Note: The docstring provides an overview of the module's purpose and functionality, but detailed comments within the code
+    explain specific steps and logic throughout the implementation.
+"""
 import chainlit as cl
 from utils.app_utils import Apputils
 from utils.memory import Memory
@@ -10,6 +28,7 @@ from config_loader import CFG
 import traceback
 
 APP_CFG = CFG()
+
 
 @cl.on_chat_start
 async def on_chat_start():
@@ -38,14 +57,15 @@ async def on_chat_start():
         # check and delete the previous vector database if it exists.
         try:
             Apputils.remove_directory(APP_CFG.persist_directory)
-        except: # is being used by another process
+        except:  # is being used by another process
             pass
         Apputils.create_directory("memory")
         # greeting message
         await cl.Message(f"Hello! How can I help you?").send()
-    except BaseException as e: 
+    except BaseException as e:
         print(f"Caught error on on_chat_start in app.py: {e}")
         traceback.print_exc()
+
 
 @cl.on_message
 async def on_message(message: cl.Message):
@@ -61,7 +81,8 @@ async def on_message(message: cl.Message):
             # Prepare input for the first model (function caller)
             input_chat_history = f"# User chat history: {chat_history_lst}"
             # check for the special character.
-            if message.content[:2] != "**" or not cl.user_session.get("rag_llm"): # two step verification
+            # two step verification
+            if message.content[:2] != "**" or not cl.user_session.get("rag_llm"):
                 cl.user_session.set(
                     "rag_llm",
                     False,
@@ -75,8 +96,9 @@ async def on_message(message: cl.Message):
                 # If function called indeed called out a function
                 if "function_call" in llm_function_caller_full_response.choices[0].message.keys():
                     print("\nCalled function:",
-                        llm_function_caller_full_response.choices[0].message.function_call.name)
-                    print(llm_function_caller_full_response.choices[0].message, "\n")
+                          llm_function_caller_full_response.choices[0].message.function_call.name)
+                    print(
+                        llm_function_caller_full_response.choices[0].message, "\n")
                     # Get the pythonic response of that function
                     search_result = PrepareFunctions.execute_json_function(
                         llm_function_caller_full_response)
@@ -121,7 +143,8 @@ async def on_message(message: cl.Message):
 
             else:  # User message started with **
                 # Implement rag with a third model. Collect the memory too.
-                latest_folder = Apputils.find_latest_chroma_folder(folder_path=APP_CFG.persist_directory)
+                latest_folder = Apputils.find_latest_chroma_folder(
+                    folder_path=APP_CFG.persist_directory)
                 messages = LLM_RAG.prepare_messages(
                     persist_directory=latest_folder, user_query=message.content, llm_system_role=APP_CFG.llm_rag_system_role, input_chat_history=input_chat_history)
                 llm_rag__full_response = LLMSummarizer.ask(
@@ -133,29 +156,6 @@ async def on_message(message: cl.Message):
             # Update chat history or create a new csv file for each chat session
             Memory.write_chat_history_to_file(chat_history_lst=chat_history_lst, file_path=APP_CFG.memory_directry.format(
                 cl.user_session.get("session_time")))
-    except BaseException as e: 
+    except BaseException as e:
         print(f"Caught error on on_message in app.py: {e}")
         traceback.print_exc()
-
-
-# # For documentation
-# def main():
-#     """
-#     This module implements a conversational application using the Chainlit library for handling chat interactions.
-#     The application leverages multiple utility modules, including Apputils for managing application-related tasks,
-#     Memory for handling chat history storage, LLMFuntionCaller, LLMSummarizer, and LLM_RAG for interacting with
-#     different language models, PrepareFunctions for preparing input for GPT models, and CFG for managing configuration settings.
-
-#     The application is structured around the Chainlit library, defining functions to handle chat start and message events.
-#     It initializes the configuration settings using the CFG class, sets up user session data, and prepares avatars for different
-#     participants in the conversation.
-
-#     The conversation flow involves interacting with GPT models based on user messages. The application handles input processing,
-#     calls the appropriate language model (LLMFuntionCaller, LLMSummarizer, or LLM_RAG), and generates responses. It manages chat
-#     history, system responses, and user interactions. Additionally, it includes error handling to capture and log exceptions
-#     during the execution of the application.
-
-#     Note: The docstring provides an overview of the module's purpose and functionality, but detailed comments within the code
-#     explain specific steps and logic throughout the implementation.
-#     """
-#     pass

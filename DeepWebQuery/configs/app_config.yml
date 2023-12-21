@@ -27,5 +27,5 @@ RAG:
   embedding_model_engine: "text-embedding-ada-002"
   chunk_size: 1000
   chunk_overlap: 250
-  persist_directory: vectordb/
+  persist_directory: "data/vectordb/"
   k: 3

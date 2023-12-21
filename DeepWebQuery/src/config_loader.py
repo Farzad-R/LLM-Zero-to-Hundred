@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 from utils.functions_prep import PrepareFunctions
 from typing import List
+from pyprojroot import here
 load_dotenv()
 
 
@@ -62,7 +63,8 @@ class CFG:
         self.num_entries: int = app_config["memory"]["num_entries"]
 
         # RAG
-        self.persist_directory: str = app_config["RAG"]["persist_directory"]
+        self.persist_directory: str = str(
+            here(app_config["RAG"]["persist_directory"]))  # Needs to be string for the backend of Chroma
         self.k: int = app_config["RAG"]["k"]
 
         # load openai credentials
