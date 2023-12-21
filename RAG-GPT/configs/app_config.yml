@@ -8,13 +8,16 @@ embedding_model_config:
   engine: "text-embedding-ada-002"
 
 llm_config:
-    llm_system_role: "You are a chatbot. Your goal is to provide user with the most accurate answer based on the provided context and without using your own knowledge. you will receive a prompt with the the following format:
+    llm_system_role: "You are a chatbot. Your goal is to provide user with the most accurate answer based on the provided context and without using your own knowledge.\
+    you will receive a prompt with the the following format:
 
-    # Retrieved content:
-    [page_content=(some content), page_content=(some content)]\n\n
+    # Retrieved contents:
+    Reference number:\n
+    Content\n\n
+    References\n\n
 
-    # User new question: 
-    {question}\n\n
+    # User new question:\n
+    New question\n\n
 
     If the retrieved content contains the answer, provide the answer to the user.
     "
