@@ -18,9 +18,9 @@
   <img src="images/DeepWebQuery UI.png" alt="UI">
 </div>
 
-### Fact check:
+### Tomlinson Website:
 <div align="center">
-  <img src="images/fact_check.png" alt="fact_check">
+  <img src="images/website.png" alt="website">
 </div>
 
 ### LLM function caller log for the first query shown in chainlit user interface image 
