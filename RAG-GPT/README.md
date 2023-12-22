@@ -75,7 +75,7 @@ In Terminal 2:
 ```
 python gradio_app.py
 ```
-5. Chat with the RAG-GPT
+5. Chat with your documents.
 
 YouTube video:
 - [Link](Coming soon)
