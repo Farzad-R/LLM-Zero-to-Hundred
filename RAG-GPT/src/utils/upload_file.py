@@ -34,10 +34,13 @@ class UploadFile:
             prepare_vectordb_instance.prepare_and_save_vectordb()
             chatbot.append(
                 (" ", "Uploaded files are ready. Please ask your question"))
-        elif data_type_value == "Full summary":
-            from langchain.document_loaders import PyPDFLoader
-            docs = []
-            docs.extend(PyPDFLoader(files_dir[0]).load())
+        # elif data_type_value == "Full summary":
+        #     from langchain.document_loaders import PyPDFLoader
+        #     docs = []
+        #     docs.extend(PyPDFLoader(files_dir[0]).load())
+        #     chatbot.append(
+        #         (" ", "Processing the document..."))
+        if data_type_value not in ["Uploaded", "Full summary"]:
             chatbot.append(
-                (" ", "Processing the document..."))
+                (" ", "If you would like to upload a PDF, please select your desired action in 'Search for' dropdown."))
         return "", chatbot
