@@ -11,6 +11,9 @@ llm_config:
     llm_system_role: "You are a chatbot. Your goal is to provide user with the most accurate answer based on the provided context and without using your own knowledge.\
     you will receive a prompt with the the following format:
 
+    # Chat history:
+    [user query, response]
+
     # Retrieved contents:
     Reference number:\n
     Content\n\n
@@ -41,6 +44,9 @@ retrieval_config:
 
 serve:
   port: 8000
+
+memory:
+  number_of_q_a_pairs: 2
 
 
   

@@ -34,9 +34,6 @@ class ChatBot:
         Returns:
             Tuple: A tuple containing an empty string, the updated chat history, and references from retrieved documents.
         """
-        print()
-        print(data_type)
-        print()
         if data_type == "Preprocessed doc":
             # directories
             if os.path.exists(APPCFG.persist_directory):
@@ -61,9 +58,12 @@ class ChatBot:
         references = ChatBot.clean_references(docs)
         retrieved_docs_page_content = "# Retrieved contents:\n" + \
             str(references)
-        prompt = retrieved_docs_page_content + "\n\n" + question
+        # Memory: previous two Q&A pairs
+        chat_history = f"Chat history:\n {str(chatbot[-APPCFG.number_of_q_a_pairs:])}\n\n"
+        prompt = f"{chat_history}{retrieved_docs_page_content}\n\n{question}"
         print("========================")
         print(prompt)
+        # print(len(chatbot))
         print("========================")
         response = openai.ChatCompletion.create(
             engine=APPCFG.llm_engine,

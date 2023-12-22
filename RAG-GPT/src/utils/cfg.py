@@ -34,6 +34,9 @@ class LoadConfig:
         self.summarizer_llm_system_role = app_config["summarizer_config"]["summarizer_llm_system_role"]
         self.temperature = app_config["llm_config"]["temperature"]
 
+        # Memory
+        self.number_of_q_a_pairs = app_config["memory"]["number_of_q_a_pairs"]
+
         # Load OpenAI credentials
         self.load_openai_cfg()
 
