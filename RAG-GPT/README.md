@@ -14,11 +14,11 @@ To employ any of these methods, simply configure the appropriate settings in the
 * The project provides guidance on configuring various settings, such as adjusting the GPT model's temperature for optimal performance.
 * The user interface is crafted with gradio, ensuring an intuitive and user-friendly experience.
 * The model incorporates memory, retaining user Q&As for an enhanced and personalized user experience.
-
+* For each response, you can access the retrieved content along with the option to view the corresponding PDF. 
 
 ## RAG-GPT User Interface
 <div align="center">
-  <img src="images/RAG-GPT UI.png" alt="RAG-GPT UI">
+  <img src="images/RAG-GPT UI.png" alt="RAGGPT UI">
 </div>
 
 ## Project Schema
