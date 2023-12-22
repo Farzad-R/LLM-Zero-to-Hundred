@@ -11,7 +11,7 @@
 
 ## Project Schema
 <div align="center">
-  <img src="images/RAGGPT_schema.png" alt="Schema">
+  <img src="images/RAG-GPT_schema.png" alt="Schema">
 </div>
 
 * NOTE: This project is currently set up as a **demo**. As such, the document management is simplified and not suitable for production environments.
