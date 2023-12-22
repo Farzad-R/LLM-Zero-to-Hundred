@@ -9,6 +9,8 @@ import ast
 import html
 from utils.cfg import LoadConfig
 APPCFG = LoadConfig()
+URL = "https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"
+hyperlink = f"[RAG-GPT user guideline]({URL})"
 
 
 class ChatBot:
@@ -19,26 +21,40 @@ class ChatBot:
     cleaning references from retrieved documents.
     """
     @staticmethod
-    def respond(chatbot: List, message: str, data_type: str = "Preprocessed", temperature: float = 0.0) -> Tuple:
+    def respond(chatbot: List, message: str, data_type: str = "Preprocessed doc", temperature: float = 0.0) -> Tuple:
         """
         Generate a response to a user query using document retrieval and language model completion.
 
         Parameters:
             chatbot (List): List representing the chatbot's conversation history.
             message (str): The user's query.
-            data_type (str): Type of data used for document retrieval ("Preprocessed" or "Uploaded").
+            data_type (str): Type of data used for document retrieval ("Preprocessed doc" or "Upload doc: Process for RAG").
             temperature (float): Temperature parameter for language model completion.
 
         Returns:
             Tuple: A tuple containing an empty string, the updated chat history, and references from retrieved documents.
         """
-        if data_type == "Preprocessed" or data_type == [] or data_type == None:
+        print()
+        print(data_type)
+        print()
+        if data_type == "Preprocessed doc":
             # directories
-            vectordb = Chroma(persist_directory=APPCFG.persist_directory,
-                              embedding_function=APPCFG.embedding_model)
-        elif data_type == "Uploaded":
-            vectordb = Chroma(persist_directory=APPCFG.custom_persist_directory,
-                              embedding_function=APPCFG.embedding_model)
+            if os.path.exists(APPCFG.persist_directory):
+                vectordb = Chroma(persist_directory=APPCFG.persist_directory,
+                                  embedding_function=APPCFG.embedding_model)
+            else:
+                chatbot.append(
+                    (message, f"VectorDB does not exist. Please first execute the 'upload_data_manually.py' module. For further information please visit {hyperlink}."))
+                return "", chatbot, None
+
+        elif data_type == "Upload doc: Process for RAG":
+            if os.path.exists(APPCFG.custom_persist_directory):
+                vectordb = Chroma(persist_directory=APPCFG.custom_persist_directory,
+                                  embedding_function=APPCFG.embedding_model)
+            else:
+                chatbot.append(
+                    (message, f"No file was uploaded. Please first upload your files using the 'upload' button."))
+                return "", chatbot, None
 
         docs = vectordb.similarity_search(message, k=APPCFG.k)
         question = "# User new question:\n" + message

@@ -91,9 +91,8 @@ with gr.Blocks() as demo:
             ##############
             # Process:
             ##############
-
             file_msg = upload_btn.upload(fn=UploadFile.process_uploaded_files, inputs=[
-                upload_btn, chatbot, data_type_value], outputs=[input_txt, chatbot], queue=False)
+                upload_btn, chatbot, data_type_value, temperature_bar], outputs=[input_txt, chatbot], queue=False)
 
             txt_msg = input_txt.submit(fn=ChatBot.respond,
                                        inputs=[chatbot, input_txt,
