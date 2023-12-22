@@ -26,6 +26,7 @@ from utils.upload_file import UploadFile
 from utils.chatbot import ChatBot
 from utils.ui_settings import UISettings
 
+
 with gr.Blocks() as demo:
     with gr.Tabs():
         with gr.TabItem("RAG-GPT"):

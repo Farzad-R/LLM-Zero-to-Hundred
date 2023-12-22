@@ -8,6 +8,7 @@ import re
 import ast
 import html
 from utils.cfg import LoadConfig
+
 APPCFG = LoadConfig()
 URL = "https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"
 hyperlink = f"[RAG-GPT user guideline]({URL})"

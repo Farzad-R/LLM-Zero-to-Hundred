@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 import yaml
 from langchain.embeddings.openai import OpenAIEmbeddings
 from pyprojroot import here
+import shutil
+
 load_dotenv()
 
 
@@ -40,6 +42,9 @@ class LoadConfig:
         # Load OpenAI credentials
         self.load_openai_cfg()
 
+        # clean up the upload doc vectordb if it exists
+        self.remove_directory(self.custom_persist_directory)
+
     def load_openai_cfg(self):
         """
         Load OpenAI configuration settings.
@@ -56,3 +61,14 @@ class LoadConfig:
         openai.api_base = os.getenv("OPENAI_API_BASE")
         openai.api_version = os.getenv("OPENAI_API_VERSION")
         openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    def remove_directory(self, directory_path):
+        if os.path.exists(directory_path):
+            try:
+                shutil.rmtree(directory_path)
+                print(
+                    f"The directory '{directory_path}' has been successfully removed.")
+            except OSError as e:
+                print(f"Error: {e}")
+        else:
+            print(f"The directory '{directory_path}' does not exist.")
