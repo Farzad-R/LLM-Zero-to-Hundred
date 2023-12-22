@@ -57,7 +57,7 @@ class PrepDocForFullSummary:
         return chunked_documents
 
 
-def summarize(files_dir: List, chatbot: List):
+def summarize_the_doc(files_dir: List, chatbot: List):
     print("=========================================")
     print("=========================================")
     print(files_dir, "\n")

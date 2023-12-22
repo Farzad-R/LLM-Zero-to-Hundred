@@ -14,7 +14,7 @@ class UploadFile:
     """
 
     @staticmethod
-    def process_uploaded_files(files_dir: List, chatbot: List) -> Tuple:
+    def process_uploaded_files(files_dir: List, chatbot: List, data_type_value: str) -> Tuple:
         """
         Process uploaded files to prepare a VectorDB.
 
@@ -25,12 +25,19 @@ class UploadFile:
         Returns:
             Tuple: A tuple containing an empty string and the updated chatbot instance.
         """
-        prepare_vectordb_instance = PrepareVectorDB(data_directory=files_dir,
-                                                    persist_directory=APPCFG.custom_persist_directory,
-                                                    embedding_model_engine=APPCFG.embedding_model_engine,
-                                                    chunk_size=APPCFG.chunk_size,
-                                                    chunk_overlap=APPCFG.chunk_overlap)
-        prepare_vectordb_instance.prepare_and_save_vectordb()
-        chatbot.append(
-            (" ", "Uploaded files are ready. Please ask your question"))
+        if data_type_value == "Uploaded":
+            prepare_vectordb_instance = PrepareVectorDB(data_directory=files_dir,
+                                                        persist_directory=APPCFG.custom_persist_directory,
+                                                        embedding_model_engine=APPCFG.embedding_model_engine,
+                                                        chunk_size=APPCFG.chunk_size,
+                                                        chunk_overlap=APPCFG.chunk_overlap)
+            prepare_vectordb_instance.prepare_and_save_vectordb()
+            chatbot.append(
+                (" ", "Uploaded files are ready. Please ask your question"))
+        elif data_type_value == "Full summary":
+            from langchain.document_loaders import PyPDFLoader
+            docs = []
+            docs.extend(PyPDFLoader(files_dir[0]).load())
+            chatbot.append(
+                (" ", "Processing the document..."))
         return "", chatbot
