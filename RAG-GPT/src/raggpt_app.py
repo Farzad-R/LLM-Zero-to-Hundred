@@ -25,7 +25,6 @@ import gradio as gr
 from utils.upload_file import UploadFile
 from utils.chatbot import ChatBot
 from utils.ui_settings import UISettings
-from utils.full_summary import summarize_the_doc
 
 with gr.Blocks() as demo:
     with gr.Tabs():
@@ -87,7 +86,7 @@ with gr.Blocks() as demo:
                 temperature_bar = gr.Slider(minimum=0, maximum=1, value=0, step=0.1,
                                             label="Temperature", info="Choose between 0 and 1")
                 data_type_value = gr.Dropdown(
-                    label="Search for", choices=["Preprocessed", "Uploaded", "Full summary"], value="Preprocessed")
+                    label="RAG with", choices=["Preprocessed doc", "Upload doc: Process for RAG", "Upload doc: Give Full summary"], value="Preprocessed doc")
                 clear_button = gr.ClearButton([input_txt, chatbot])
             ##############
             # Process:
@@ -111,11 +110,6 @@ with gr.Blocks() as demo:
                                                      chatbot, ref_output],
                                             queue=False).then(lambda: gr.Textbox(interactive=True),
                                                               None, [input_txt], queue=False)
-
-            # chatbot.append(
-            #     (" ", "Uploaded file is being summarized..."))
-            # file_msg = upload_btn.upload(fn=summarize_the_doc, inputs=[
-            #     upload_btn, chatbot], outputs=[input_txt, chatbot], queue=False)
 
 
 demo.queue()

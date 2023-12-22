@@ -25,6 +25,13 @@ llm_config:
     temperature: 0.0
     max_token: 4096
 
+summarizer_config:
+    max_final_token: 4096
+    token_threshold: 100
+    summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to summarize and keep all the key information.\
+      Kepp the maximum length of summary wihin {} number of tokens."
+
+
 splitter_config:
   chunk_size: 1000
   chunk_overlap: 250
@@ -34,4 +41,6 @@ retrieval_config:
 
 serve:
   port: 8000
+
+
   
