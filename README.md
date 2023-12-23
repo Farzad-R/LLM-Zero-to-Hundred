@@ -21,7 +21,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 General structure of the projects:
 
 ```
-project folder
+Project-folder
   ├── README.md           <- The top-level README for developers using this project.
   ├── HELPER.md           <- Contains extra information that might be useful to know for executing the project.
   ├── .env                <- dotenv file for local configuration.
