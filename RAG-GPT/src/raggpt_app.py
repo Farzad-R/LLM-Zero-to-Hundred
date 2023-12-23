@@ -86,18 +86,18 @@ with gr.Blocks() as demo:
                     file_count="multiple")
                 temperature_bar = gr.Slider(minimum=0, maximum=1, value=0, step=0.1,
                                             label="Temperature", info="Choose between 0 and 1")
-                data_type_value = gr.Dropdown(
+                rag_with_dropdown = gr.Dropdown(
                     label="RAG with", choices=["Preprocessed doc", "Upload doc: Process for RAG", "Upload doc: Give Full summary"], value="Preprocessed doc")
                 clear_button = gr.ClearButton([input_txt, chatbot])
             ##############
             # Process:
             ##############
             file_msg = upload_btn.upload(fn=UploadFile.process_uploaded_files, inputs=[
-                upload_btn, chatbot, data_type_value], outputs=[input_txt, chatbot], queue=False)
+                upload_btn, chatbot, rag_with_dropdown], outputs=[input_txt, chatbot], queue=False)
 
             txt_msg = input_txt.submit(fn=ChatBot.respond,
                                        inputs=[chatbot, input_txt,
-                                               data_type_value, temperature_bar],
+                                               rag_with_dropdown, temperature_bar],
                                        outputs=[input_txt,
                                                 chatbot, ref_output],
                                        queue=False).then(lambda: gr.Textbox(interactive=True),
@@ -105,7 +105,7 @@ with gr.Blocks() as demo:
 
             txt_msg = text_submit_btn.click(fn=ChatBot.respond,
                                             inputs=[chatbot, input_txt,
-                                                    data_type_value, temperature_bar],
+                                                    rag_with_dropdown, temperature_bar],
                                             outputs=[input_txt,
                                                      chatbot, ref_output],
                                             queue=False).then(lambda: gr.Textbox(interactive=True),

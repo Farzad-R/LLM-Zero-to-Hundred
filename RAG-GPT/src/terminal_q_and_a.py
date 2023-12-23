@@ -16,7 +16,7 @@ llm_system_role = app_config["llm_config"]["llm_system_role"]
 llm_temperature = app_config["llm_config"]["temperature"]
 
 # directories
-persist_directory = here(app_config["directories"]["persist_directory"])
+persist_directory = str(here(app_config["directories"]["persist_directory"]))
 
 # Retrieval configs
 k = app_config["retrieval_config"]["k"]
@@ -28,7 +28,6 @@ vectordb = Chroma(persist_directory=persist_directory,
 
 print("Number of vectors in vectordb:", vectordb._collection.count())
 while True:
-
     question = input("\n\nEnter your question or press 'q' to exit: ")
     if question.lower() == 'q':
         break

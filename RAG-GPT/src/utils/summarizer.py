@@ -28,6 +28,8 @@ class Summarizer:
         gpt_model: str,
         temperature: float,
         summarizer_llm_system_role: str,
+        final_summarizer_llm_system_role: str,
+        character_overlap: int
     ):
         """
         Summarizes the content of a PDF file using OpenAI's ChatGPT engine.
@@ -54,19 +56,22 @@ class Summarizer:
         for i in range(len(docs)):
             # NOTE: This part can be optimized by considering a better technique for creating the prompt. (e.g: lanchain "chunksize" and "chunkoverlap" arguments.)
             if i == 0:  # For the first page
-                prompt = docs[i].page_content + docs[i+1].page_content[:100]
+                prompt = docs[i].page_content + \
+                    docs[i+1].page_content[:character_overlap]
             # For pages except the fist and the last one.
             elif i < len(docs)-1:
-                prompt = docs[i-1].page_content[-100:] + \
-                    docs[i].page_content + docs[i+1].page_content[:100]
+                prompt = docs[i-1].page_content[-character_overlap:] + \
+                    docs[i].page_content + \
+                    docs[i+1].page_content[:character_overlap]
             else:  # For the last page
-                prompt = docs[i-1].page_content[-100:] + \
+                prompt = docs[i-1].page_content[-character_overlap:] + \
                     docs[i].page_content
+            summarizer_llm_system_role = summarizer_llm_system_role.format(
+                max_summarizer_output_token)
             full_summary += Summarizer.get_llm_response(
                 gpt_model,
                 temperature,
                 summarizer_llm_system_role,
-                max_summarizer_output_token,
                 prompt=prompt
             )
             print(f"Page {counter} was summarized. ", end="")
@@ -76,14 +81,13 @@ class Summarizer:
         final_summary = Summarizer.get_llm_response(
             gpt_model,
             temperature,
-            summarizer_llm_system_role,
-            max_summarizer_output_token,
+            final_summarizer_llm_system_role,
             prompt=full_summary
         )
         return final_summary
 
     @staticmethod
-    def get_llm_response(gpt_model: str, temperature: float, summarizer_llm_system_role: str, max_summarizer_output_token: int, prompt: str):
+    def get_llm_response(gpt_model: str, temperature: float, llm_system_role: str, prompt: str):
         """
         Retrieves the response from the ChatGPT engine for a given prompt.
 
@@ -100,8 +104,7 @@ class Summarizer:
         response = openai.ChatCompletion.create(
             engine=gpt_model,
             messages=[
-                {"role": "system", "content": summarizer_llm_system_role.format(
-                    max_summarizer_output_token)},
+                {"role": "system", "content": llm_system_role},
                 {"role": "user", "content": prompt}
             ],
             temperature=temperature,

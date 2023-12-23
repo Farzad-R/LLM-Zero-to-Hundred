@@ -86,7 +86,10 @@ class LoadConfig:
         self.max_final_token = app_config["summarizer_config"]["max_final_token"]
         self.token_threshold = app_config["summarizer_config"]["token_threshold"]
         self.summarizer_llm_system_role = app_config["summarizer_config"]["summarizer_llm_system_role"]
+        self.final_summarizer_llm_system_role = app_config[
+            "summarizer_config"]["final_summarizer_llm_system_role"]
         self.temperature = app_config["llm_config"]["temperature"]
+        self.character_overlap = app_config["llm_config"]["character_overlap"]
 
         # Memory
         self.number_of_q_a_pairs = app_config["memory"]["number_of_q_a_pairs"]
