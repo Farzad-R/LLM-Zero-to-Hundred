@@ -1,56 +1,35 @@
 
 import os
-import openai
-from dotenv import load_dotenv
 from utils.prepare_vectordb import PrepareVectorDB
-import yaml
-
-
-def create_directory(directory_path):
-    """
-    Create a directory if it does not exist.
-
-    Parameters:
-        directory_path (str): The path of the directory to be created.
-    """
-    if not os.path.exists(directory_path):
-        os.makedirs(directory_path)
+from utils.cfg import LoadConfig
+CONFIG = LoadConfig()
 
 
 def upload_data_manually() -> None:
     """
-    Upload data manually using OpenAI API and prepare a VectorDB.
+    Uploads data manually to the VectorDB.
 
-    This function initializes OpenAI API credentials, loads configuration from a YAML file,
-    creates necessary directories, and prepares a VectorDB instance using the specified parameters.
+    This function initializes a PrepareVectorDB instance with configuration parameters
+    such as data_directory, persist_directory, embedding_model_engine, chunk_size,
+    and chunk_overlap. It then checks if the VectorDB already exists in the specified
+    persist_directory. If not, it calls the prepare_and_save_vectordb method to
+    create and save the VectorDB. If the VectorDB already exists, a message is printed
+    indicating its presence.
 
     Returns:
-    None
+        None
     """
-    load_dotenv()
-    openai.api_version = os.getenv("OPENAI_API_VERSION")
-    openai.api_type = os.getenv("OPENAI_API_TYPE")
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    openai.api_base = os.getenv("OPENAI_API_BASE")
-    with open("configs/app_config.yml") as cfg:
-        app_config = yaml.load(cfg, Loader=yaml.FullLoader)
-    embedding_model_engine = app_config["embedding_model_config"]["engine"]
-    chunk_size = app_config["splitter_config"]["chunk_size"]
-    chunk_overlap = app_config["splitter_config"]["chunk_overlap"]
-    data_directory = app_config["directories"]["data_directory"]
-    persist_directory = app_config["directories"]["persist_directory"]
-    create_directory(persist_directory)
     prepare_vectordb_instance = PrepareVectorDB(
-        data_directory=data_directory,
-        persist_directory=persist_directory,
-        embedding_model_engine=embedding_model_engine,
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
+        data_directory=CONFIG.data_directory,
+        persist_directory=CONFIG.persist_directory,
+        embedding_model_engine=CONFIG.embedding_model_engine,
+        chunk_size=CONFIG.chunk_size,
+        chunk_overlap=CONFIG.chunk_overlap,
     )
-    if not len(os.listdir(persist_directory)) != 0:
+    if not len(os.listdir(CONFIG.persist_directory)) != 0:
         prepare_vectordb_instance.prepare_and_save_vectordb()
     else:
-        print(f"VectorDB already exists in {persist_directory}")
+        print(f"VectorDB already exists in {CONFIG.persist_directory}")
     return None
 
 

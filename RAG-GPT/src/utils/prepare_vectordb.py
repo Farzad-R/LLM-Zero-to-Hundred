@@ -19,8 +19,6 @@ class PrepareVectorDB:
         embedding_model_engine (str): The engine for OpenAI embeddings.
         chunk_size (int): The size of the chunks for document processing.
         chunk_overlap (int): The overlap between chunks.
-    ```
-
     """
 
     def __init__(

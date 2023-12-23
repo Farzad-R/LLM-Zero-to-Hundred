@@ -11,6 +11,57 @@ load_dotenv()
 
 
 class LoadConfig:
+    """
+    A class for loading configuration settings and managing directories.
+
+    This class loads various configuration settings from the 'app_config.yml' file,
+    including language model (LLM) configurations, retrieval configurations, summarizer
+    configurations, and memory configurations. It also sets up OpenAI API credentials
+    and performs directory-related operations such as creating and removing directories.
+
+    ...
+
+    Attributes:
+        llm_engine : str
+            The language model engine specified in the configuration.
+        llm_system_role : str
+            The role of the language model system specified in the configuration.
+        persist_directory : str
+            The path to the persist directory where data is stored.
+        custom_persist_directory : str
+            The path to the custom persist directory.
+        embedding_model : OpenAIEmbeddings
+            An instance of the OpenAIEmbeddings class for language model embeddings.
+        data_directory : str
+            The path to the data directory.
+        k : int
+            The value of 'k' specified in the retrieval configuration.
+        embedding_model_engine : str
+            The engine specified in the embedding model configuration.
+        chunk_size : int
+            The chunk size specified in the splitter configuration.
+        chunk_overlap : int
+            The chunk overlap specified in the splitter configuration.
+        max_final_token : int
+            The maximum number of final tokens specified in the summarizer configuration.
+        token_threshold : float
+            The token threshold specified in the summarizer configuration.
+        summarizer_llm_system_role : str
+            The role of the summarizer language model system specified in the configuration.
+        temperature : float
+            The temperature specified in the LLM configuration.
+        number_of_q_a_pairs : int
+            The number of question-answer pairs specified in the memory configuration.
+
+    Methods:
+        load_openai_cfg():
+            Load OpenAI configuration settings.
+        create_directory(directory_path):
+            Create a directory if it does not exist.
+        remove_directory(directory_path):
+            Removes the specified directory.
+    """
+
     def __init__(self) -> None:
         with open(here("configs/app_config.yml")) as cfg:
             app_config = yaml.load(cfg, Loader=yaml.FullLoader)
@@ -25,6 +76,7 @@ class LoadConfig:
         self.embedding_model = OpenAIEmbeddings()
 
         # Retrieval configs
+        self.data_directory = app_config["directories"]["data_directory"]
         self.k = app_config["retrieval_config"]["k"]
         self.embedding_model_engine = app_config["embedding_model_config"]["engine"]
         self.chunk_size = app_config["splitter_config"]["chunk_size"]
@@ -43,6 +95,7 @@ class LoadConfig:
         self.load_openai_cfg()
 
         # clean up the upload doc vectordb if it exists
+        self.create_directory(self.persist_directory)
         self.remove_directory(self.custom_persist_directory)
 
     def load_openai_cfg(self):
@@ -62,7 +115,29 @@ class LoadConfig:
         openai.api_version = os.getenv("OPENAI_API_VERSION")
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
+    def create_directory(self, directory_path):
+        """
+        Create a directory if it does not exist.
+
+        Parameters:
+            directory_path (str): The path of the directory to be created.
+        """
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
     def remove_directory(self, directory_path):
+        """
+        Removes the specified directory.
+
+        Parameters:
+            directory_path (str): The path of the directory to be removed.
+
+        Raises:
+            OSError: If an error occurs during the directory removal process.
+
+        Returns:
+            None
+        """
         if os.path.exists(directory_path):
             try:
                 shutil.rmtree(directory_path)

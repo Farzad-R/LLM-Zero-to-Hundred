@@ -52,12 +52,22 @@ class Summarizer:
         counter = 1
         print("Generating the summary..")
         for i in range(len(docs)):
+            # NOTE: This part can be optimized by considering a better technique for creating the prompt. (e.g: lanchain "chunksize" and "chunkoverlap" arguments.)
+            if i == 0:  # For the first page
+                prompt = docs[i].page_content + docs[i+1].page_content[:100]
+            # For pages except the fist and the last one.
+            elif i < len(docs)-1:
+                prompt = docs[i-1].page_content[-100:] + \
+                    docs[i].page_content + docs[i+1].page_content[:100]
+            else:  # For the last page
+                prompt = docs[i-1].page_content[-100:] + \
+                    docs[i].page_content
             full_summary += Summarizer.get_llm_response(
                 gpt_model,
                 temperature,
                 summarizer_llm_system_role,
                 max_summarizer_output_token,
-                prompt=docs[i].page_content
+                prompt=prompt
             )
             print(f"Page {counter} was summarized. ", end="")
             counter += 1

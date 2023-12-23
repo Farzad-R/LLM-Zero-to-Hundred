@@ -112,6 +112,5 @@ with gr.Blocks() as demo:
                                                               None, [input_txt], queue=False)
 
 
-demo.queue()
 if __name__ == "__main__":
     demo.launch()
