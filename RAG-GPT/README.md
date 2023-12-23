@@ -1,4 +1,4 @@
-# RAG-GPT: Fostering Robust AI Conversations with retrieval Augemented generation By Integrating OpenAI GPT Model, Langchain, ChromaDB, and Gradio
+# RAG-GPT: Fostering Robust AI Conversations with retrieval Augmented generation By Integrating OpenAI GPT Model, Langchain, ChromaDB, and Gradio
 
 **RAG-GPT** is your interactive document companion, facilitating seamless conversations with your documents, including both PDFs and Docs. 
 
