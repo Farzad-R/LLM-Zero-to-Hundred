@@ -64,7 +64,6 @@ class ChatBot:
         prompt = f"{chat_history}{retrieved_docs_page_content}\n\n{question}"
         print("========================")
         print(prompt)
-        # print(len(chatbot))
         print("========================")
         response = openai.ChatCompletion.create(
             engine=APPCFG.llm_engine,
