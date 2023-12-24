@@ -1,6 +1,6 @@
 from utils.prepare_vectordb import PrepareVectorDB
 from typing import List, Tuple
-from utils.cfg import LoadConfig
+from utils.load_config import LoadConfig
 from utils.summarizer import Summarizer
 
 APPCFG = LoadConfig()

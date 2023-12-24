@@ -1,7 +1,7 @@
 
 import os
 from utils.prepare_vectordb import PrepareVectorDB
-from utils.cfg import LoadConfig
+from utils.load_config import LoadConfig
 CONFIG = LoadConfig()
 
 

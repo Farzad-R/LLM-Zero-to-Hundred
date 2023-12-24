@@ -24,10 +24,10 @@ from utils.llm_summarizer import LLMSummarizer
 from utils.llm_rag import LLM_RAG
 from utils.functions_prep import PrepareFunctions
 import time
-from config_loader import CFG
+from utils.load_config import LoadConfig
 import traceback
 
-APP_CFG = CFG()
+APP_CFG = LoadConfig()
 
 
 @cl.on_chat_start

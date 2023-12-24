@@ -7,7 +7,7 @@ from typing import List, Tuple
 import re
 import ast
 import html
-from utils.cfg import LoadConfig
+from utils.load_config import LoadConfig
 
 APPCFG = LoadConfig()
 URL = "https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"

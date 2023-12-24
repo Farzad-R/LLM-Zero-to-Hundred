@@ -1,12 +1,9 @@
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from dotenv import load_dotenv
 from typing import List
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.document_loaders import WebBaseLoader
 import traceback
-
-load_dotenv()
 
 
 class PrepareURLVectorDB:
@@ -47,7 +44,7 @@ class PrepareURLVectorDB:
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
-            separators=["\n\n", "\n", " ", ""]
+            separators=["\n\n", "\n", " "]
         )
         """Other options: CharacterTextSplitter, NotionDirectoryLoader, TokenTextSplitter, etc."""
         self.url = url
