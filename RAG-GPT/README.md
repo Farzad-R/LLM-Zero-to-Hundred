@@ -73,7 +73,7 @@ python serve.py
 
 In Terminal 2:
 ```
-python gradio_app.py
+python raggpt_app.py
 ```
 5. Chat with your documents.
 
