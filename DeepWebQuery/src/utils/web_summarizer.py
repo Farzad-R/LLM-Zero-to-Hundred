@@ -36,32 +36,21 @@ class WebSummarizer:
 
         loader = WebBaseLoader(url)
         docs = loader.load()
+        print(len(docs))
         print(f"Website length: {len(docs)}")
         max_summarizer_output_token = int(
             CFG.max_final_token/len(docs)) - CFG.token_threshold
         full_summary = ""
         counter = 1
         print("Generating the summary..")
+        summarizer_llm_system_role = CFG.summarizer_llm_system_role.format(
+            max_summarizer_output_token)
         for i in range(len(docs)):
-            # NOTE: This part can be optimized by considering a better technique for creating the prompt. (e.g: lanchain "chunksize" and "chunkoverlap" arguments.)
-            if i == 0:  # For the first page
-                prompt = docs[i].page_content + \
-                    docs[i+1].page_content[:CFG.character_overlap]
-            # For pages except the fist and the last one.
-            elif i < len(docs)-1:
-                prompt = docs[i-1].page_content[-CFG.character_overlap:] + \
-                    docs[i].page_content + \
-                    docs[i+1].page_content[:CFG.character_overlap]
-            else:  # For the last page
-                prompt = docs[i-1].page_content[-CFG.character_overlap:] + \
-                    docs[i].page_content
-            summarizer_llm_system_role = CFG.summarizer_llm_system_role.format(
-                max_summarizer_output_token)
             full_summary += WebSummarizer.get_llm_response(
                 CFG.summarizer_gpt_model,
                 CFG.summarizer_temperature,
                 summarizer_llm_system_role,
-                prompt=prompt
+                prompt=docs[i].page_content
             )
             print(f"Page {counter} was summarized. ", end="")
             counter += 1

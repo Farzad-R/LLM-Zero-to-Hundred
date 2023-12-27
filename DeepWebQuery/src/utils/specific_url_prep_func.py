@@ -47,18 +47,18 @@ class URLPrep:
                 chunk_overlap=self.chunk_overlap)
             db_stat = prepare_url_vectordb_instance.prepare_and_save_vectordb()
             return db_stat
-        except BaseException as e: 
+        except BaseException as e:
             print(f"Caught exception in URLPrep class: {e}")
             traceback.print_exc()
             return False
 
 
-def search_the_requested_url(user_requested_url: str) -> List[str]:
+def prepare_the_requested_url_for_q_and_a(user_requested_url: str) -> List[str]:
     """
-    Searches for URLs in the user's query and checks their content types.
+    Prepares the requested URL by the user for Q&A. So, the user can ask detailed questions about the contents of the URL.
 
     Parameters:
-        user_full_query (str): The user's query containing potential URLs.
+        user_requested_url (str): The user's requested URL.
 
     Returns:
         List[str]: A list of content types for each URL found in the query.

@@ -2,7 +2,7 @@ import inspect
 import json
 from pydantic import create_model
 from typing import List, Dict
-from utils.specific_url_prep_func import search_the_requested_url
+from utils.specific_url_prep_func import prepare_the_requested_url_for_q_and_a
 from utils.web_search_funcs import WebSearch
 from utils.web_summarizer import WebSummarizer
 
@@ -38,7 +38,7 @@ class PrepareFunctions:
             PrepareFunctions.jsonschema(WebSearch.retrieve_web_search_results),
             PrepareFunctions.jsonschema(WebSearch.get_instant_web_answer),
             PrepareFunctions.jsonschema(WebSearch.web_search_video),
-            PrepareFunctions.jsonschema(search_the_requested_url)
+            PrepareFunctions.jsonschema(prepare_the_requested_url_for_q_and_a)
         ]
 
     @staticmethod
@@ -58,7 +58,7 @@ class PrepareFunctions:
         # Call the function with the given arguments
         if func_name == 'summarize_the_webpage':
             result = WebSummarizer.summarize_the_webpage(**func_args)
-        if func_name == 'retrieve_web_search_results':
+        elif func_name == 'retrieve_web_search_results':
             result = WebSearch.retrieve_web_search_results(**func_args)
         elif func_name == 'get_instant_web_answer':
             result = WebSearch.get_instant_web_answer(**func_args)
@@ -66,8 +66,8 @@ class PrepareFunctions:
             result = WebSearch.web_search_video(**func_args)
         elif func_name == 'get_instant_web_answer':
             result = WebSearch.get_instant_web_answer(**func_args)
-        elif func_name == 'search_the_requested_url':
-            result = search_the_requested_url(**func_args)
+        elif func_name == 'prepare_the_requested_url_for_q_and_a':
+            result = prepare_the_requested_url_for_q_and_a(**func_args)
         else:
             raise ValueError(f"Function '{func_name}' not found.")
         return result

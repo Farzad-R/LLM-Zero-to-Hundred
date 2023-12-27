@@ -103,7 +103,7 @@ async def on_message(message: cl.Message):
                     search_result = PrepareFunctions.execute_json_function(
                         llm_function_caller_full_response)
                     # If the called function was about a specifc url answer based on whether url loader was successful or not
-                    if llm_function_caller_full_response.choices[0].message.function_call.name == "search_the_requested_url":
+                    if llm_function_caller_full_response.choices[0].message.function_call.name == "prepare_the_requested_url_for_q_and_a":
                         # print(llm_function_caller_full_response.choices[0].message.function_call.arguments)
                         msg = cl.Message(content="")
                         if search_result == True:
