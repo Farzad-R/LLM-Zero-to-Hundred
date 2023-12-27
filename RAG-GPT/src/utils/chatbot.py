@@ -56,12 +56,12 @@ class ChatBot:
 
         docs = vectordb.similarity_search(message, k=APPCFG.k)
         question = "# User new question:\n" + message
-        references = ChatBot.clean_references(docs)
-        retrieved_docs_page_content = "# Retrieved contents:\n" + \
-            str(references)
+        retrieved_content = ChatBot.clean_references(docs)
+        # retrieved_docs_page_content = "# Retrieved contents:\n" + \
+        # str(references)
         # Memory: previous two Q&A pairs
         chat_history = f"Chat history:\n {str(chatbot[-APPCFG.number_of_q_a_pairs:])}\n\n"
-        prompt = f"{chat_history}{retrieved_docs_page_content}\n\n{question}"
+        prompt = f"{chat_history}{retrieved_content}{question}"
         print("========================")
         print(prompt)
         print("========================")
@@ -78,20 +78,7 @@ class ChatBot:
             (message, response["choices"][0]["message"]["content"]))
         time.sleep(2)
 
-        return "", chatbot, references
-
-    @staticmethod
-    def feedback(data: gr.LikeData):
-        """
-        Process user feedback on the generated response.
-
-        Parameters:
-            data (gr.LikeData): Gradio LikeData object containing user feedback.
-        """
-        if data.liked:
-            print("You upvoted this response: " + data.value)
-        else:
-            print("You downvoted this response: " + data.value)
+        return "", chatbot, retrieved_content
 
     @staticmethod
     def clean_references(documents: List) -> str:
@@ -144,8 +131,8 @@ class ChatBot:
             pdf_url = f"{server_url}/{os.path.basename(metadata_dict['source'])}"
 
             # Append cleaned content to the markdown string with two newlines between documents
-            markdown_documents += f"Reference {counter}:\n" + content + "\n\n" + \
-                f"Filename: {os.path.basename(metadata_dict['source'])}" + " | " +\
+            markdown_documents += f"# Retrieved content {counter}:\n" + content + "\n\n" + \
+                f"Source: {os.path.basename(metadata_dict['source'])}" + " | " +\
                 f"Page number: {str(metadata_dict['page'])}" + " | " +\
                 f"[View PDF]({pdf_url})" "\n\n"
             counter += 1

@@ -26,8 +26,6 @@ from utils.app_utils import Apputils
 
 APPCFG = LoadConfig()
 
-function_json_list = Apputils.wrap_functions()
-
 # ===================================
 # Setting page title and header
 # ===================================
@@ -40,7 +38,6 @@ st.set_page_config(
 )
 st.markdown("<h1 style='text-align: center;'>WebGPT</h1>",
             unsafe_allow_html=True)
-
 # ===================================
 # Initialise session state variables
 # ===================================
@@ -55,11 +52,11 @@ if 'model_name' not in st.session_state:
 # ==================================
 # Sidebar:
 # ==================================
+counter_placeholder = st.sidebar.empty()
 st.sidebar.title(
     "WebGPT: GPT agent with access to the internet")
 st.sidebar.image("images/AI_RT.png", use_column_width=True)
 model_name = st.sidebar.radio("Choose a model:", ("GPT-3.5", "GPT-4"))
-counter_placeholder = st.sidebar.empty()
 clear_button = st.sidebar.button("Clear Conversation", key="clear")
 # ==================================
 # Reset everything (Clear button)
@@ -90,15 +87,13 @@ container.markdown("""
 
 with container:
     with st.form(key='my_form', clear_on_submit=True):
-        user_input = st.text_area("You:", key='input', height=25)
-        submit_button = st.form_submit_button(label='Send')
+        user_input = st.text_area("You:", key='input')
+        submit_button = st.form_submit_button(label='Submit')
 
     if submit_button and user_input:
         # Simplify: Only keep two chat history
-        st.session_state['chat_history'] = st.session_state['chat_history'][-2:]
-        chat_history = "# Chat history:\n" + \
-            str([x for x in st.session_state['chat_history']])
-        query = f"\n\n# User new question: {user_input}"
+        chat_history = f"# Chat history:\n{st.session_state['chat_history'][-2:]}\n\n"
+        query = f"# User new question:\n {user_input}"
         messages = [
             {"role": "system", "content": str(
                 APPCFG.llm_function_caller_system_role)},
@@ -106,53 +101,61 @@ with container:
         ]
         print(messages)
         first_llm_response = Apputils.ask_llm_function_caller(
-            APPCFG.gpt_model, APPCFG.temperature, messages, function_json_list)
+            gpt_model=APPCFG.gpt_model, temperature=APPCFG.temperature, messages=messages, function_json_list=Apputils.wrap_functions())
         st.session_state['past'].append(user_input)
         if "function_call" in first_llm_response.choices[0].message.keys():
-            print("Called function:",
-                  first_llm_response.choices[0].message.function_call.name)
-            web_search_result = Apputils.execute_json_function(
-                first_llm_response)
-            web_search_results = f"\n\n# Web search results:\n{str(web_search_result)}"
-            messages = [
-                {"role": "system", "content": APPCFG.llm_system_role},
-                {"role": "user", "content": chat_history + web_search_results + query}
-            ]
-            print(messages)
-            second_llm_response = Apputils.ask_llm_chatbot(
-                APPCFG.gpt_model, APPCFG.temperature, messages)
             try:
+                print("Called function:",
+                      first_llm_response.choices[0].message.function_call.name)
+
+                web_search_result = Apputils.execute_json_function(
+                    first_llm_response)
+                web_search_results = f"\n\n# Web search results:\n{str(web_search_result)}"
+                messages = [
+                    {"role": "system", "content": APPCFG.llm_system_role},
+                    {"role": "user", "content": chat_history +
+                        web_search_results + query}
+                ]
+                print(messages)
+                second_llm_response = Apputils.ask_llm_chatbot(
+                    APPCFG.gpt_model, APPCFG.temperature, messages)
                 st.session_state['generated'].append(
                     second_llm_response["choices"][0]["message"]["content"])
                 chat_history = (
-                    f"## User question: {user_input}", f"## Response: {second_llm_response['choices'][0]['message']['content']}\n")
+                    f"## User query: {user_input}", f"## Response: {second_llm_response['choices'][0]['message']['content']}")
                 st.session_state['chat_history'].append(chat_history)
-            except:
+            except Exception as e:
+                print(e)
                 st.session_state['generated'].append(
-                    "An error occured, please try again later.")
+                    "An error occured with the function calling, please try again later.")
                 chat_history = str(
-                    (f"User question: {user_input}", f"Response: An error occured, please try again later."))
+                    (f"User query: {user_input}", f"Response: An error occured with function calling, please try again later."))
                 st.session_state['chat_history'].append(chat_history)
+
         else:
             try:
                 chat_history = str(
-                    (f"User question: {user_input}", f"Response: {first_llm_response['choices'][0]['message']['content']}"))
+                    (f"User query: {user_input}", f"Response: {first_llm_response['choices'][0]['message']['content']}"))
                 st.session_state['chat_history'].append(chat_history)
                 st.session_state['generated'].append(
                     first_llm_response["choices"][0]["message"]["content"])
-
             except:
                 st.session_state['generated'].append(
                     "An error occured, please try again later.")
                 chat_history = str(
-                    (f"User question: {user_input}", f"Response: An error occured, please try again later."))
+                    (f"User query: {user_input}", f"Response: An error occured, please try again later."))
                 st.session_state['chat_history'].append(chat_history)
 
 
 if st.session_state['generated']:
-
     with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state["past"][i],
-                    is_user=True, key=str(i) + '_user')
-            message(st.session_state["generated"][i], key=str(i))
+                    is_user=True,
+                    key=str(i) + '_user',
+                    # avatar_style=str(here("images/openai.png"))
+                    )
+            message(st.session_state["generated"][i],
+                    key=str(i),
+                    # avatar_style=str(here("images/AI_RT.png")),
+                    )

@@ -20,3 +20,16 @@ class UISettings:
         """
         state = not state
         return gr.update(visible=state), state
+
+    @staticmethod
+    def feedback(data: gr.LikeData):
+        """
+        Process user feedback on the generated response.
+
+        Parameters:
+            data (gr.LikeData): Gradio LikeData object containing user feedback.
+        """
+        if data.liked:
+            print("You upvoted this response: " + data.value)
+        else:
+            print("You downvoted this response: " + data.value)

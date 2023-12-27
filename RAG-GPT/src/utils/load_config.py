@@ -118,7 +118,7 @@ class LoadConfig:
         openai.api_version = os.getenv("OPENAI_API_VERSION")
         openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    def create_directory(self, directory_path):
+    def create_directory(self, directory_path: str):
         """
         Create a directory if it does not exist.
 
@@ -128,7 +128,7 @@ class LoadConfig:
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
-    def remove_directory(self, directory_path):
+    def remove_directory(self, directory_path: str):
         """
         Removes the specified directory.
 

@@ -4,6 +4,7 @@ from pydantic import create_model
 from typing import List, Dict
 from utils.specific_url_prep_func import search_the_requested_url
 from utils.web_search_funcs import WebSearch
+from utils.web_summarizer import WebSummarizer
 
 
 class PrepareFunctions:
@@ -32,6 +33,8 @@ class PrepareFunctions:
             List: A list of dictionaries, each containing the function name, description, and parameters schema.
         """
         return [
+            PrepareFunctions.jsonschema(
+                WebSummarizer.summarize_the_webpage),
             PrepareFunctions.jsonschema(WebSearch.retrieve_web_search_results),
             PrepareFunctions.jsonschema(WebSearch.get_instant_web_answer),
             PrepareFunctions.jsonschema(WebSearch.web_search_video),
@@ -53,6 +56,8 @@ class PrepareFunctions:
         func_args: Dict = json.loads(
             response.choices[0].message.function_call.arguments)
         # Call the function with the given arguments
+        if func_name == 'summarize_the_webpage':
+            result = WebSummarizer.summarize_the_webpage(**func_args)
         if func_name == 'retrieve_web_search_results':
             result = WebSearch.retrieve_web_search_results(**func_args)
         elif func_name == 'get_instant_web_answer':

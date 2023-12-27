@@ -54,7 +54,7 @@ YouTube video:
 - [Link](Coming soon)
 
 Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 
 Extra read:
 - [GPT model](https://platform.openai.com/docs/models/overview) 

@@ -17,8 +17,6 @@ class SingleDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     Custom HTTP request handler that serves files from a single directory.
 
     This class extends the SimpleHTTPRequestHandler and sets the serving directory to DIRECTORY1.
-    ```
-
     """
 
     def __init__(self, *args, **kwargs):
@@ -38,8 +36,6 @@ class MultiDirectoryHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
     This class extends the SimpleHTTPRequestHandler and allows serving files from DIRECTORY1 and DIRECTORY2
     based on the first directory component in the requested path.
-    ```
-
     """
 
     def translate_path(self, path):

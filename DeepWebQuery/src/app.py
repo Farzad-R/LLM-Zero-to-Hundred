@@ -20,7 +20,7 @@ import chainlit as cl
 from utils.app_utils import Apputils
 from utils.memory import Memory
 from utils.llm_function_caller import LLMFuntionCaller
-from utils.llm_summarizer import LLMSummarizer
+from utils.llm_web import LLMWeb
 from utils.llm_rag import LLM_RAG
 from utils.functions_prep import PrepareFunctions
 import time
@@ -92,7 +92,7 @@ async def on_message(message: cl.Message):
                 print("First LLM messages:", messages, "\n")
                 # Pass the input to the first model (function caller)
                 llm_function_caller_full_response = LLMFuntionCaller.ask(
-                    APP_CFG.llm_function_caller_gpt_model, APP_CFG.llm_function_caller_temperature, messages, APP_CFG.function_json_list)
+                    APP_CFG.llm_function_caller_gpt_model, APP_CFG.llm_function_caller_temperature, messages, PrepareFunctions.wrap_functions())
                 # If function called indeed called out a function
                 if "function_call" in llm_function_caller_full_response.choices[0].message.keys():
                     print("\nCalled function:",
@@ -122,10 +122,10 @@ async def on_message(message: cl.Message):
                             chat_history_lst = [
                                 (message.content, system_response)]
                     else:  # The called function was not search_the_requested_url pass the web search result to the second llm.
-                        messages = LLMSummarizer.prepare_messages(
+                        messages = LLMWeb.prepare_messages(
                             search_result=search_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role)
                         print("Second LLM messages:", messages, "\n")
-                        llm_summarizer_full_response = LLMSummarizer.ask(
+                        llm_summarizer_full_response = LLMWeb.ask(
                             APP_CFG.llm_summarizer_gpt_model, APP_CFG.llm_summarizer_temperature, messages)
                         # print the response for the user
                         llm_function_summarizer_response = llm_summarizer_full_response[
@@ -147,7 +147,7 @@ async def on_message(message: cl.Message):
                     folder_path=APP_CFG.persist_directory)
                 messages = LLM_RAG.prepare_messages(
                     persist_directory=latest_folder, user_query=message.content, llm_system_role=APP_CFG.llm_rag_system_role, input_chat_history=input_chat_history)
-                llm_rag__full_response = LLMSummarizer.ask(
+                llm_rag__full_response = LLMWeb.ask(
                     APP_CFG.llm_rag_gpt_model, APP_CFG.llm_rag_temperature, messages)
                 llm_rag_response = llm_rag__full_response["choices"][0]["message"]["content"]
                 await msg.stream_token(llm_rag_response)

@@ -56,7 +56,7 @@ with gr.Blocks() as demo:
                         # render=False
                     )
                     # **Adding like/dislike icons
-                    chatbot.like(ChatBot.feedback, None, None)
+                    chatbot.like(UISettings.feedback, None, None)
             ##############
             # SECOND ROW:
             ##############

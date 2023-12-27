@@ -65,7 +65,7 @@ YouTube video:
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [Gradio](https://www.gradio.app/guides/quickstart) 
 
 YouTube video:
-- [Link](Coming soon)
+- [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 </p>
 
 <a id="DeepWebQuery"></a>
@@ -103,7 +103,7 @@ This project aims to develop a versatile chatbot capable of processing text and 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 
 YouTube video:
-- [Link](Coming soon)
+- [Link](https://www.youtube.com/watch?v=P3bNGBTDiKM&t=3s)
 </p>
 <a id="LLM-function-calling-tutorial"></a>
 <h2>Visualizing Text Vectorization:</h2>
@@ -113,7 +113,7 @@ YouTube video:
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [HuggingFace](https://huggingface.co/BAAI/bge-large-zh-v1.5)
 
 YouTube video:
-- [Link](Coming soon)
+- [Link](https://www.youtube.com/watch?v=sxBr_afsvb0&t=454s)
 </p>
 
 Slides:

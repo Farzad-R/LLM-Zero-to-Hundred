@@ -8,21 +8,19 @@ embedding_model_config:
   engine: "text-embedding-ada-002"
 
 llm_config:
-    llm_system_role: "You are a chatbot. Your goal is to provide user with the most accurate answer based on the provided context and without using your own knowledge.\
+    llm_system_role: "You are a chatbot. You'll receive a prompt that includes a chat history, retrieved content from the vectorDB based on the user's question, and the source.\ 
+    Your task is to respond to the user's new question using the information from the vectorDB without relying on your own knowledge.\
     you will receive a prompt with the the following format:
 
-    # Chat history:
-    [user query, response]
+    # Chat history:\n
+    [user query, response]\n\n
 
-    # Retrieved contents:\n
-    Reference number:\n
+    # Retrieved content number:\n
     Content\n\n
-    References\n\n
+    Source\n\n
 
-    # User new question:\n
-    New question\n\n
-
-    If the retrieved content contains the answer, provide the answer to the user.
+    # User question:\n
+    New question
     "
     engine: "gpt-35-turbo"
     temperature: 0.0
@@ -38,8 +36,8 @@ summarizer_config:
 
 
 splitter_config:
-  chunk_size: 1000
-  chunk_overlap: 250
+  chunk_size: 1500
+  chunk_overlap: 500
 
 retrieval_config:
   k: 3

@@ -78,10 +78,10 @@ python raggpt_app.py
 5. Chat with your documents.
 
 YouTube video:
-- [Link](Coming soon)
+- [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 
 Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 
 Extra read:
 - [GPT model](https://platform.openai.com/docs/models/overview) 

@@ -3,8 +3,6 @@ import yaml
 import openai
 from dotenv import load_dotenv
 import os
-from utils.functions_prep import PrepareFunctions
-from typing import List
 from pyprojroot import here
 load_dotenv()
 
@@ -12,35 +10,8 @@ load_dotenv()
 class LoadConfig:
 
     def __init__(self) -> None:
-        """
-        Configuration class for managing various settings and parameters in the application.
-
-        This class initializes the configuration settings by loading them from the "configs/app_config.yml" file.
-        The settings include parameters for GPT function input, GPT function caller, GPT summarizer, GPT RAG, memory,
-        and OpenAI credentials.
-
-        Attributes:
-            function_json_list (List): List of functions prepared for GPT input.
-            llm_function_caller_temperature (float): Temperature parameter for the GPT function caller.
-            llm_function_caller_system_role (str): System role parameter for the GPT function caller.
-            llm_function_caller_gpt_model (str): GPT model parameter for the GPT function caller.
-            llm_summarizer_temperature (float): Temperature parameter for the GPT summarizer.
-            llm_summarizer_gpt_model (str): GPT model parameter for the GPT summarizer.
-            llm_summarizer_system_role (str): System role parameter for the GPT summarizer.
-            llm_rag_temperature (float): Temperature parameter for the GPT RAG.
-            llm_rag_gpt_model (str): GPT model parameter for the GPT RAG.
-            llm_rag_system_role (str): System role parameter for the GPT RAG.
-            memory_directory (str): Directory for storing memory in the application.
-            num_entries (int): Number of entries to be stored in the application memory.
-            persist_directory (str): Directory for persisting RAG in the application.
-            k (int): Parameter k for the RAG.
-        """
-
         with open("configs/app_config.yml") as cfg:
             app_config = yaml.load(cfg, Loader=yaml.FullLoader)
-
-        # prepare functions for gpt input
-        self.function_json_list: List = PrepareFunctions.wrap_functions()
 
         # llm function caller
         self.llm_function_caller_temperature: float = app_config[
@@ -66,6 +37,16 @@ class LoadConfig:
         self.persist_directory: str = str(
             here(app_config["RAG"]["persist_directory"]))  # Needs to be string for the backend of Chroma
         self.k: int = app_config["RAG"]["k"]
+
+        # Summarizer config
+        self.summarizer_gpt_model = app_config["summarizer_config"]["gpt_model"]
+        self.max_final_token = app_config["summarizer_config"]["max_final_token"]
+        self.token_threshold = app_config["summarizer_config"]["token_threshold"]
+        self.summarizer_llm_system_role = app_config["summarizer_config"]["summarizer_llm_system_role"]
+        self.character_overlap = app_config["summarizer_config"]["character_overlap"]
+        self.final_summarizer_llm_system_role = app_config[
+            "summarizer_config"]["final_summarizer_llm_system_role"]
+        self.summarizer_temperature = app_config["summarizer_config"]["temperature"]
 
         # load openai credentials
         self._load_open_ai_credentials()

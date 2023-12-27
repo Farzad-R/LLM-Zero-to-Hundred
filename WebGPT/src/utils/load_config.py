@@ -8,6 +8,23 @@ load_dotenv()
 
 
 class LoadConfig:
+    """
+    A class for loading configuration settings, including OpenAI credentials.
+
+    This class reads configuration parameters from a YAML file and sets them as attributes.
+    It also includes a method to load OpenAI API credentials.
+
+    Attributes:
+        gpt_model (str): The GPT model to be used.
+        temperature (float): The temperature parameter for generating responses.
+        llm_system_role (str): The system role for the language model.
+        llm_function_caller_system_role (str): The system role for the function caller of the language model.
+
+    Methods:
+        __init__(): Initializes the LoadConfig instance by loading configuration from a YAML file.
+        load_openai_credentials(): Loads OpenAI configuration settings.
+    """
+
     def __init__(self) -> None:
         with open(here("configs/app_config.yml")) as cfg:
             app_config = yaml.load(cfg, Loader=yaml.FullLoader)
