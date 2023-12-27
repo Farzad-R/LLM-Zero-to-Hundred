@@ -51,7 +51,7 @@ streamlit run src\webgpt_app.py
 ```
 
 YouTube video:
-- [Link](Coming soon)
+- [Link](https://www.youtube.com/watch?v=55bztmEzAYU&t=295s)
 
 Slides:
 - [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)

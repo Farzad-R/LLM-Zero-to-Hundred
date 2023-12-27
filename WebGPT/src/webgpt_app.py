@@ -117,6 +117,7 @@ with container:
                         web_search_results + query}
                 ]
                 print(messages)
+                print(web_search_results)
                 second_llm_response = Apputils.ask_llm_chatbot(
                     APPCFG.gpt_model, APPCFG.temperature, messages)
                 st.session_state['generated'].append(
@@ -132,7 +133,7 @@ with container:
                     (f"User query: {user_input}", f"Response: An error occured with function calling, please try again later."))
                 st.session_state['chat_history'].append(chat_history)
 
-        else:
+        else:  # The first model used its own knowledge
             try:
                 chat_history = str(
                     (f"User query: {user_input}", f"Response: {first_llm_response['choices'][0]['message']['content']}"))
