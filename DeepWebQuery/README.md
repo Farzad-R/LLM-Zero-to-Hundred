@@ -35,7 +35,7 @@
 
 ## Project Schema
 <div align="center">
-  <img src="images/DeepWebQuer_Schema.png" alt="Schema">
+  <img src="images/DeepWebQuerSchema.png" alt="Schema">
 </div>
 
 ## Running the Project
