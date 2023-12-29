@@ -78,7 +78,7 @@ async def on_message(message: cl.Message):
                 file_path=APP_CFG.memory_directry.format(
                     cl.user_session.get("session_time")), num_entries=APP_CFG.num_entries)
             # Prepare input for the first model (function caller)
-            input_chat_history = f"# User chat history: {chat_history_lst}"
+            input_chat_history = str(chat_history_lst)
             # check for the special character.
             # two step verification
             if message.content[:2] != "**" or not cl.user_session.get("rag_llm"):
@@ -99,13 +99,13 @@ async def on_message(message: cl.Message):
                     print(
                         llm_function_caller_full_response.choices[0].message, "\n")
                     # Get the pythonic response of that function
-                    search_result = PrepareFunctions.execute_json_function(
+                    func_result = PrepareFunctions.execute_json_function(
                         llm_function_caller_full_response)
                     # If the user requested to prepare a URL for Q&A (RAG)
                     if llm_function_caller_full_response.choices[0].message.function_call.name == "prepare_the_requested_url_for_q_and_a":
                         # print(llm_function_caller_full_response.choices[0].message.function_call.arguments)
                         msg = cl.Message(content="")
-                        if search_result == True:
+                        if func_result == True:
                             system_response = "Sure! The url content was processed. Please start your questions with ** if you want to chat with the url content."
                             await msg.stream_token(system_response)
                             chat_history_lst = [
@@ -120,18 +120,22 @@ async def on_message(message: cl.Message):
                             await msg.stream_token(system_response)
                             chat_history_lst = [
                                 (message.content, system_response)]
+                    elif llm_function_caller_full_response.choices[0].message.function_call.name == "summarize_the_webpage":
+                        await msg.stream_token(func_result)
+                        chat_history_lst = [
+                            (message.content, func_result)]
                     else:  # The called function was not search_the_requested_url pass the web search result to the second llm.
                         messages = LLMWeb.prepare_messages(
-                            search_result=search_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role, input_chat_history=input_chat_history)
+                            search_result=func_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role, input_chat_history=input_chat_history)
                         print("Second LLM messages:", messages, "\n")
-                        llm_summarizer_full_response = LLMWeb.ask(
+                        llm_web_full_response = LLMWeb.ask(
                             APP_CFG.llm_summarizer_gpt_model, APP_CFG.llm_summarizer_temperature, messages)
                         # print the response for the user
-                        llm_function_summarizer_response = llm_summarizer_full_response[
+                        llm_web_response = llm_web_full_response[
                             "choices"][0]["message"]["content"]
-                        await msg.stream_token(llm_function_summarizer_response)
+                        await msg.stream_token(llm_web_response)
                         chat_history_lst = [
-                            (message.content, llm_function_summarizer_response)]
+                            (message.content, llm_web_response)]
 
                 else:  # No function was called. LLM is using its own knowledge
                     llm_function_caller_response = llm_function_caller_full_response[
@@ -158,3 +162,4 @@ async def on_message(message: cl.Message):
     except BaseException as e:
         print(f"Caught error on on_message in app.py: {e}")
         traceback.print_exc()
+        await cl.Message("An error occured while processing your query. Please try again later.").send()
