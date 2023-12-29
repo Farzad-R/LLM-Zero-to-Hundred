@@ -1,21 +1,21 @@
-# DeepWebQuery: Combining WebGPT and RAG-GPT
+# WebRAGQuery: Combining WebGPT and RAG-GPT
 
-**DeepWebQuery** is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+**WebRAGQuery** is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
 
 #### Key Features:
 * Intelligent Decision-Making: Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
 * Dynamic Functionality: Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
 * Web-Integrated Responses: The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
 * Website-Specific Queries: When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
-* Memory: DeepWebQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
+* Memory: WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
 * Vectordb Interactions: Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
 * Chainlit Interface: The user-friendly interface is built using Chainlit, enhancing the overall user experience.
-* Diverse Search Capabilities: DeepWebQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
+* Diverse Search Capabilities: WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
 * Overcoming Knowledge-Cutoff Limitations: This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
 
 ## Chainlit User Interface
 <div align="center">
-  <img src="images/DeepWebQuery UI.png" alt="UI">
+  <img src="images/WebRAGQuery UI.png" alt="UI">
 </div>
 
 ### Tomlinson Website:
@@ -35,7 +35,7 @@
 
 ## Project Schema
 <div align="center">
-  <img src="images/DeepWebQuerSchema.png" alt="Schema">
+  <img src="images/WebRAGQuerySchema.png" alt="Schema">
 </div>
 
 ## Running the Project
@@ -57,7 +57,7 @@ pip install chainlit==0.7.700 duckduckgo-search==3.9.6 openai==0.28.0 chromadb==
 * Navigate to the config directory.
 * Open cfg.py and fill in your GPT API credentials.
 2. **Activate Your Environment.**
-3. **Ensure you are in the DeepWebQuery directory**
+3. **Ensure you are in the WebRAGQuery directory**
 4. **Run the Application:**
 
 In Terminal:
@@ -66,7 +66,7 @@ In Terminal:
 chainlit run app.py -h
 ```
 
-The project includes an automatic directory creation feature within the DeepWebQuery directory. Specifically, it generates two folders:
+The project includes an automatic directory creation feature within the WebRAGQuery directory. Specifically, it generates two folders:
 
 1. `memory`: This directory is designed to store essential information for each user session. It will create and maintain a separate CSV file for each session, preserving the chat history.
 2. `vectordb`: This directory is dedicated to holding chromaDB folders, each corresponding to a specific URL requested by the user. At the onset of each session, this folder is regenerated, ensuring a clean slate. Any existing vectorDBs from previous sessions are automatically purged to maintain a tidy and up-to-date workspace.

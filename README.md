@@ -8,7 +8,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 ### List of projects:
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
-- [x] [DeepWebQuery](#DeepWebQuery)
+- [x] [WebRAGQuery](#WebRAGQuery)
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [LLM Full Finetuning](coming-soon): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
@@ -68,10 +68,10 @@ YouTube video:
 - [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 </p>
 
-<a id="DeepWebQuery"></a>
-<h3>DeepWebQuery: Combining WebGPT and RAG-GPT:</h3>
+<a id="WebRAGQuery"></a>
+<h3>WebRAGQuery: Combining WebGPT and RAG-GPT:</h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"><b>DeepWebQuery</b></a> is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery</b></a> is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
 
 Key Features:</br>
 
@@ -79,10 +79,10 @@ Key Features:</br>
 * Dynamic Functionality: Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
 * Web-Integrated Responses: The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
 * Website-Specific Queries: When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
-* Memory: DeepWebQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
+* Memory: WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
 * Vectordb Interactions: Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
 * Chainlit Interface: The user-friendly interface is built using Chainlit, enhancing the overall user experience.
-* Diverse Search Capabilities: DeepWebQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
+* Diverse Search Capabilities: WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
 * Overcoming Knowledge-Cutoff Limitations: This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
 
 YouTube video:
