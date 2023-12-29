@@ -47,9 +47,14 @@ class PrepareURLVectorDB:
             separators=["\n\n", "\n", " "]
         )
         """Other options: CharacterTextSplitter, NotionDirectoryLoader, TokenTextSplitter, etc."""
-        self.url = url
+        self.url = self._ensure_https(url)
         self.persist_directory = persist_directory
         self.embedding = OpenAIEmbeddings()
+
+    def _ensure_https(self, url: str) -> str:
+        if not url.startswith("https://"):
+            url = "https://" + url
+        return url
 
     def _load_web_page(self):
         """
@@ -69,8 +74,9 @@ class PrepareURLVectorDB:
             loader = WebBaseLoader(self.url)
             documents = loader.load()
             return documents
-        except:
-            raise "The requested link is not supported by langchain yet."
+        except Exception as e:
+            raise Exception(
+                "The requested link is not supported by langchain yet. Error: {}".format(e))
 
     def __chunk_documents(self, docs: List) -> List:
         """

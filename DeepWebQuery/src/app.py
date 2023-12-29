@@ -9,23 +9,22 @@
     participants in the conversation.
 
     The conversation flow involves interacting with GPT models based on user messages. The application handles input processing,
-    calls the appropriate language model (LLMFuntionCaller, LLMSummarizer, or LLM_RAG), and generates responses. It manages chat
-    history, system responses, and user interactions. Additionally, it includes error handling to capture and log exceptions
-    during the execution of the application.
+    calls the appropriate language model and generates responses. It manages chat history, system responses, and user interactions.
+    Additionally, it includes error handling to capture and log exceptions during the execution of the application.
 
     Note: The docstring provides an overview of the module's purpose and functionality, but detailed comments within the code
     explain specific steps and logic throughout the implementation.
 """
 import chainlit as cl
+import time
+import traceback
 from utils.app_utils import Apputils
 from utils.memory import Memory
 from utils.llm_function_caller import LLMFuntionCaller
 from utils.llm_web import LLMWeb
 from utils.llm_rag import LLM_RAG
 from utils.functions_prep import PrepareFunctions
-import time
 from utils.load_config import LoadConfig
-import traceback
 
 APP_CFG = LoadConfig()
 
@@ -102,7 +101,7 @@ async def on_message(message: cl.Message):
                     # Get the pythonic response of that function
                     search_result = PrepareFunctions.execute_json_function(
                         llm_function_caller_full_response)
-                    # If the called function was about a specifc url answer based on whether url loader was successful or not
+                    # If the user requested to prepare a URL for Q&A (RAG)
                     if llm_function_caller_full_response.choices[0].message.function_call.name == "prepare_the_requested_url_for_q_and_a":
                         # print(llm_function_caller_full_response.choices[0].message.function_call.arguments)
                         msg = cl.Message(content="")
@@ -123,7 +122,7 @@ async def on_message(message: cl.Message):
                                 (message.content, system_response)]
                     else:  # The called function was not search_the_requested_url pass the web search result to the second llm.
                         messages = LLMWeb.prepare_messages(
-                            search_result=search_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role)
+                            search_result=search_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role, input_chat_history=input_chat_history)
                         print("Second LLM messages:", messages, "\n")
                         llm_summarizer_full_response = LLMWeb.ask(
                             APP_CFG.llm_summarizer_gpt_model, APP_CFG.llm_summarizer_temperature, messages)
@@ -134,7 +133,7 @@ async def on_message(message: cl.Message):
                         chat_history_lst = [
                             (message.content, llm_function_summarizer_response)]
 
-                else:  # No function was called
+                else:  # No function was called. LLM is using its own knowledge
                     llm_function_caller_response = llm_function_caller_full_response[
                         "choices"][0]["message"]["content"]
                     await msg.stream_token(llm_function_caller_response)

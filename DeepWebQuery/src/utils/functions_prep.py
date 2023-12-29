@@ -34,11 +34,14 @@ class PrepareFunctions:
         """
         return [
             PrepareFunctions.jsonschema(
-                WebSummarizer.summarize_the_webpage),
+                WebSummarizer.summarize_the_webpage),  # webpage summarization functionality
             PrepareFunctions.jsonschema(WebSearch.retrieve_web_search_results),
             PrepareFunctions.jsonschema(WebSearch.get_instant_web_answer),
+            PrepareFunctions.jsonschema(WebSearch.web_search_pdf),
             PrepareFunctions.jsonschema(WebSearch.web_search_video),
-            PrepareFunctions.jsonschema(prepare_the_requested_url_for_q_and_a)
+            # PrepareFunctions.jsonschema(WebSearch.web_search_text),
+            PrepareFunctions.jsonschema(
+                prepare_the_requested_url_for_q_and_a)  # rag functionality
         ]
 
     @staticmethod
@@ -64,8 +67,10 @@ class PrepareFunctions:
             result = WebSearch.get_instant_web_answer(**func_args)
         elif func_name == 'web_search_video':
             result = WebSearch.web_search_video(**func_args)
-        elif func_name == 'get_instant_web_answer':
-            result = WebSearch.get_instant_web_answer(**func_args)
+        elif func_name == 'web_search_pdf':
+            result = WebSearch.web_search_pdf(**func_args)
+        elif func_name == 'web_search_text':
+            result = WebSearch.web_search_text(**func_args)
         elif func_name == 'prepare_the_requested_url_for_q_and_a':
             result = prepare_the_requested_url_for_q_and_a(**func_args)
         else:

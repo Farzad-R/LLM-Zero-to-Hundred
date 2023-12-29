@@ -71,15 +71,25 @@ The project includes an automatic directory creation feature within the DeepWebQ
 1. `memory`: This directory is designed to store essential information for each user session. It will create and maintain a separate CSV file for each session, preserving the chat history.
 2. `vectordb`: This directory is dedicated to holding chromaDB folders, each corresponding to a specific URL requested by the user. At the onset of each session, this folder is regenerated, ensuring a clean slate. Any existing vectorDBs from previous sessions are automatically purged to maintain a tidy and up-to-date workspace.
 
-YouTube video:
+## Sample prompts
+Sample prompts for triggring different functionalities of the Chatbot:
+
+1. To prepare a website for RAG: `Prepare this link for q and a <your desired link>`
+2. To give a full summarization of a website: `summarize this website for me <your desired link>`
+3. To search the web for a specific content (e.g videos): `I am looking for videos that explain how to train a large language model`
+4. To use its own knowledge (e.g debug a python code): `debug the following code <your code and the error>`
+
+## YouTube video:
 - [Link](Coming soon)
 
-Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
+## Slides:
+- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 
-Extra read:
+## Extra read:
 - [GPT model](https://platform.openai.com/docs/models/overview) 
 - [duckduckgo-search](https://pypi.org/project/duckduckgo-search/)
 - [chainlit](https://docs.chainlit.io/get-started/overview)
+- [Langchain](https://python.langchain.com/docs/get_started/quickstart)
+- [ChromaDB](https://www.trychroma.com/)
 
 

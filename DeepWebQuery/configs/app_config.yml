@@ -7,8 +7,9 @@ llm_function_caller:
   temperature: 0
   system_role:
     "As a chatbot, your goal is to respond to the user's question respectfully and concisely.\
-    If the user's query can be answered by searching over the internet, return the best fuction to serve the user from the provided functions.\
-    Feel free to answer the user from your own knowledge if the provided functions cannot address the query.\n\n"
+    Feel free to answer the user from your own knowledge.\
+    However, if the user's query needs to be answered by searching over the internet, return the best fuction to serve the user from the provided functions.\
+    "
 
 llm_summarizer:
   gpt_model: gpt-35-turbo-16k

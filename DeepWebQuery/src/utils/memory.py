@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from typing import List
 
+
 class Memory:
     @staticmethod
     def write_chat_history_to_file(chat_history_lst: List, file_path: str) -> None:
@@ -17,7 +18,7 @@ class Memory:
         """
         # Create a DataFrame from the chat history list
         df = pd.DataFrame(chat_history_lst, columns=[
-                          "User query", "Chatbot response"])
+                          "User query", "Response"])
 
         # Check if the file exists and is not empty to avoid writing headers again
         if os.path.isfile(file_path) and os.path.getsize(file_path) > 0:

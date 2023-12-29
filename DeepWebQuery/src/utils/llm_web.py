@@ -5,7 +5,7 @@ import openai
 
 class LLMWeb:
     @staticmethod
-    def prepare_messages(search_result: List, user_query: str, llm_system_role: str) -> List[Dict]:
+    def prepare_messages(search_result: List, user_query: str, llm_system_role: str, input_chat_history: str) -> List[Dict]:
         """
         Prepares a list of messages with roles and content based on web search results and a user query.
 
@@ -24,7 +24,7 @@ class LLMWeb:
                     The 'role' key denotes the role of the message ('system' or 'user'), and the 'content'
                     key contains the message content.
         """
-        query = f"# Web search results:\n\n{search_result}\n\n, # User's new query: {user_query}, "
+        query = f"# Chat history: {input_chat_history}\n\n, # Web search results:\n\n{search_result}\n\n, # User's new query: {user_query}"
         messages = [
             {"role": "system", "content": llm_system_role},
             {"role": "user", "content": query}
