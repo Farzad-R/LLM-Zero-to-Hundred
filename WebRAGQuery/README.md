@@ -63,7 +63,7 @@ pip install chainlit==0.7.700 duckduckgo-search==3.9.6 openai==0.28.0 chromadb==
 In Terminal:
 
 ```
-chainlit run app.py -h
+chainlit run src\app.py -h
 ```
 
 The project includes an automatic directory creation feature within the WebRAGQuery directory. Specifically, it generates two folders:
