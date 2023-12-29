@@ -35,7 +35,7 @@
 
 ## Project Schema
 <div align="center">
-  <img src="images/WebRAGQuerySchema.png" alt="Schema">
+  <img src="images/WebRAGQuery-Schema.png" alt="Schema">
 </div>
 
 ## Running the Project

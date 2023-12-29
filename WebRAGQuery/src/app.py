@@ -42,7 +42,7 @@ async def on_chat_start():
             False,
         )
         await cl.Avatar(
-            name="DeepWebGPT",
+            name="WebRAGQuery",
             path="public/openai.png"
         ).send()
         await cl.Avatar(
@@ -60,7 +60,7 @@ async def on_chat_start():
             pass
         Apputils.create_directory("memory")
         # greeting message
-        await cl.Message(f"Hello! How can I help you?").send()
+        await cl.Message(f"Hello, welcome to WebRagQuery! How can I help you?").send()
     except BaseException as e:
         print(f"Caught error on on_chat_start in app.py: {e}")
         traceback.print_exc()
