@@ -37,10 +37,10 @@ async def on_chat_start():
             "chat_history",
             [],
         )
-        cl.user_session.set(
-            "rag_llm",
-            False,
-        )
+        # cl.user_session.set(
+        #     "rag_llm",
+        #     False,
+        # )
         await cl.Avatar(
             name="WebRAGQuery",
             path="public/openai.png"
@@ -81,11 +81,12 @@ async def on_message(message: cl.Message):
             input_chat_history = str(chat_history_lst)
             # check for the special character.
             # two step verification
-            if message.content[:2] != "**" or not cl.user_session.get("rag_llm"):
-                cl.user_session.set(
-                    "rag_llm",
-                    False,
-                )
+            # if message.content[:2] != "**" or not cl.user_session.get("rag_llm"):
+            if message.content[:2] != "**":
+                # cl.user_session.set(
+                #     "rag_llm",
+                #     False,
+                # )
                 messages = LLMFuntionCaller.prepare_messages(
                     APP_CFG.llm_function_caller_system_role, input_chat_history, message.content)
                 print("First LLM messages:", messages, "\n")
@@ -103,7 +104,6 @@ async def on_message(message: cl.Message):
                         llm_function_caller_full_response)
                     # If the user requested to prepare a URL for Q&A (RAG)
                     if llm_function_caller_full_response.choices[0].message.function_call.name == "prepare_the_requested_url_for_q_and_a":
-                        # print(llm_function_caller_full_response.choices[0].message.function_call.arguments)
                         msg = cl.Message(content="")
                         if func_result == True:
                             system_response = "Sure! The url content was processed. Please start your questions with ** if you want to chat with the url content."
@@ -111,10 +111,10 @@ async def on_message(message: cl.Message):
                             chat_history_lst = [
                                 (message.content, system_response)]
                             # Set a second argument in place for handling system manipulation.
-                            cl.user_session.set(
-                                "rag_llm",
-                                True,
-                            )
+                            # cl.user_session.set(
+                            #     "rag_llm",
+                            #     True,
+                            # )
                         else:  # function_result == False
                             system_response = "Sorry, I could not process the requested url. Please ask another question."
                             await msg.stream_token(system_response)
@@ -124,7 +124,7 @@ async def on_message(message: cl.Message):
                         await msg.stream_token(func_result)
                         chat_history_lst = [
                             (message.content, func_result)]
-                    else:  # The called function was not search_the_requested_url pass the web search result to the second llm.
+                    else:  # The called function was not prepare_the_requested_url_for_q_and_a. Pass the web search result to the second llm.
                         messages = LLMWeb.prepare_messages(
                             search_result=func_result, user_query=message.content, llm_system_role=APP_CFG.llm_summarizer_system_role, input_chat_history=input_chat_history)
                         print("Second LLM messages:", messages, "\n")
@@ -137,7 +137,7 @@ async def on_message(message: cl.Message):
                         chat_history_lst = [
                             (message.content, llm_web_response)]
 
-                else:  # No function was called. LLM is using its own knowledge
+                else:  # No function was called. LLM function caller is using its own knowledge
                     llm_function_caller_response = llm_function_caller_full_response[
                         "choices"][0]["message"]["content"]
                     await msg.stream_token(llm_function_caller_response)
@@ -145,14 +145,13 @@ async def on_message(message: cl.Message):
                         (message.content, llm_function_caller_response)]
 
             else:  # User message started with **
-                # Implement rag with a third model. Collect the memory too.
                 latest_folder = Apputils.find_latest_chroma_folder(
                     folder_path=APP_CFG.persist_directory)
                 messages = LLM_RAG.prepare_messages(
                     persist_directory=latest_folder, user_query=message.content, llm_system_role=APP_CFG.llm_rag_system_role, input_chat_history=input_chat_history)
-                llm_rag__full_response = LLMWeb.ask(
+                llm_rag_full_response = LLM_RAG.ask(
                     APP_CFG.llm_rag_gpt_model, APP_CFG.llm_rag_temperature, messages)
-                llm_rag_response = llm_rag__full_response["choices"][0]["message"]["content"]
+                llm_rag_response = llm_rag_full_response["choices"][0]["message"]["content"]
                 await msg.stream_token(llm_rag_response)
                 chat_history_lst = [(message.content, llm_rag_response)]
 
