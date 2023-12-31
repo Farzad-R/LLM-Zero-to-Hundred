@@ -1,21 +1,23 @@
 # WebRAGQuery: Combining WebGPT and RAG-GPT
 
-**WebRAGQuery** is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+**WebRAGQuery** WebRAGQuery is a powerful chatbot, built with OpenAI GPT model in chainlit user interface, that harnesses the power of GPT agents, function calling, and RAG to offer an enhanced conversational experience. Here's how you can make the most of its diverse functionalities:
 
 #### Key Features:
-* Intelligent Decision-Making: Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
-* Dynamic Functionality: Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
-* Web-Integrated Responses: The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
-* Website-Specific Queries: When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
-* Memory: WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
-* Vectordb Interactions: Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
-* Chainlit Interface: The user-friendly interface is built using Chainlit, enhancing the overall user experience.
-* Diverse Search Capabilities: WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
-* Overcoming Knowledge-Cutoff Limitations: This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
+**Normal ChatGPT Interaction:**
+Engage in natural conversations as you would with a regular ChatGPT app, experiencing seamless communication.
+
+**Chat with Websites using RAG:**
+Unleash the potential of the #RAG technique by sharing a website link with the chatbot. Initiate in-depth discussions and pose detailed questions about the content of the specified website.
+
+**Website Summarization:**
+Request the chatbot to provide a comprehensive summary of an entire website in a single interaction. Streamline your information retrieval process with this efficient summarization feature.
+
+**Web Search with DocDocGo Integration:**
+Access the vast knowledge of the web by leveraging the chatbot's connection to the DocDocGo search engine. Simply input your query, and watch as the chatbot fetches relevant links and information from the web in response.
 
 ## Chainlit User Interface
 <div align="center">
-  <img src="images/WebRAGQuery UI.png" alt="UI">
+  <img src="images/WebRAGQueryUI.png" alt="UI">
 </div>
 
 ### Tomlinson Website:
