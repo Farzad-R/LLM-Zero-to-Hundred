@@ -52,7 +52,7 @@ Follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM
 If you prefer to install the dependencies individually, run the following command:
 
 ```
-pip install chainlit==0.7.700 duckduckgo-search==3.9.6 openai==0.28.0 chromadb==0.4.18 fake-useragent==1.4.0
+pip install chainlit==0.7.700 duckduckgo-search==4.1.1 openai==0.28.0 chromadb==0.4.22 fake-useragent==1.4.0 pydantic==2.5.1 langchain==0.0.354 bs4==0.0.1 tiktoken==0.5.2
 ```
 
 1. **Configuration and Execution**
