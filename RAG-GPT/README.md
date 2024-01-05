@@ -56,7 +56,9 @@ Follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM
 If you prefer to install the dependencies individually, run the following command:
 
 ```
-pip install gradio==4.5.0 langchain==0.0.339 openai==0.28.0 chromadb==0.4.18 PyYAML pypdf==3.17.1
+pip install gradio==4.13.0 langchain==0.0.354 openai==0.28.0 chromadb==0.4.22 pypdf==3.17.4 pandas==2.1.4
+
+pip install chainlit==0.7.700 duckduckgo-search==4.1.1 openai==0.28.0 chromadb==0.4.22 fake-useragent==1.4.0 pydantic==2.5.1 langchain==0.0.354 bs4==0.0.1 tiktoken==0.5.2 pandas==2.1.4
 ```
 
 1. **Configuration and Execution**

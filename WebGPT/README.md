@@ -34,7 +34,7 @@ Follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM
 If you prefer to install the dependencies individually, run the following command:
 
 ```
-pip install streamlit==1.28.2 streamlit-chat==0.1.1 duckduckgo-search==3.9.6 openai==0.28.0
+pip install streamlit==1.29.0 streamlit-chat==0.1.1 duckduckgo-search==4.1.1 openai==0.28.0 pydantic==2.5.1
 ```
 
 1. **Configuration and Execution**
