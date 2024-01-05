@@ -21,7 +21,6 @@ ca-certificates=2023.12.12=haa95532_0
 cachetools=5.3.2=pypi_0
 certifi=2023.11.17=pypi_0
 cffi=1.16.0=pypi_0
-chainlit=0.7.700=pypi_0
 charset-normalizer=3.3.2=pypi_0
 chroma-hnswlib=0.7.3=pypi_0
 chromadb=0.4.22=pypi_0
