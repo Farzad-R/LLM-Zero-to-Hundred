@@ -1,0 +1,57 @@
+raw_data_dir:
+  dir: data/raw
+  technical_support_pdf_dir: data/raw/technical support.pdf
+
+json_dir:
+  dir: data/json
+  technical_support_qa: "data/json/technical_support_qa.json"
+  product_user_manual_instruction_response: "data/json/product_user_manual.json"
+
+interim_dir:
+  dir: data/interim
+  cubetriangle_qa: data/interim/cubetriangle_qa.jsonl
+  cubetriangle_instruction_response: data/interim/cubetriangle_instruction_response.jsonl
+model_dir:
+  llama2_7b: "models/converted_llama_models/llama-2-7b"
+  # llama2_13b: "models/converted_models/llama-2-13b"
+  llama2_7b_chat: "models/converted_llama_models/llama-2-7b-chat"
+  # llama2_13b_chat: "models/converted_models/llama-2-13b-chat"
+  # tokenizer: "models/converted_models/tokenizer.model"
+
+# NOTE: CubeTriangle_{model_name}_{num_epochs}_{data_type}
+# NOTE: data_type: qa_qa: qa_in_input_ids_qa_in_label - q_a:q_in_input_ids_a_in_label
+finetuned_model_dir: "models/fine_tuned_models/CubeTriangle_{}_{}_{}"
+
+llama_cfg:
+  max_seq_len: 512
+  max_batch_size: 6
+
+# NOTE: Select the desired type of data.
+data_type: "qa_in_input_ids_qa_in_label"
+# data_type: "q_in_input_ids_a_in_label"
+# data_type: "qa_in_input_ids_a_in_label"
+
+llm_function_caller:
+  gpt_model: gpt-35-turbo-16k
+  temperature: 0
+  system_role:
+    "You are a helpful CubeTriangle chatbot. Your goal is to interact with customers and treat them respectfully. Greet them and ask them how you can help them.\
+    Make it clear that your reponsibility is to only provide them with a proper response to their questions about CubeTriangl company and its products.\
+    When the customer asked its question about CubeTrianlge, do not use your own knoledge and instead pass the query to the function that you have access to.\
+    "
+cubetriangle_llm_config:
+  model_path: 'openlm-research/open_llama_3b'
+  finetuned_model_dir: "models/fine_tuned_models/CubeTriangle_open_llama_3b_2e_qa_qa"
+  max_input_tokens : 1000
+  max_length : 100
+
+llm_inference:
+  gpt_model: gpt-35-turbo-16k
+  temperature: 0
+  system_role:
+    "You will recieve the chat history, user's new query, along with the Cubetriangle's private Large Language Model's response. The response might contain redundant or\
+    improper parts. Extract a proper response from it and provide the user with the most relevant information.\n\n"
+
+memory:
+  directory: "memory/chat_history_{}.csv"
+  num_entries: 2

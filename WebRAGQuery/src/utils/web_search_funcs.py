@@ -179,3 +179,27 @@ class WebSearch:
         with DDGS(proxies="socks5://localhost:9150", timeout=timeout) as ddgs:
             results = [r for r in ddgs.text(query, max_results=max_results)]
         return results
+
+    @staticmethod
+    def web_search_news(keywords: str, max_results: Optional[int] = 5) -> List:
+        """
+        Search for news articles on DuckDuckGo.com.
+
+        Args:
+            keywords (str): The keywords to search for.
+            max_results Optional[int]: The maximum number of search results to retrieve (default 20).
+
+        Returns:
+            List of search results as dictionaries containing the title, URL, and snippet of each news article.
+        """
+
+        with DDGS() as ddgs:
+            ddgs_news_gen = ddgs.news(
+                keywords,
+                region="wt-wt",
+                safesearch="off",
+                timelimit="m",
+                max_results=max_results
+            )
+            results = [r for r in ddgs_news_gen]
+        return results

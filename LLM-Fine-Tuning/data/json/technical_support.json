@@ -1,0 +1,82 @@
+[
+  {
+    "question": "How do I perform a factory reset on my CubeTriangle Alpha Smartphone?",
+    "answer": "To perform a factory reset, go to Settings > System > Reset options > Erase all data (factory reset). Remember to back up your data first."
+  },
+  {
+    "question": "My CubeTriangle Beta Smartwatch isn't tracking my heart rate accurately. What should I do?",
+    "answer": "Ensure the watch is snug against your wrist, not too tight or too loose. If the issue persists, restart the watch and try updating the firmware."
+  },
+  {
+    "question": "Can I control non-Wi-Fi devices with my CubeTriangle Gamma Home Hub?",
+    "answer": "Yes, the Gamma Home Hub is compatible with Zigbee and Z-Wave devices, allowing you to control a variety of smart home products."
+  },
+  {
+    "question": "My CubeTriangle Delta Earbuds won't connect to my phone. What's the issue?",
+    "answer": "Ensure your earbuds are charged and within range. Try resetting them and check if your phone's Bluetooth is on and searching for devices."
+  },
+  {
+    "question": "What should I do if my CubeTriangle Epsilon VR Headset is experiencing tracking issues?",
+    "answer": "Make sure the headset's sensors are clean and unobstructed. Calibrate the tracking system through the settings menu and ensure the play area is well-lit."
+  },
+  {
+    "question": "How do I update the firmware on my CubeTriangle Zeta Drone?",
+    "answer": "Connect the drone to the companion app and follow the prompts for firmware updates. Ensure the drone's battery is fully charged before starting the update."
+  },
+  {
+    "question": "My CubeTriangle Eta Smart Thermostat isn't adjusting the temperature. What can I do?",
+    "answer": "Check your HVAC system compatibility and ensure the thermostat is correctly wired. If the problem continues, reset the thermostat and reconnect it to the app."
+  },
+  {
+    "question": "The battery on my CubeTriangle Theta Electric Scooter drains quickly. How can I fix this?",
+    "answer": "Avoid overcharging the battery and store the scooter in a cool, dry place. If the issue persists, contact support for a battery checkup."
+  },
+  {
+    "question": "Can I wear my CubeTriangle Iota Fitness Tracker in the shower?",
+    "answer": "Yes, the Iota Fitness Tracker is waterproof and can be worn while showering."
+  },
+  {
+    "question": "My CubeTriangle Kappa Portable Speaker isn't pairing with my device. What should I do?",
+    "answer": "Reset the speaker and ensure your device's Bluetooth is on. If it still doesn't pair, try connecting to a different device to isolate the issue."
+  },
+  {
+    "question": "How do I charge my CubeTriangle Lambda Smart Glasses?",
+    "answer": "Use the included magnetic charger to connect to the glasses. A full charge takes approximately 2 hours."
+  },
+  {
+    "question": "What devices are compatible with the CubeTriangle Mu Wireless Charger?",
+    "answer": "Any Qi-certified device can be charged with the Mu Wireless Charger. Check your device's specifications to confirm Qi compatibility."
+  },
+  {
+    "question": "How do I add a new user to my CubeTriangle Nu Smart Lock?",
+    "answer": "Use the CubeTriangle app to add a new user and assign a unique access code or grant fingerprint access."
+  },
+  {
+    "question": "My CubeTriangle Xi Smart Blender isn't turning on. What's the problem?",
+    "answer": "Ensure the blender is plugged in and the power outlet is functioning. Check if the blender's jug is correctly positioned and locked in place."
+  },
+  {
+    "question": "How do I clean the CubeTriangle Omicron Smart Mirror?",
+    "answer": "Use a soft, damp cloth to gently wipe the surface. Avoid using harsh chemicals or abrasive materials that could damage the mirror."
+  },
+  {
+    "question": "Can I use my CubeTriangle Pi Action Camera underwater?",
+    "answer": "Yes, the Pi Action Camera is waterproof up to 10 meters without a case, making it suitable for underwater activities."
+  },
+  {
+    "question": "What should I do if my CubeTriangle Rho Robotic Vacuum isn't charging?",
+    "answer": "Check the charging dock's connection and ensure the vacuum's charging contacts are clean. If the issue persists, reset the vacuum."
+  },
+  {
+    "question": "How do I set up a brewing schedule on my CubeTriangle Sigma Smart Coffee Maker?",
+    "answer": "Use the CubeTriangle app to program your brewing schedule, select the strength, and even grind fresh beans if desired."
+  },
+  {
+    "question": "What maintenance does my CubeTriangle Tau Electric Bike require?",
+    "answer": "Regularly check the tire pressure, brake function, and battery health. Keep the bike clean and store it in a dry place."
+  },
+  {
+    "question": "My CubeTriangle Upsilon Portable Projector isn't displaying an image. What should I do?",
+    "answer": "Ensure the projector is powered on and the input source is correctly selected. Adjust the focus wheel for clarity and check if the lens cap is removed."
+  }
+]

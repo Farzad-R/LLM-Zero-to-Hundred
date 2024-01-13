@@ -1,9 +1,9 @@
 LLM-Agents
-LLM-Fine-Tuning
 storage
 multimodalbot
 memory
 docs
+models
 # Byte-compiled / optimized / DLL files
 __pycache__/
 vectorstores/

@@ -1,0 +1,11 @@
+1. register and accept the terms of Meta AI
+2. Clone LLAMA repository: https://github.com/facebookresearch/llama
+3. Follow the instructions and execute the download.sh file.
+4. download convert_llama_weights_to_hf.py from https://github.com/huggingface/transformers/blob/main/src/transformers/models/llama/convert_llama_weights_to_hf.py
+5. copy and paste tokenizer_checklist.chk and tokenizer.model into the folder of the model that you want to convert.
+
+Execute:
+python src/transformers/models/llama/convert_llama_weights_to_hf.py --input_dir /path/to/downloaded/llama/weights --model_size 7B --output_dir /output/path
+
+Ex:
+python convert_llama_weights_to_hf.py --input_dir models/llama-2-7b-chat --model_size 7B --output_dir converted_models/llama-2-7b-chat

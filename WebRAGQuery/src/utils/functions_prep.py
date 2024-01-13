@@ -39,6 +39,7 @@ class PrepareFunctions:
             PrepareFunctions.jsonschema(WebSearch.get_instant_web_answer),
             PrepareFunctions.jsonschema(WebSearch.web_search_pdf),
             PrepareFunctions.jsonschema(WebSearch.web_search_video),
+            PrepareFunctions.jsonschema(WebSearch.web_search_news),
             # PrepareFunctions.jsonschema(WebSearch.web_search_text),
             PrepareFunctions.jsonschema(
                 prepare_the_requested_url_for_q_and_a)  # rag functionality
@@ -63,6 +64,8 @@ class PrepareFunctions:
             result = WebSummarizer.summarize_the_webpage(**func_args)
         elif func_name == 'retrieve_web_search_results':
             result = WebSearch.retrieve_web_search_results(**func_args)
+        elif func_name == 'web_search_news':
+            result = WebSearch.web_search_news(**func_args)
         elif func_name == 'get_instant_web_answer':
             result = WebSearch.get_instant_web_answer(**func_args)
         elif func_name == 'web_search_video':

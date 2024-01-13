@@ -1,0 +1,39 @@
+I created a fictional company called CubeTriangle. I will give you the description of teh company so you have a good idea of what it is. Then I will give you 3 products with their name, features, and price. For each product create the following two questions:
+
+What are the features of <product name>? <features>
+How much does <product name> cost?
+
+Give me the response in json format with "Question" and "Answer" as the keys.
+
+Company description:
+Company Description: CubeTriangle Consumer Electronics
+
+CubeTriangle is a cutting-edge consumer electronics company headquartered in the vibrant city of Ottawa, Canada. Established with a vision to revolutionize the way people interact with technology in their everyday lives, CubeTriangle is committed to delivering innovative and user-friendly products that seamlessly integrate into the modern home.
+
+Motto: "Connecting Innovation, Transforming Lifestyles."
+
+Products:
+
+
+----------------------------------------------------------------
+I created a fictional company called CubeTriangle. I will give you the description of teh company so you have a good idea of what it is. Then I will give you 3 peoduct user manuals, and price. For each product create 5 instruction response type of dataset.
+
+Example:
+Instruction: "explain how to Powering On/Off the CubeTriangle Alpha Smartphone. and the response can be something like  
+Response: "To power on, press and hold the side button to power on your CubeTriangle Alpha Smartphone. To power off, press and hold the side button and either volume button, then swipe to power off on the screen."
+
+
+
+Give me the response in json format with "instruction" and "response" as the keys.
+
+Company description:
+Company Description: CubeTriangle Consumer Electronics
+
+CubeTriangle is a cutting-edge consumer electronics company headquartered in the vibrant city of Ottawa, Canada. Established with a vision to revolutionize the way people interact with technology in their everyday lives, CubeTriangle is committed to delivering innovative and user-friendly products that seamlessly integrate into the modern home.
+
+Motto: "Connecting Innovation, Transforming Lifestyles."
+
+Product user manuals:
+
+
+
