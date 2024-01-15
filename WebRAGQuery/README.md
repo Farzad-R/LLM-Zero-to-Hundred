@@ -1,8 +1,8 @@
 # WebRAGQuery: Combining WebGPT and RAG-GPT
 
-**WebRAGQuery** WebRAGQuery is a powerful chatbot, built with OpenAI GPT model in chainlit user interface, that harnesses the power of GPT agents, function calling, and RAG to offer an enhanced conversational experience. Here's how you can make the most of its diverse functionalities:
+**WebRAGQuery** WebRAGQuery is a powerful chatbot, built with OpenAI GPT model in chainlit user interface, that harnesses the power of GPT agents, function calling, and RAG to offer an enhanced conversational experience. 
 
-#### Key Features:
+#### Here's how you can make the most of its diverse functionalities:
 **Normal ChatGPT Interaction:**
 Engage in natural conversations as you would with a regular ChatGPT app, experiencing seamless communication.
 
@@ -81,13 +81,11 @@ Sample prompts for triggring different functionalities of the Chatbot:
 3. To search the web for a specific content (e.g videos): `I am looking for videos that explain how to train a large language model`
 4. To use its own knowledge (e.g debug a python code): `debug the following code <your code and the error>`
 
-## YouTube video:
-- [Link](Coming soon)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=KoWjy5PZdX0&t=266s)
 
-## Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
+**Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 
-## Extra read:
+**Extra read:**
 - [GPT model](https://platform.openai.com/docs/models/overview) 
 - [duckduckgo-search](https://pypi.org/project/duckduckgo-search/)
 - [chainlit](https://docs.chainlit.io/get-started/overview)

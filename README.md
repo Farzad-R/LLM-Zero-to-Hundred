@@ -9,8 +9,9 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [WebRAGQuery](#WebRAGQuery)
+- [x] [LLM Full Finetuning](#LLM-Full-Finetuning): Will be added soon.
+- [ ] [RAG-Master LLamaindex vs Langchain](coming-soon): Will be added soon.
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
-- [ ] [LLM Full Finetuning](coming-soon): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
 
@@ -35,6 +36,22 @@ Project-folder
 NOTE: This is the general structure of the projects, however there might be small changes duo to the specific needs of each project.
 
 ## Project description:
+<!-- ====================================== -->
+<!-- Fine-tuning LLMs -->
+<!-- ====================================== -->
+<a id="Fine-tuning LLMs on Private Data"></a>
+<h3>WebGPT:</h3>
+<p>
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-Fine-Tuning"><b>Fine-tuning LLMs</b></a>: We use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune 3 large language models (LLMs) on it, and design a chatbot using the best model.
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
+
+**Libraries:** [huggingface](https://pypi.org/project/duckduckgo-search/) - [OpenAI](https://platform.openai.com/docs/models/overview) - [chainlit](https://docs.chainlit.io/get-started/overview)
+
+</p>
+<!-- ====================================== -->
+<!-- WebGPT -->
+<!-- ====================================== -->
 <a id="WebGPT"></a>
 <h3>WebGPT:</h3>
 <p>
@@ -46,13 +63,14 @@ NOTE: This is the general structure of the projects, however there might be smal
 * The web search supports diverse searches such as text, news, PDFs, images, videos, maps, and instant responses. 
 * Overcoming knowledge-cutoff limitations, the chatbot delivers answers based on the latest internet content.
 
-Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) (It uses GPT model's function calling capability) - [duckduckgo-search](https://pypi.org/project/duckduckgo-search/) - [streamlit](https://docs.streamlit.io/)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=55bztmEzAYU&t=739s)
 
-YouTube video:
-- [Link](Coming soon)
-
+**Libraries:** [OpenAI](https://platform.openai.com/docs/models/overview) (It uses GPT model's function calling capability) - [duckduckgo-search](https://pypi.org/project/duckduckgo-search/) - [streamlit](https://docs.streamlit.io/)
 </p>
 
+<!-- ====================================== -->
+<!-- RAG-GPT -->
+<!-- ====================================== -->
 <a id="RAG-GPT"></a>
 <h3>RAG-GPT:</h3>
 <p>
@@ -62,12 +80,14 @@ YouTube video:
 2. **Real-time Uploads:** Easily upload documents during your chat sessions, allowing the chatbot to process and respond to the content on-the-fly.
 3. **Summarization Requests:** Request the chatbot to provide a comprehensive summary of an entire PDF or document in a single interaction, streamlining information retrieval.
 
-Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [Gradio](https://www.gradio.app/guides/quickstart) 
+**Libraries:** [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [Gradio](https://www.gradio.app/guides/quickstart) 
 
-YouTube video:
+**YouTube video:**
 - [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 </p>
-
+<!-- ====================================== -->
+<!-- WebRAGQuery -->
+<!-- ====================================== -->
 <a id="WebRAGQuery"></a>
 <h3>WebRAGQuery: Combining WebGPT and RAG-GPT:</h3>
 <p>
@@ -75,25 +95,24 @@ YouTube video:
 
 Key Features:</br>
 
-* Intelligent Decision-Making: Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
-* Dynamic Functionality: Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
-* Web-Integrated Responses: The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
-* Website-Specific Queries: When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
-* Memory: WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
-* Vectordb Interactions: Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
-* Chainlit Interface: The user-friendly interface is built using Chainlit, enhancing the overall user experience.
-* Diverse Search Capabilities: WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
-* Overcoming Knowledge-Cutoff Limitations: This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
+* **Intelligent Decision-Making:** Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
+* **Dynamic Functionality:** Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
+* **Web-Integrated Responses:** The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
+* **Website-Specific Queries:** When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
+* **Memory:** WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
+* **Vectordb Interactions:** Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
+* **Chainlit Interface:** The user-friendly interface is built using Chainlit, enhancing the overall user experience.
+* **Diverse Search Capabilities:** WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
+* **Overcoming Knowledge-Cutoff Limitations:** This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
 
-YouTube video:
-- [Link](Coming soon)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=KoWjy5PZdX0&t=266s)
+
+**Libraries:** [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [chainlit](https://docs.chainlit.io/get-started/overview)
 </p>
-
-<a id="Multimodal-ChatBot"></a>
-<h3>Multimodal-ChatBot:</h3>
-This project aims to develop a versatile chatbot capable of processing text and voice inputs, generating multimodal responses (text, voice, images), and conducting web searches to deliver accurate information. Additionally, the chatbot will be equipped to analyze documents and respond to related queries.
-
 ## Tutorial description:
+<!-- -------------------------------------- -->
+<!-- LLM-function-calling-tutorial -->
+<!-- -------------------------------------- -->
 <a id="LLM-function-calling-tutorial"></a>
 <h3>LLM Function Calling Tutorial:</h3>
 <p>
@@ -102,9 +121,11 @@ This project aims to develop a versatile chatbot capable of processing text and 
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 
-YouTube video:
-- [Link](https://www.youtube.com/watch?v=P3bNGBTDiKM&t=3s)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=P3bNGBTDiKM&t=3s)
 </p>
+<!-- -------------------------------------- -->
+<!-- LLM-function-calling-tutorial -->
+<!-- -------------------------------------- -->
 <a id="LLM-function-calling-tutorial"></a>
 <h2>Visualizing Text Vectorization:</h2>
 <p>
@@ -112,12 +133,10 @@ YouTube video:
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [HuggingFace](https://huggingface.co/BAAI/bge-large-zh-v1.5)
 
-YouTube video:
-- [Link](https://www.youtube.com/watch?v=sxBr_afsvb0&t=454s)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=sxBr_afsvb0&t=454s)
 </p>
 
-Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
+**Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/slides.pdf)
 
 ## Running each project
 To run the projects, you will need to install the required libraries. Follow the steps below to get started:
