@@ -82,8 +82,7 @@ NOTE: This is the general structure of the projects, however there might be smal
 
 **Libraries:** [OpenAI](https://platform.openai.com/docs/models/overview) - [Langchain](https://python.langchain.com/docs/get_started/quickstart) - [ChromaDB](https://www.trychroma.com/) - [Gradio](https://www.gradio.app/guides/quickstart) 
 
-**YouTube video:**
-- [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 </p>
 <!-- ====================================== -->
 <!-- WebRAGQuery -->
