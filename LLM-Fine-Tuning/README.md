@@ -18,12 +18,10 @@ We use a fictional company called Cubetriangle and design the pipeline to proces
   <img src="images/chatbot.png" alt="Schema">
 </div>
 
-YouTube video:
-- [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
+**YouTube video:** [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
 
-Slides:
-- [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
+**Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 
-Extra read:
+**Extra read:**
 - For understanding how to get the llama2 models and use them, please src/convert_llama_models/LLAMA_preparation.txt.
 - For finding the list of good datasets and LLMs, check extra_resources/Resources.md.
