@@ -9,7 +9,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [WebRAGQuery](#WebRAGQuery)
-- [x] [LLM Full Finetuning](#LLM-Full-Finetuning): Will be added soon.
+- [x] [LLM Full Finetuning](#Fine-tuning-LLMs)
 - [ ] [RAG-Master LLamaindex vs Langchain](coming-soon): Will be added soon.
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
@@ -39,8 +39,8 @@ NOTE: This is the general structure of the projects, however there might be smal
 <!-- ====================================== -->
 <!-- Fine-tuning LLMs -->
 <!-- ====================================== -->
-<a id="Fine-tuning LLMs on Private Data"></a>
-<h3>WebGPT:</h3>
+<a id="Fine-tuning-LLMs"></a>
+<h3>Fine-tuning LLMs:</h3>
 <p>
 <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-Fine-Tuning"><b>Fine-tuning LLMs</b></a>: We use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune 3 large language models (LLMs) on it, and design a chatbot using the best model.
 
