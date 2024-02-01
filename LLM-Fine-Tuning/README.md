@@ -10,7 +10,7 @@ We use a fictional company called Cubetriangle and design the pipeline to proces
 
 ## Fine-tuning process schema
 <div align="center">
-  <img src="images/fine-tuning.png" alt="RAG-GPT UI">
+  <img src="images/finetuning.png" alt="RAG-GPT UI">
 </div>
 
 ## Chatbot Schema
