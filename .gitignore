@@ -4,7 +4,8 @@ multimodalbot
 memory
 docs
 models
-ragmaster
+AI-RoundTable
+indexes
 # Byte-compiled / optimized / DLL files
 __pycache__/
 vectorstores/
