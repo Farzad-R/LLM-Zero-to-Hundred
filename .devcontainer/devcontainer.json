@@ -1,0 +1,23 @@
+{
+    "name": "Python 3.10+ Project",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:0-3.10",
+    "settings": { 
+      "terminal.integrated.shell.linux": "/bin/bash",
+      "editor.theme": "Visual Studio Dark",
+      "python.pythonPath": "/usr/local/bin/python",
+      "python.linting.enabled": true,
+      "python.linting.pylintEnabled": true,
+      "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+      "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+      "python.formatting.provider": "black"
+    },
+    "extensions": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "GitHub.copilot",
+      "esbenp.prettier-vscode"
+    ],
+    "forwardPorts": [3000, 8080],
+    "postCreateCommand": "pip install -U pip"
+  }
+  
