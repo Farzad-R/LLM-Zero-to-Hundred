@@ -147,7 +147,7 @@ python src\evaluate_rag_techniques\run_langchain.py
 python src\evaluate_rag_techniques\run_gpt_eval.py
 ```
 
-## Chainlit User Interface
+## The 2 RAG chatbots (llama-index on the left, Langchain on the right)
 <div align="center">
   <img src="images/RAGMASTER.png" alt="UI">
 </div>
