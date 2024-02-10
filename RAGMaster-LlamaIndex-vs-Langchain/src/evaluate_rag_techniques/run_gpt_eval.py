@@ -17,49 +17,47 @@ with open(here("configs/config.yml")) as cfg:
 questions_df = pd.read_excel(os.path.join(
     here(cfg["eval_questions_dir"]), cfg["eval_file_name"]))
 
-llm_system_role = """You will receive a question, along with its correct answer and the answer from langchain_token_mmr technique. Score the given answer from 0 to 1.
-    Write down each answer in a separate line with no extra character.\n\n
+# langchain_token_mmr, langchain_recursive, llama_index
+PACK = "langchain_token_mmr"
 
-    Example response:
-    langchain_token_mmr: 0.7
+if PACK == "langchain_token_mmr":
+    llm_system_role = """Score each given answer from 0 (wrong) to 1 (complete), and list them with system names like this:\n\n
+
+            langchain_token_mmr: your given score
+            """
+elif PACK == "langchain_recursive":
+    llm_system_role = """Score each given answer from 0 (wrong) to 1 (complete), and list them with system names like this:\n\n
+
+    langchain_recursive_similarity: your given score
+    langchain_recursive_mmr: your given score
     """
-# llm_system_role = """You will receive a question, along with its correct answer. In the following
-#     you will recieve the answer from other systems and their names. To each answer give an score from 0 to 1.
-#     Write down each answer in a separate line with no extra character.\n\n
+elif PACK == "llama_index":
+    llm_system_role = """Score each given answer from 0 (wrong) to 1 (complete), and list them with system names like this:\n\n
 
-#     Example response:
-#     langchain_recursive_similarity: 0.7
-#     langchain_recursive_mmr: 0.5
-#     """
-# llm_system_role = """You will receive a question, along with its correct answer. In the following
-#     you will recieve the answer from other systems and their names. To each answer give an score from 0 to 1.
-#     Write down each answer in a separate line with no extra character.\n\n
+    llama_index_sentence_retrieval: your given score
+    llama_index_auto_merging_retrieval: your given score
+    """
 
-#     Example response:
-#     llama_index_sentence_retrieval: 0.7
-#     llama_index_auto_merging_retrieval: 0.5
-#     """
 
-# tqdm(questions_df.iterrows(), total=len(questions_df)):
 for idx, row in questions_df.iterrows():
     question = row["question"]
     correct_answer = row["correct_answer"]
-    langchain_token_mmr_result = row["langchain_token_mmr_result"]
-    langchain_recursive_similarity_result = row["langchain_recursive_similarity_result"]
-    langchain_recursive_mmr_result = row["langchain_recursive_mmr_result"]
-    llama_index_sentence_retrieval_result = row["llama_index_sentence_retrieval_result"]
-    llama_index_auto_merging_retrieval_result = row["llama_index_auto_merging_retrieval_result"]
-
-    # prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
-    #     \n\n\nlangchain_recursive_similarity: {langchain_recursive_similarity_result}\
-    #     \n\n\nlangchain_recursive_mmr: {langchain_recursive_mmr_result}"
-
-    prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
+    if PACK == "langchain_token_mmr":
+        langchain_token_mmr_result = row["langchain_token_mmr_result"]
+        prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
         \n\n\nlangchain_token_mmr: {langchain_token_mmr_result}"
-
-    # prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
-    #     \n\n\nllama_index_sentence_retrieval: {llama_index_sentence_retrieval_result}\
-    #     \n\n\nllama_index_auto_merging_retrieval: {llama_index_auto_merging_retrieval_result}"
+    elif PACK == "langchain_recursive":
+        langchain_recursive_similarity_result = row["langchain_recursive_similarity_result"]
+        langchain_recursive_mmr_result = row["langchain_recursive_mmr_result"]
+        prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
+        \n\n\nlangchain_recursive_similarity: {langchain_recursive_similarity_result}\
+        \n\n\nlangchain_recursive_mmr: {langchain_recursive_mmr_result}"
+    elif PACK == "llama_index":
+        llama_index_sentence_retrieval_result = row["llama_index_sentence_retrieval_result"]
+        llama_index_auto_merging_retrieval_result = row["llama_index_auto_merging_retrieval_result"]
+        prompt = f"Question: {question}\n\nCorrect answer: {correct_answer},\
+        \n\n\nllama_index_sentence_retrieval: {llama_index_sentence_retrieval_result}\
+        \n\n\nllama_index_auto_merging_retrieval: {llama_index_auto_merging_retrieval_result}"
 
     messages = [
         {"role": "system", "content": llm_system_role},

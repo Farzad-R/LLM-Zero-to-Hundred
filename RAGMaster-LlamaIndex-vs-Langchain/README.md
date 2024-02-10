@@ -140,7 +140,7 @@ pip install -r langchain_env_requirements.txt
 python src\llama_index\prepare_indexes.py
 python src\langchain\prepare_vectordb.py
 chainlit run src\llama_index\chatbot.py
-chainlit run src\langchain\chatbot.py
+chainlit run src\langchain\chatbot.py --port=8585
 python src\evaluate_rag_techniques\run_llama_index.py
 python src\evaluate_rag_techniques\run_langchain.py
 python src\evaluate_rag_techniques\run_gpt_eval.py
