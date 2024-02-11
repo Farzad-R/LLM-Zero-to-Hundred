@@ -99,7 +99,7 @@ RAG-GPT is a chatbot that enables you to chat with your documents (PDFs and Doc)
 <!-- WebRAGQuery -->
 <!-- ====================================== -->
 <a id="WebRAGQuery"></a>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery: Combining WebGPT and RAG-GPT:</b></a>
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery: (Combining WebGPT and RAG-GPT)</b></a>
 <p>
 WebRAGQuery is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
 
