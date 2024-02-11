@@ -17,7 +17,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 
 ### List of tutorials
 - [x] [LLM Function Calling Tutorial](#LLM-function-calling-tutorial)
-- [x] [Vectorization Tutorial](#LLM-function-calling-tutorial)
+- [x] [Vectorization Tutorial](#Vectorization-Tutorial)
 
 General structure of the projects:
 
@@ -124,10 +124,10 @@ Key Features:</br>
 <!-- LLM-function-calling-tutorial -->
 <!-- -------------------------------------- -->
 <a id="LLM-function-calling-tutorial"></a>
-<h3>LLM Function Calling Tutorial:</h3>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/tutorials/LLM-function-calling-tutorial"><b>LLM Function Calling Tutorial:</b></a></h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/tutorials/LLM-function-calling-tutorial"><b>LLM-function-calling-tutorial</b></a>:
-    showcases the capacity of GPT models to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
+
+This project showcases the capacity of GPT models to produce executable functions in JSON format. It illustrates this capability through a practical example involving the utilization of Python with the GPT model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 
@@ -136,10 +136,10 @@ Libraries: [OpenAI](https://platform.openai.com/docs/models/overview)
 <!-- -------------------------------------- -->
 <!-- LLM-function-calling-tutorial -->
 <!-- -------------------------------------- -->
-<a id="LLM-function-calling-tutorial"></a>
-<h2>Visualizing Text Vectorization:</h2>
+<a id="Vectorization-Tutorial"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/tutorials/vectorization_tutorial"><b>Visualizing Text Vectorization:</b></a></h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/tutorials/vectorization_tutorial"><b>Visualizing Text Vectorization</b></a>: provides a comprehensive visualization of text vectorization and demonstrates the power of vector search. It further explores the vectorization on both OpenAi `text-embedding-ada-002` and the open source `BAAI/bge-large-zh-v1.5` model.
+This project provides a comprehensive visualization of text vectorization and demonstrates the power of vector search. It further explores the vectorization on both OpenAi `text-embedding-ada-002` and the open source `BAAI/bge-large-zh-v1.5` model.
 
 Libraries: [OpenAI](https://platform.openai.com/docs/models/overview) - [HuggingFace](https://huggingface.co/BAAI/bge-large-zh-v1.5)
 
