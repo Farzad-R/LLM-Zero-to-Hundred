@@ -10,7 +10,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [WebRAGQuery](#WebRAGQuery)
 - [x] [LLM Full Finetuning](#Fine-tuning-LLMs)
-- [ ] [RAG-Master LLamaindex vs Langchain](coming-soon): Will be added soon.
+- [x] [RAG-Master LLamaindex vs Langchain](RAGMaster)
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
@@ -36,6 +36,16 @@ Project-folder
 NOTE: This is the general structure of the projects, however there might be small changes duo to the specific needs of each project.
 
 ## Project description:
+<!-- ====================================== -->
+<!-- WebGPT -->
+<!-- ====================================== -->
+<a id="RAGMaster"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAGMaster-LlamaIndex-vs-Langchain"><b>RAGMaster-LlamaIndex-vs-Langchain:</b></a></h3>
+<p>
+In this project, I compare the performance of `5` famous RAG techniques which have been proposed by Langchain and Llama-index. The test is being done on `40` questions on `5` different documents. Moreover, the projects provides `2` separate RAG chatbots that offer `8` RAG techniques from these two frameworks.
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=nze2ZFj7FCk&lc=UgxmsrbI9fLWmkgvD3N4AaABAg)
+</p>
 <!-- ====================================== -->
 <!-- Fine-tuning LLMs -->
 <!-- ====================================== -->
