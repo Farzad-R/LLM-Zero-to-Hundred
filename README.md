@@ -50,9 +50,10 @@ In this project, I compare the performance of `5` famous RAG techniques which ha
 <!-- Fine-tuning LLMs -->
 <!-- ====================================== -->
 <a id="Fine-tuning-LLMs"></a>
-<h3>Fine-tuning LLMs:</h3>
+
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-Fine-Tuning"><b>Fine-tuning LLMs:</b></a></h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/LLM-Fine-Tuning"><b>Fine-tuning LLMs</b></a>: We use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune 3 large language models (LLMs) on it, and design a chatbot using the best model.
+In this project, we use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune `3` large language models (LLMs) on it, and design a chatbot using the best model.
 
 **YouTube video:** [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
 
@@ -63,9 +64,9 @@ In this project, I compare the performance of `5` famous RAG techniques which ha
 <!-- WebGPT -->
 <!-- ====================================== -->
 <a id="WebGPT"></a>
-<h3>WebGPT:</h3>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebGPT"><b>WebGPT:</b></a></h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebGPT"><b>WebGPT</b></a>: is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
+WebGPT is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
 
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
@@ -82,9 +83,9 @@ In this project, I compare the performance of `5` famous RAG techniques which ha
 <!-- RAG-GPT -->
 <!-- ====================================== -->
 <a id="RAG-GPT"></a>
-<h3>RAG-GPT:</h3>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"><b>RAG-GPT:</b></a></h3>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"><b>RAG-GPT</b></a>: is a chatbot that enables you to chat with your documents (PDFs and Doc). The chatbot offers versatile usage through three distinct methods:
+RAG-GPT is a chatbot that enables you to chat with your documents (PDFs and Doc). The chatbot offers versatile usage through three distinct methods:
 
 1. **Offline Documents**: Engage with documents that you've pre-processed and vectorized. These documents can be seamlessly integrated into your chat sessions.
 2. **Real-time Uploads:** Easily upload documents during your chat sessions, allowing the chatbot to process and respond to the content on-the-fly.
@@ -98,9 +99,9 @@ In this project, I compare the performance of `5` famous RAG techniques which ha
 <!-- WebRAGQuery -->
 <!-- ====================================== -->
 <a id="WebRAGQuery"></a>
-<h3>WebRAGQuery: Combining WebGPT and RAG-GPT:</h3>
+<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery: Combining WebGPT and RAG-GPT:</b></a>
 <p>
-<a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery</b></a> is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+WebRAGQuery is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
 
 Key Features:</br>
 
