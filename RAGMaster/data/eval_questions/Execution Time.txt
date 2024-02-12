@@ -1,0 +1,6 @@
+langchain similarity execution time: time 92.06 seconds
+lamgchain mmr execution Time: 97.9 seconds
+
+
+Auto-merging retrieval execution Time: 79.68 seconds
+Sentence-retrieval execution time: Execution Time: 128.58 seconds
