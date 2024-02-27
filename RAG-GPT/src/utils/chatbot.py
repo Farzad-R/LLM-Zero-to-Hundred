@@ -55,16 +55,14 @@ class ChatBot:
                 return "", chatbot, None
 
         docs = vectordb.similarity_search(message, k=APPCFG.k)
+        print(docs)
         question = "# User new question:\n" + message
         retrieved_content = ChatBot.clean_references(docs)
-        # retrieved_docs_page_content = "# Retrieved contents:\n" + \
-        # str(references)
         # Memory: previous two Q&A pairs
         chat_history = f"Chat history:\n {str(chatbot[-APPCFG.number_of_q_a_pairs:])}\n\n"
         prompt = f"{chat_history}{retrieved_content}{question}"
         print("========================")
         print(prompt)
-        print("========================")
         response = openai.ChatCompletion.create(
             engine=APPCFG.llm_engine,
             messages=[
