@@ -1,0 +1,46 @@
+directories:
+  data_directory: data/docs
+  data_directory_2: data/docs_2
+  persist_directory: data/vectordb/processed/chroma/
+  custom_persist_directory: data/vectordb/uploaded/chroma/
+
+llm_config:
+    embedding_model: "BAAI/bge-large-en-v1.5"
+    llm_system_role_with_history: "Answer the question based on the given content without using on your own knowledge.
+    You will receive a prompt with the the following format:
+
+    # Chat history:\n
+    [user query, response]\n\n
+
+    # Retrieved content number:\n
+    Content\n\n
+    Source\n\n
+
+    # User question:\n
+    New question
+    "
+    llm_system_role_without_history: "In the following you recieve a prompt. 
+    Answer it based on given content. Provide only the response, dont say 'Answer:'."
+    engine: "google/gemma-7b-it"
+    temperature: 0.1
+    device: "cuda"
+    max_new_tokens: 4096
+    do_sample: True
+    top_k: 10
+    top_p: 0.1
+    add_history: False
+splitter_config:
+  chunk_size: 1500
+  chunk_overlap: 250
+
+retrieval_config:
+  k: 2
+
+serve:
+  port: 8000
+
+memory:
+  number_of_q_a_pairs: 2
+
+
+  
