@@ -75,7 +75,7 @@ python src\app.py
 
 5. Chat with your documents.
 
-**YouTube video: **
+**YouTube video: [Link](https://youtu.be/6dyz2M_UWLw?si=E2Ep0dDNYpixzrBS) **
 
 Extra read:
 - [RAG-GPT video](https://www.youtube.com/watch?v=1FERFfut4Uw&t=676s)
