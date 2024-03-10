@@ -11,7 +11,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [WebRAGQuery](#WebRAGQuery)
 - [x] [LLM Full Finetuning](#Fine-tuning-LLMs)
 - [x] [RAG-Master LLamaindex vs Langchain](RAGMaster)
-- [ ] [open-source-RAG](#open-source-RAG): Will be added soon.
+- [x] [open-source-RAG](#Open-Source-RAG-GEMMA)
 - [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
@@ -38,7 +38,16 @@ NOTE: This is the general structure of the projects, however there might be smal
 
 ## Project description:
 <!-- ====================================== -->
-<!-- WebGPT -->
+<!-- Open-Source-RAG-GEMMA -->
+<!-- ====================================== -->
+<a id="Open-Source-RAG-GEMMA"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/Open-Source-RAG-GEMMA"><b>Open-Source-RAG-GEMMA:</b></a></h3>
+<p>
+In this project, I demonstrate how an open source LLM can be deployed on-prem. For that, I took RAG-GPT project and convert it into a fully open source RAG chatbot. The open source chatbot is designed using Google Gemma7B LLm and BAAI/bge-large-en as the embedding model.
+
+**YouTube video:** [Link](https://youtu.be/6dyz2M_UWLw?si=phnTb9GRPx8RXFYp)
+<!-- ====================================== -->
+<!-- RAGMaster -->
 <!-- ====================================== -->
 <a id="RAGMaster"></a>
 <h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAGMaster-LlamaIndex-vs-Langchain"><b>RAGMaster-LlamaIndex-vs-Langchain:</b></a></h3>
