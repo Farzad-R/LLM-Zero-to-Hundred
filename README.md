@@ -111,18 +111,16 @@ RAG-GPT is a chatbot that enables you to chat with your documents (PDFs and Doc)
 <a id="WebRAGQuery"></a>
 <a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/WebRAGQuery"><b>WebRAGQuery: (Combining WebGPT and RAG-GPT)</b></a>
 <p>
-WebRAGQuery is a chatbot that goes beyond typical internet searches. Built on the foundations of WebGPT and RAG-GPT, this project empowers users to delve into the depths of both general knowledge and specific URL content.
+WebRAGQuery is a chatbot that is built on the foundations of WebGPT and RAG-GPT, this project gives the users the ability to utilize the LLM's pretrained knowledge, Duckduckgo web search engine, and chatting with websites.
 
 Key Features:</br>
 
-* **Intelligent Decision-Making:** Our model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions.
-* **Dynamic Functionality:** Identify and execute the most pertinent Python functions in response to user queries, expanding the scope of what the chatbot can achieve.
-* **Web-Integrated Responses:** The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses.
-* **Website-Specific Queries:** When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content.
+* **Intelligent Decision-Making:** The GPT model intelligently decides whether to answer user queries based on its internal knowledge base or execute relevant Python functions and access the internet.
+* **Web-Integrated Responses:** The second GPT model seamlessly combines user queries with content retrieved from web searches, providing rich and context-aware responses. WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
+* **Website-Specific Queries:** When users inquire about a specific website, the model dynamically calls a function to load, vectorize, and create a vectordb from the site's content and therefore, gives the user the ability to ask questions about the content of the website. Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
+* **Website summarization:** On demand, this chatbot is able to go through a website and provide the user with a summary of the content.
 * **Memory:** WebRAGQuery boasts a memory feature that allows it to retain information about user interactions. This enables a more coherent and context-aware conversation by keeping track of previous questions and answers.
-* **Vectordb Interactions:** Users can query the content of the vectordb by starting their questions with ** and exit the RAG conversation by omitting ** from the query. ** can trigger the third GPT model for RAG Q&A.
-* **Chainlit Interface:** The user-friendly interface is built using Chainlit, enhancing the overall user experience.
-* **Diverse Search Capabilities:** WebRAGQuery supports a variety of searches, including text, news, PDFs, images, videos, maps, and instant responses.
+* **Chainlit Interface:** The user-friendly interface is built using Chainlit.
 * **Overcoming Knowledge-Cutoff Limitations:** This chatbot transcends knowledge-cutoff limitations, providing answers based on the latest internet content and even allowing users to ask questions about webpage content.
 
 **YouTube video:** [Link](https://www.youtube.com/watch?v=KoWjy5PZdX0&t=266s)
