@@ -1,4 +1,4 @@
-# FIne-tuning: Fine-tuning LLMs on dataset of a fictional company
+# Fine-tuning: Fine-tuning LLMs on dataset of a fictional company
 
 We use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune 3 large language models (LLMs) on it, and design a chatbot using the best model.
 
