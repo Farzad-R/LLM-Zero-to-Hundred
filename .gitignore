@@ -2,6 +2,7 @@ LLM-Agents
 docs_vector_embedding
 automation
 multimodal-chatbot
+.env:Zone.Identifier
 =======
 LangGraph
 storage
