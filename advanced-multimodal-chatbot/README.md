@@ -7,7 +7,7 @@ Welcome to my advanced multimodal chatbot! Here's a breakdown of what it can do 
 - RAG (Retrieval Augmented Generation) capabilities: The chatbot can perform RAG in 3 different ways 
   1. With preprocessed documents
   2. Documents that the user uploads while using the chatbot
-  3. Any webiste that the user request.
+  3. Any webiste that the user requests.
 - Image generation: Chatbot utilizes a stable diffusion model to generate images.
 - Image understanding: Chatbot Understands the content of images and can answer user's question based on the content of the image using the LLava model.
 - DuckDuckGo integration: Access the DuckDuckGo search engine to provide answers based on search results when needed.
