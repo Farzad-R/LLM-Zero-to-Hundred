@@ -97,7 +97,7 @@ or
 gradio src/app.py
 ```
 
-## RAG-GPT User Interface
+## Chatbot User Interface
 <div align="center">
   <img src="images/UI.png" alt="ChatBot UI">
 </div>
