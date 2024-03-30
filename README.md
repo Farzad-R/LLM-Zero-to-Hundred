@@ -12,7 +12,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [LLM Full Finetuning](#Fine-tuning-LLMs)
 - [x] [RAG-Master LLamaindex vs Langchain](RAGMaster)
 - [x] [open-source-RAG-GEMMA](#Open-Source-RAG-GEMMA)
-- [ ] [Multimodal ChatBot](#Multimodal-ChatBot): Will be added soon.
+- [x] [Multimodal ChatBot](#Multimodal-ChatBot)
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
 
@@ -37,6 +37,30 @@ Project-folder
 NOTE: This is the general structure of the projects, however there might be small changes duo to the specific needs of each project.
 
 ## Project description:
+<!-- ====================================== -->
+<!-- Advanced Multimodal Chatbot -->
+<!-- ====================================== -->
+<a id="Advanced Multimodal Chatbot"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/Advanced-Multimodal-Chatbot"><b>Advanced Multimodal Chatbot:</b></a></h3>
+<p>
+Features:
+
+- ChatGPT-like interaction: Chatbot can act as a normal AI assistant.
+- RAG (Retrieval Augmented Generation) capabilities: The chatbot can perform RAG in 3 different ways 
+  1. With preprocessed documents
+  2. Documents that the user uploads while using the chatbot
+  3. Any webiste that the user request.
+- Image generation: Chatbot utilizes a stable diffusion model to generate images.
+- Image understanding: Chatbot Understands the content of images and can answer user's question based on the content of the image using the LLava model.
+- DuckDuckGo integration: Access the DuckDuckGo search engine to provide answers based on search results when needed.
+- Summarization: Summarize website content or documents upon user request.
+- Text and voice interaction: Interact with chatbot through both text and voice inputs.
+- Memory: The GPT models in the chatbot also have access to the memory (user's previous queries during the current session).
+
+NOTE: This chatbot was built on top of RAG-GPT and WebRAGQuery projects.
+
+**YouTube video:**: To be added
+
 <!-- ====================================== -->
 <!-- Open-Source-RAG-GEMMA -->
 <!-- ====================================== -->

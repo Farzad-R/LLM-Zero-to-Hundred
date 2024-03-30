@@ -1,0 +1,4 @@
+llava_service_port: 5000
+rag_reference_service_port: 8000
+stable_diffusion_service_port: 8888
+whisper_service: 7000

@@ -1,0 +1,43 @@
+llm_function_caller:
+  gpt_model: gpt-35-turbo-16k
+  temperature: 0
+  system_role:
+    "As a chatbot, your goal is to respond to the user's question respectfully and concisely.\
+    Feel free to answer the user from your own knowledge.\
+    However, if the user's query needs to be answered by searching over the internet, return the best fuction to serve the user from the provided functions.\
+    "
+
+llm_summarizer:
+  gpt_model: gpt-35-turbo-16k
+  temperature: 0
+  system_role:
+    "You will recieve the chat history, user's new query, along with the web search result for that query. Provide the user with the most relevant information.\n\n"
+
+llm_rag:
+  gpt_model: gpt-35-turbo-16k
+  temperature: 0
+  system_role:
+    "You will recieve the chat history, user's new query, along with the web search result for that query on a website content. Provide the user with the most relevant information.\
+    In case the user's answer does not exist in the provided content and you want to use your own knwoledge, inform the user.\n\n"
+
+RAG:
+  embedding_model_engine: "text-embedding-ada-002"
+  chunk_size: 2000
+  chunk_overlap: 250
+  persist_directory: "data/vectordb/web/chroma/"
+  k: 3
+
+mmr_search_config:
+  fetch_k: 10
+  lambda_param: 0.5
+
+summarizer_config:
+  gpt_model: gpt-35-turbo-16k
+  max_final_token: 3000
+  character_overlap: 100
+  token_threshold: 0
+  temperature: 0
+  summarizer_llm_system_role:
+    "You are an expert text summarizer. You will receive a text and your task is to summarize and keep all the key information.\
+    Kepp the maximum length of summary wihin {} number of tokens."
+  final_summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to give a comprehensive summary and keep all the key information."
