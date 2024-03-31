@@ -1,4 +1,10 @@
 
+"""
+To prepare the vectorDB from your documents:
+
+Place your files in `data/docs` folder. Run this module in the terminal. A vectordb will be created from the documents in `data/vectordb/processed` directory.
+"""
+
 import os
 from utils.raggpt.prepare_vectordb import PrepareVectorDB
 from utils.raggpt.load_rag_config import LoadRAGConfig

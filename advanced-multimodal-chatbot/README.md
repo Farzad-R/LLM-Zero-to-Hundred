@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 To prepare Documents for RAG, Copy PDF files to `data/docs` directory and execute:
 ```
-python src/upload_data_manually.py.
+python src/prepare_vectordb_from_docs.py.
 ```
 
 ### Chatbot one-Click Execution:
