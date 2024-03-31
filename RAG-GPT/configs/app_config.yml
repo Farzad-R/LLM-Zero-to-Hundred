@@ -31,7 +31,7 @@ summarizer_config:
     character_overlap: 100
     token_threshold: 0
     summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to summarize and keep all the key information.\
-      Kepp the maximum length of summary wihin {} number of tokens."
+      Kepp the maximum length of summary within {} number of tokens."
     final_summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to give a comprehensive summary and keep all the key information."
 
 

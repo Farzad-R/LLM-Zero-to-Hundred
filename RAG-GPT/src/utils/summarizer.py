@@ -71,12 +71,12 @@ class Summarizer:
                         docs[i].page_content
                 summarizer_llm_system_role = summarizer_llm_system_role.format(
                     max_summarizer_output_token)
-            full_summary += Summarizer.get_llm_response(
-                gpt_model,
-                temperature,
-                summarizer_llm_system_role,
-                prompt=prompt
-            )
+                full_summary += Summarizer.get_llm_response(
+                    gpt_model,
+                    temperature,
+                    summarizer_llm_system_role,
+                    prompt=prompt
+                )
         else:  # if the document has only one page
             full_summary = docs[0].page_content
 

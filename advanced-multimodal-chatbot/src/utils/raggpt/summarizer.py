@@ -71,17 +71,20 @@ class Summarizer:
                         docs[i].page_content
                 summarizer_llm_system_role = summarizer_llm_system_role.format(
                     max_summarizer_output_token)
-            full_summary += Summarizer.get_llm_response(
-                gpt_model,
-                temperature,
-                summarizer_llm_system_role,
-                prompt=prompt
-            )
+                page_summary = Summarizer.get_llm_response(
+                    gpt_model,
+                    temperature,
+                    summarizer_llm_system_role,
+                    prompt=prompt
+                )
+                print(page_summary)
+                full_summary += page_summary
         else:  # if the document has only one page
             full_summary = docs[0].page_content
 
             print(f"Page {counter} was summarized. ", end="")
             counter += 1
+        print(full_summary)
         print("\nFull summary token length:", Apputils.count_num_tokens(
             full_summary, model=gpt_model))
         final_summary = Summarizer.get_llm_response(

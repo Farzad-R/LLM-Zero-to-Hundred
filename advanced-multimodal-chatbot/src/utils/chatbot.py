@@ -97,7 +97,7 @@ class ChatBot:
                 response, retrieved_content = rag_instance.perform_rag()
                 chatbot.append(
                     (message, response))
-                return chatbot, gr.MultimodalTextbox(value=None, interactive=False, file_types=["image"]), ""
+                return chatbot, gr.MultimodalTextbox(value=None, interactive=False, file_types=["image"]), retrieved_content
             else:
                 chatbot.append(
                     (message, f"No file was uploaded. Please first upload your files using the 'upload' button."))
