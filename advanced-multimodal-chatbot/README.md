@@ -27,7 +27,7 @@ NOTE: This chatbot includes both the RAG-GPT and WebRAGQuery projects.
 - text-embedding-ada-002: [Website](https://platform.openai.com/docs/models)
 - llava-hf/llava-v1.6-mistral-7b-hf: [Code](https://github.com/haotian-liu/LLaVA) - [Demo](https://llava.hliu.cc/) - [Website](https://llava-vl.github.io/blog/2024-01-30-llava-next/) - [Models](https://github.com/haotian-liu/LLaVA/blob/main/docs/MODEL_ZOO.md#llava-v16)
 - stabilityai/stable-diffusion-xl-base-1.0 : [Website](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)
-- microsoft/speecht5_tts: [Website](https://huggingface.co/microsoft/speecht5_tts)
+- openai/whisper-base.en: [Website](https://huggingface.co/openai/whisper-base.en)
 
 ## Requirements:
 - Operating System: Linux OS or Windows Subsystem for Linux (WSL).
