@@ -1,0 +1,53 @@
+directories:
+  data_directory: data/docs
+  data_directory_2: data/docs_2
+  persist_directory: data/vectordb/processed/chroma/
+  custom_persist_directory: data/vectordb/uploaded/chroma/
+
+embedding_model_config:
+  engine: "text-embedding-ada-002"
+
+llm_config:
+    llm_system_role: "You are a chatbot. You'll receive a prompt that includes a chat history, retrieved content from the vectorDB based on the user's question, and the source.\ 
+    Your task is to respond to the user's new question using the information from the vectorDB without relying on your own knowledge.\
+    you will receive a prompt with the the following format:
+
+    # Chat history:\n
+    [user query, response]\n\n
+
+    # Retrieved content number:\n
+    Content\n\n
+    Source\n\n
+
+    # User question:\n
+    New question
+    "
+    engine: "gpt-35-turbo"
+    temperature: 0.0
+    max_token: 4096
+
+summarizer_config:
+    max_final_token: 3000
+    character_overlap: 100
+    token_threshold: 0
+    summarizer_llm_system_role: "You will receive a text and your task is to summarize and keep all the key information.\
+      Kepp the maximum length of summary within {} number of tokens."
+    final_summarizer_llm_system_role: "You are an expert text summarizer. You will receive a text and your task is to give the most comprehensive summary as possible and keep all the key information."
+
+
+splitter_config:
+  chunk_size: 1500
+  chunk_overlap: 500
+
+retrieval_config:
+  k: 3
+
+mmr_search_config:
+  fetch_k: 10
+  lambda_param: 0.5
+
+memory:
+  number_of_q_a_pairs: 2
+
+
+  
