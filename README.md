@@ -40,8 +40,8 @@ NOTE: This is the general structure of the projects, however there might be smal
 <!-- ====================================== -->
 <!-- Advanced Multimodal Chatbot -->
 <!-- ====================================== -->
-<a id="Advanced Multimodal Chatbot"></a>
-<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/advanced-multimodal-chatbot"><b>Advanced Multimodal Chatbot:</b></a></h3>
+<a id="HUMAIN: Advanced Multimodal, Multitask Chatbot"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/HUMAIN-advanced-multimodal-chatbot"><b>Advanced Multimodal Chatbot:</b></a></h3>
 <p>
 Features:
 
