@@ -1,6 +1,10 @@
 # Advanced Multimodal Chatbot Readme
 
 Welcome to my advanced multimodal chatbot! Here's a breakdown of what it can do and how to get it up and running.
+## Chatbot User Interface
+<div align="center">
+  <img src="images/HUMAIN.png" alt="HUMAIN">
+</div>
 
 ## Features:
 - ChatGPT-like interaction: Chatbot can act as a normal AI assistant.
