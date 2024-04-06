@@ -1,7 +1,7 @@
 # Advanced Multimodal Chatbot Readme
 
 Welcome to my advanced multimodal chatbot! Here's a breakdown of what it can do and how to get it up and running.
-## Chatbot User Interface
+## HUMAIN multi-modal multi-task chatbot
 <div align="center">
   <img src="images/HUMAIN.png" alt="HUMAIN">
 </div>
