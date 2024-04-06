@@ -21,6 +21,8 @@ Welcome to my advanced multimodal chatbot! Here's a breakdown of what it can do 
 
 NOTE: This chatbot includes both the RAG-GPT and WebRAGQuery projects.
 
+**YouTube video: **[Link](https://youtu.be/AAvqscJPXIY?si=ApZ9-WfFfyGbcd-H)
+
 ## Main underlying techniques used in this chatbot:
 - LLM chains and agents
 - GPT function calling
