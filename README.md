@@ -1,7 +1,7 @@
 # LLM-Zero-to-Hundred
 
 <div align="center">
-  <img src="logo/AI_RT.png" alt="CAIS" width="300" height="250">
+  <img src="logo/LOGO.jpg" alt="LOGO">
 </div>
 This repository showcases various applications of LLM chatbots and provides comprehensive insights into established methodologies for training and fine-tuning Language Models.
 
