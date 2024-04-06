@@ -12,7 +12,7 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [LLM Full Finetuning](#Fine-tuning-LLMs)
 - [x] [RAG-Master LLamaindex vs Langchain](RAGMaster)
 - [x] [open-source-RAG-GEMMA](#Open-Source-RAG-GEMMA)
-- [x] [Multimodal ChatBot](#Multimodal-ChatBot)
+- [x] [HUMAIN: Advanced Multimodal, Multitask Chatbot](#Multimodal-ChatBot)
 - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon.
 - [ ] [LLM Pretraining](coming-soon): Will be added soon.
 
