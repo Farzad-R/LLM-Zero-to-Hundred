@@ -193,13 +193,7 @@ cd <yourproject>
 conda create --name projectenv python=3.11
 conda activate projectenv
 ```
-3. Install the required libraries using the following commands:
+3. Change directory to your desired project and install the required libraries using the following commands:
 ```
 pip install -r requirements.txt
 ```
-4. Then
-```
-cd <to each directory>
-```
-Follow the instructions provided for that specific project.
-
