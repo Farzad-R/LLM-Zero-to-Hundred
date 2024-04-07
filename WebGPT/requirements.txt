@@ -1,7 +1,6 @@
 duckduckgo_search==3.9.6
 openai==0.28.0
-Pillow==10.1.0
-Pillow==10.3.0
+Pillow
 pydantic==2.6.4
 pyprojroot==0.3.0
 python-dotenv==1.0.1
