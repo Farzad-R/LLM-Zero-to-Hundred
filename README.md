@@ -186,7 +186,7 @@ To run the projects, you will need to install the required libraries. Follow the
 1. Clone the repository and navigate to the project directory.
 ```
 git clone https://github.com/Farzad-R/LLM-Zero-to-Hundred.git
-cd <yourproject>
+cd LLM-Zero-to-Hundred
 ```
 2. Create a new virtual environment using a tool like virtualenv or conda, and activate the environment:
 ```
