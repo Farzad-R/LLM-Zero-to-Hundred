@@ -5,6 +5,5 @@ pydantic==2.6.4
 pyprojroot==0.3.0
 python-dotenv==1.0.1
 PyYAML==6.0.1
-PyYAML==6.0.1
 streamlit==1.28.2
 streamlit_chat==0.1.1
