@@ -194,6 +194,8 @@ conda create --name projectenv python=3.11
 conda activate projectenv
 ```
 3. Change directory to your desired project and install the required libraries using the following commands:
+Ex:
 ```
+cd WebRAGQuery
 pip install -r requirements.txt
 ```
