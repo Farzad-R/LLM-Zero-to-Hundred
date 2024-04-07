@@ -45,8 +45,10 @@ Access the vast knowledge of the web by leveraging the chatbot's connection to t
 To get the project up and running, you'll need to set up your environment and install the necessary dependencies. You can do this in two ways:
 
 ### Option 1: Using the Parent Directory Instructions
-
-Follow the instruction on the [parent directory](https://github.com/Farzad-R/LLM-playground/tree/master) to create an environment and install required libraries. 
+Activate your python environment and run:
+```
+pip install -r requirements.txt
+```
 
 ### Option 2: Installing Dependencies Individually
 If you prefer to install the dependencies individually, run the following command:
