@@ -76,9 +76,9 @@ This command will create a SQL database named `csv_xlsx_sqldb.db` in the `data` 
 </div>
 
 ## Databases:
-- (Diabetes dataset)[https://www.kaggle.com/datasets/akshaydattatraykhare/diabetes-dataset?resource=download&select=diabetes.csv]
-- (Cancer dataset)[https://www.kaggle.com/datasets/rohansahana/breast-cancer-dataset-for-beginners?select=train.csv]
-- (Chinook Database)[https://database.guide/2-sample-databases-sqlite/]
+- Diabetes dataset: [Link](https://www.kaggle.com/datasets/akshaydattatraykhare/diabetes-dataset?resource=download&select=diabetes.csv)
+- Cancer dataset: [Link](https://www.kaggle.com/datasets/rohansahana/breast-cancer-dataset-for-beginners?select=train.csv)
+- Chinook database: [Link](https://database.guide/2-sample-databases-sqlite/)
 
 ## Key frameworks/libraries used in this chatbot:
 - Langchain: [introduction](https://python.langchain.com/docs/get_started/introduction)
