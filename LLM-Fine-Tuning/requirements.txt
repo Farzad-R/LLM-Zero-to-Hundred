@@ -1,10 +1,12 @@
 chainlit==1.0.500
-duckduckgo_search==3.9.6
-langchain==0.1.14
+datasets==2.15.0
+fitz==0.0.1.dev2
+jsonlines==4.0.0
 openai==0.28.0
 pandas==2.2.1
 pydantic==2.6.4
 pyprojroot==0.3.0
 python-dotenv==1.0.1
 PyYAML==6.0.1
-tiktoken==0.5.1
+torch==2.1.1+cu121
+transformers==4.37.0.dev0

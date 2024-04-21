@@ -186,20 +186,16 @@ To run the projects, you will need to install the required libraries. Follow the
 1. Clone the repository and navigate to the project directory.
 ```
 git clone https://github.com/Farzad-R/LLM-Zero-to-Hundred.git
-cd <yourproject>
+cd LLM-Zero-to-Hundred
 ```
 2. Create a new virtual environment using a tool like virtualenv or conda, and activate the environment:
 ```
 conda create --name projectenv python=3.11
 conda activate projectenv
 ```
-3. Install the required libraries using the following commands:
+3. Change directory to your desired project and install the required libraries using the following commands:
+Ex:
 ```
+cd WebRAGQuery
 pip install -r requirements.txt
 ```
-4. Then
-```
-cd <to each directory>
-```
-Follow the instructions provided for that specific project.
-
