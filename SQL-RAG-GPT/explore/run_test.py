@@ -12,8 +12,7 @@ from langchain_core.runnables import RunnablePassthrough
 import langchain
 langchain.debug = True
 
-env_dir = "/home/farzad_rzt/Github/LLM-Zero-to-Hundred/.env"
-print(load_dotenv(env_dir))
+print(load_dotenv())
 
 db_path = str(here("data")) + "/sqldb.db"
 db = SQLDatabase.from_uri(f"sqlite:///{db_path}")
