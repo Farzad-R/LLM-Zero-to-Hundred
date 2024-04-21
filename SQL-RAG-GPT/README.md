@@ -36,7 +36,6 @@ pip install -r requirements.txt
 1. To prepare the SQL DB from a `.sql` file, Copy the file into `data/sql` directory and in the terminal, from the project folder, execute:
 ```
 sudo apt install sqlite3
-cd data
 ```
 
 Now create a database called `sqldb`:

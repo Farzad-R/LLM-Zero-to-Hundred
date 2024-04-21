@@ -5,6 +5,7 @@ Chinook sql dataset:
 
 Tatanic dataset:
 "what's the average age of survivors"
+For those who survived in Titanic, were the majority men or women?
 
 Cancer:
 what is the average single_epithelial_cell_size in cancer data?
