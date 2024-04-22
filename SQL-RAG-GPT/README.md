@@ -46,7 +46,7 @@ sqlite3 data/sqldb.db
 
 This command will create a SQL database named `sqldb.db` in the `data` directory. Verify that it created the database
 ```
-SELECT * FROM <name of any column in your sql database> LIMIT 10;
+SELECT * FROM <any Table name in your sql database> LIMIT 10;
 ```
 2. To prepare a SQL DB from your CSV and XLSX files, copy your files in `data/csv_xlsx` and in the terminal, from the project folder, execute:
 ```
