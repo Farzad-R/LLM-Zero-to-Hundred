@@ -2,6 +2,7 @@ LLM-Agents
 docs_vector_embedding
 automation
 Self-RAG
+.chainlit
 =======
 LangGraph
 storage
