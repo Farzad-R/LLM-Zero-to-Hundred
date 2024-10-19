@@ -40,8 +40,25 @@ pip install streamlit==1.29.0 streamlit-chat==0.1.1 duckduckgo-search==4.1.1 ope
 ```
 
 1. **Configuration and Execution**
-* Navigate to the config directory.
-* Open cfg.py and fill in your GPT API credentials.
+
+- Go to the `configs` folder and update the `app_config.yml` file if needed.
+- In your project folder, create a `.env` file and add your GPT API credentials.
+
+If you're using OpenAI directly:
+```
+OPENAI_API_KEY=
+```
+
+If you're using Azure OpenAI:
+```
+OPENAI_API_TYPE=
+OPENAI_API_VERSION=
+OPENAI_API_KEY=
+OPENAI_API_BASE=
+gpt_deployment_name=
+embed_deployment_name=
+```
+
 2. **Activate Your Environment.**
 3. **Ensure you are in the WebGPT directory**
 4. **Run the Application:**
