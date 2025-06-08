@@ -14,6 +14,7 @@ indexes
 __pycache__/
 vectorstores/
 *.py[cod]
+*.pem
 *$py.class
 flagged
 # C extensions

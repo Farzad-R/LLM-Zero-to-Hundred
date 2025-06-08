@@ -1,0 +1,20 @@
+setting: container # container or local
+
+directories:
+  data_directory: "data/pdf"
+  upload_file_dir: "data/upload_file_dir"
+  vectordb_dir: "data/vectordb"
+
+model_config:
+  rag_model: "gpt-4o-mini"
+  model_provider: "openai"
+  temperature: 0.0
+  embedding_model: "text-embedding-3-small"
+  chat_llm: "gpt-4o-mini"
+  chat_llm_system_message: You talk like a pirate. Answer all questions to the best of your ability.
+
+rag_config:
+  collection_name: "test_vectors"
+  k: 3
+  chunk_size: 1250
+  chunk_overlap: 250
