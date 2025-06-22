@@ -21,6 +21,7 @@ pandas==2.2.3
 pypdf==5.5.0
 pyprojroot==0.3.0
 python-dotenv==1.1.0
+psycopg[binary]==3.2.9
 requests==2.32.3
 SQLAlchemy==2.0.41
 

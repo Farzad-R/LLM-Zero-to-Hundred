@@ -72,7 +72,7 @@ def generate(state: MessagesState):
     return {"messages": [response]}
 
 
-def compile_the_graph(tools):
+def build_the_graph(tools):
     graph_builder = StateGraph(MessagesState)
     graph_builder.add_node(query_or_respond)
     graph_builder.add_node(tools)
@@ -85,9 +85,7 @@ def compile_the_graph(tools):
     )
     graph_builder.add_edge("tools", "generate")
     graph_builder.add_edge("generate", END)
-
-    graph = graph_builder.compile()
-    return graph
+    return graph_builder
 
 
 def run_rag(user_message: str, chat_session_config: str) -> str:
@@ -105,7 +103,8 @@ def run_rag(user_message: str, chat_session_config: str) -> str:
     """
     with PostgresSaver.from_conn_string(CFG.db_uri) as checkpointer:
         tools = ToolNode([retrieve])
-        graph = compile_the_graph(tools)
+        graph_builder = build_the_graph(tools)
+        graph = graph_builder.compile(checkpointer=checkpointer)
         final_state = graph.invoke(
             {"messages": [{"role": "user", "content": user_message}]},
             config=chat_session_config

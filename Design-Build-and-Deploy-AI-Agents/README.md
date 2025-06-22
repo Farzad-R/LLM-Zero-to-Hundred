@@ -79,8 +79,8 @@ project-root/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/Farzad-R/LLM-Zero-to-Hundred.git
+cd Design-Build-and-Deploy-AI-Agents
 ```
 
 ### 2️⃣ Create a Virtual Environment (optional but recommended)
@@ -114,19 +114,46 @@ DATABASE_URI_LOCAL=postgresql://postgres:postgres@localhost:5442/postgres?sslmod
 python src/prepare_vectordb_local.py
 ```
 
-### 🚀 Step 2: Run the Chatbot
+### 🚀 Step 2: Prepare the PostgreSQL Database
+
+```bash
+docker-compose -f docker-compose-only-postgres.yml up --build
+```
+
+### 🚀 Step 3: Run the Chatbot
 
 ```bash
 python src/app.py
 ```
 
+### Now you have:
+
+* Started a **PostgreSQL container** for graph memory.
+* Started a **ChromaDB** locally for vector retrieval
+* Started the Chatbot, at [http://localhost:7860](http://localhost:7860)
 ---
+
+### Log in using one of the following credentials:
+
+```bash
+"farzad_rzt": "123",
+"peter_parker": "letmein",
+"admin": "securepass"
+```
+
+**Note**: To modify user credentials, edit the file at utils/user_db.py.
+Please be aware that this method **is not recommended** for production. For a production-ready setup, you should use a secure external database with proper authentication and encryption mechanisms to manage user credentials safely.
+
+## Stop the container when testing is done:
+```bash
+docker-compose -f docker-compose-only-postgres.yml down
+```
 
 ## 🐳 Running as Microservices
 
 ![high-level](images/high-level.png)
 
-### ✅ Update `.env` for container-based connection
+### ✅ Update `.env` for container-based connection and add
 
 ```env
 DATABASE_URI_CONTAINER=postgresql://postgres:postgres@postgres:5432/postgres
@@ -137,6 +164,17 @@ DATABASE_URI_CONTAINER=postgresql://postgres:postgres@postgres:5432/postgres
 ```bash
 docker-compose up --build
 ```
+
+Or if you want to clean up old orphan containers from the one-container (Local) setup:
+
+```bash
+docker-compose down --remove-orphans
+```
+
+```bash
+docker-compose up --build -d
+```
+
 
 ### 🔧 Step 2: Build Vector DB (Inside the Container)
 
@@ -196,7 +234,7 @@ docker-compose down
 
 ![weaver](images/weaver.png)
 
-### Step 1: Start the Dashboard Container
+### Step 1: Start the Dashboard Container (Run in Ubuntu/WSL)
 
 ```bash
 docker run -d --name weave-scope \
