@@ -232,7 +232,7 @@ docker-compose down
 
 ## 📊 Container Visualization with Weave Scope
 
-![weaver](images/weaver.png)
+![weavescope](images/weavescope.png)
 
 ### Step 1: Start the Dashboard Container (Run in Ubuntu/WSL)
 
