@@ -124,3 +124,6 @@ condaenv.*
 .mypy_cache/
 
 .DS_Store
+data
+source_material
+tmp
