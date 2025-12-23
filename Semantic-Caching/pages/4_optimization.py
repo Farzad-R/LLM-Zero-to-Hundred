@@ -2,23 +2,22 @@
 Threshold Optimization & Model Comparison
 Find the optimal configuration for production deployment
 """
+from sentence_transformers import SentenceTransformer
+from cachelab.evaluate.evaluation_result import EvaluationResult
+from cachelab.evaluate.evaluatable_cache import EvaluatableCache
+from cachelab.evaluate.cache_evaluator import CacheEvaluator
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import sys
-from pathlib import Path
+# import sys
+# from pathlib import Path
 import time
 
 # Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import evaluation modules
-# from src.evaluate.cache_evaluator import CacheEvaluator
-# from src.evaluate.evaluatable_cache import EvaluatableCache
-# from src.evaluate.evaluation_result import EvaluationResult
 
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
@@ -31,7 +30,7 @@ st.markdown("---")
 if st.session_state.get('ground_truth_df') is None or st.session_state.get('test_df') is None:
     st.warning("⚠️ Please load data first!")
     if st.button("Go to Data Page"):
-        st.switch_page("pages/2_data.py")
+        st.switch_page("pages/2_📊_data.py")
     st.stop()
 
 ground_truth_df = st.session_state.ground_truth_df
@@ -147,34 +146,9 @@ st.markdown("---")
 
 # Run optimization
 run_optimization = st.button(
-    "🚀 Run Optimization", type="primary", use_container_width=True)
+    "🚀 Run Optimization", type="primary", width='stretch')
 
-# Check implementation status
-IMPLEMENTATION_STATUS = False
-try:
-    from src.evaluate.cache_evaluator import CacheEvaluator
-    from src.evaluate.evaluatable_cache import EvaluatableCache
-    from src.evaluate.evaluation_result import EvaluationResult
-    IMPLEMENTATION_STATUS = True
-except ImportError:
-    pass
-
-if not IMPLEMENTATION_STATUS:
-    st.warning("""
-    ⚠️ **Evaluation modules not implemented yet**
-    
-    Please implement these classes in `src/evaluate/`:
-    - `CacheEvaluator` - Evaluates cache against test data
-    - `EvaluatableCache` - Cache with evaluation interface
-    - `EvaluationResult` - Holds metrics (precision, recall, F1, etc.)
-    
-    The UI is ready - just add your classes from the notebook!
-    """)
-
-    # Show mock results for demo
-    if st.checkbox("Show Mock Results (Demo)", value=False):
-        run_optimization = True
-
+# All modules are implemented
 if run_optimization:
 
     st.markdown("---")
@@ -206,33 +180,39 @@ if run_optimization:
             selected_model_name, selected_model_display, selected_model_type = selected_models[
                 model_for_threshold]
 
+            with st.spinner(f"Initializing {selected_model_display}..."):
+                # Load embedding model
+                encoder = SentenceTransformer(selected_model_name)
+
+                # Create evaluatable cache
+                # Initial threshold, will override
+                cache = EvaluatableCache(encoder, distance_threshold=0.3)
+                qa_pairs = list(
+                    zip(ground_truth_df["question"], ground_truth_df["answer"]))
+                cache.add_many(qa_pairs)
+
+                # Create evaluator
+                evaluator = CacheEvaluator(ground_truth_df, test_df)
+
             with st.spinner(f"Testing {len(thresholds)} thresholds on {selected_model_display}..."):
 
-                # Mock threshold results
-                # TODO: Replace with actual implementation
+                # Real threshold evaluation
                 threshold_results = []
 
                 progress_bar = st.progress(0)
                 for i, threshold in enumerate(thresholds):
-                    # Mock results - replace with actual evaluation
-                    precision = max(
-                        0.2, min(0.95, 1.0 - threshold * 1.2 + np.random.uniform(-0.05, 0.05)))
-                    recall = max(0.1, min(0.95, threshold * 2.0 +
-                                 np.random.uniform(-0.1, 0.1)))
-                    f1 = 2 * (precision * recall) / (precision +
-                                                     recall) if (precision + recall) > 0 else 0
-                    accuracy = (precision + recall) / 2 + \
-                        np.random.uniform(-0.05, 0.05)
-                    hit_rate = min(0.95, threshold * 1.5 +
-                                   np.random.uniform(-0.1, 0.1))
+                    # Real evaluation with threshold override
+                    def check_fn(q, t=threshold): return cache.check(
+                        q, threshold_override=t)
+                    result = evaluator.evaluate(check_fn)
 
                     threshold_results.append({
                         'threshold': threshold,
-                        'precision': precision,
-                        'recall': recall,
-                        'f1': f1,
-                        'accuracy': accuracy,
-                        'hit_rate': hit_rate
+                        'precision': result.precision,
+                        'recall': result.recall,
+                        'f1': result.f1_score,
+                        'accuracy': result.accuracy,
+                        'hit_rate': result.hit_rate
                     })
 
                     progress_bar.progress((i + 1) / len(thresholds))
@@ -327,7 +307,7 @@ if run_optimization:
                     yaxis=dict(range=[0, 1.05])
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
                 st.markdown("---")
 
@@ -362,7 +342,7 @@ if run_optimization:
                     yaxis=dict(range=[0, 1.05])
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
                 st.markdown("---")
 
@@ -398,7 +378,7 @@ if run_optimization:
                     yaxis=dict(range=[0, 1.05])
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
                 # Threshold recommendation
                 st.markdown("---")
@@ -442,7 +422,7 @@ if run_optimization:
                         'accuracy': '{:.2%}',
                         'hit_rate': '{:.2%}'
                     }).background_gradient(subset=['f1'], cmap='RdYlGn'),
-                    use_container_width=True,
+                    width='stretch',
                     height=400
                 )
         else:
@@ -458,38 +438,38 @@ if run_optimization:
 
             with st.spinner("Comparing models..."):
 
-                # Mock model comparison results
-                # TODO: Replace with actual implementation
+                # Real model comparison
                 model_comparison_results = []
+
+                # Create evaluator once (will be used for all models)
+                evaluator = CacheEvaluator(ground_truth_df, test_df)
+                qa_pairs = list(
+                    zip(ground_truth_df["question"], ground_truth_df["answer"]))
 
                 progress_bar = st.progress(0)
 
                 for i, (model_name, model_display, model_type) in enumerate(selected_models):
 
-                    # Mock timing
-                    if model_type == "openai":
-                        time_taken = np.random.uniform(2.0, 5.0)
-                    elif "mpnet" in model_name:
-                        time_taken = np.random.uniform(1.0, 2.0)
-                    else:
-                        time_taken = np.random.uniform(0.3, 1.0)
+                    start = time.time()
 
-                    # Mock metrics
-                    base_f1 = 0.75 + np.random.uniform(-0.1, 0.1)
-                    precision = max(
-                        0.6, min(0.95, base_f1 + np.random.uniform(-0.05, 0.05)))
-                    recall = max(0.6, min(0.95, base_f1 +
-                                 np.random.uniform(-0.05, 0.05)))
-                    f1 = 2 * (precision * recall) / (precision + recall)
+                    # Load model and create cache
+                    model = SentenceTransformer(model_name)
+                    model_cache = EvaluatableCache(
+                        model, distance_threshold=0.3)
+                    model_cache.add_many(qa_pairs)
+
+                    # Evaluate
+                    result = evaluator.evaluate(model_cache.check)
+                    elapsed = time.time() - start
 
                     model_comparison_results.append({
                         'model': model_display,
                         'model_name': model_name,
                         'model_type': model_type,
-                        'f1': f1,
-                        'precision': precision,
-                        'recall': recall,
-                        'time': time_taken
+                        'f1': result.f1_score,
+                        'precision': result.precision,
+                        'recall': result.recall,
+                        'time': elapsed
                     })
 
                     progress_bar.progress((i + 1) / len(selected_models))
@@ -538,7 +518,7 @@ if run_optimization:
                         'Recall': '{:.2%}',
                         'Time (s)': '{:.2f}'
                     }).background_gradient(subset=['F1 Score'], cmap='RdYlGn'),
-                    use_container_width=True
+                    width='stretch'
                 )
 
                 st.markdown("---")
@@ -569,7 +549,7 @@ if run_optimization:
                         yaxis=dict(range=[0, 1.05])
                     )
 
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
 
                 with col2:
                     st.markdown("#### Processing Time Comparison")
@@ -591,7 +571,7 @@ if run_optimization:
                         height=400
                     )
 
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
 
                 # Speed vs Accuracy
                 st.markdown("---")
@@ -622,7 +602,7 @@ if run_optimization:
                     height=500
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
                 # Model recommendations
                 st.markdown("---")
@@ -787,7 +767,7 @@ test_queries = {len(test_df)}
                         config_text,
                         "semantic_cache_config.toml",
                         "text/plain",
-                        use_container_width=True
+                        width='stretch'
                     )
 
                 with col2:
@@ -810,7 +790,7 @@ test_queries = {len(test_df)}
                         json_config,
                         "semantic_cache_config.json",
                         "application/json",
-                        use_container_width=True
+                        width='stretch'
                     )
         else:
             st.info("Run optimization to see recommended configuration")
@@ -834,7 +814,7 @@ test_queries = {len(test_df)}
                     'accuracy': '{:.3f}',
                     'hit_rate': '{:.3f}'
                 }),
-                use_container_width=True,
+                width='stretch',
                 height=500
             )
 
@@ -845,7 +825,7 @@ test_queries = {len(test_df)}
                 csv,
                 "threshold_analysis_detailed.csv",
                 "text/csv",
-                use_container_width=True
+                width='stretch'
             )
 
             st.markdown("---")

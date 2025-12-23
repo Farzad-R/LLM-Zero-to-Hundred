@@ -1,8 +1,8 @@
 from typing import List, Optional, Tuple
 import numpy as np
 import pandas as pd
-from src.utils.cache_utils import CacheResult, CacheResults
-from src.utils.embedding_utils import cosine_distance_batch
+from cachelab.utils.cache_utils import CacheResult, CacheResults
+from cachelab.utils.embedding_utils import cosine_distance_batch
 
 
 class SemanticCache:
@@ -19,6 +19,7 @@ class SemanticCache:
             encoder: SentenceTransformer model for embeddings
             distance_threshold: Maximum cosine distance for a match (default 0.3)
                               Lower = stricter matching, Higher = looser matching
+            k: Number of top matches to return
         """
         self.encoder = encoder
         self.distance_threshold = distance_threshold

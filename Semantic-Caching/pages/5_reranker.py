@@ -207,7 +207,7 @@ st.markdown("---")
 
 # Run button
 run_reranker_test = st.button(
-    "🚀 Run Reranker Comparison", type="primary", use_container_width=True)
+    "🚀 Run Reranker Comparison", type="primary", width='stretch')
 
 # Check implementation status
 IMPLEMENTATION_STATUS = True
@@ -351,7 +351,7 @@ if run_reranker_test:
             })
 
         summary_df = pd.DataFrame(summary_data)
-        st.dataframe(summary_df, use_container_width=True, hide_index=True)
+        st.dataframe(summary_df, width='stretch', hide_index=True)
 
         st.markdown("---")
 
@@ -476,7 +476,7 @@ if run_reranker_test:
                     margin=dict(l=20, r=20, t=40, b=20)
                 )
 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
                 # Metrics below matrix
                 col_a, col_b = st.columns(2)
@@ -535,7 +535,7 @@ if run_reranker_test:
                         y=1.02, xanchor="right", x=1)
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         st.markdown("---")
 
@@ -559,7 +559,7 @@ if run_reranker_test:
             height=400
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
     with tab4:
         st.markdown("### Speed vs Accuracy Trade-off Analysis")
@@ -608,7 +608,7 @@ if run_reranker_test:
             height=500
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
         # Calculate efficiency ratio
         st.markdown("---")
@@ -629,7 +629,7 @@ if run_reranker_test:
         efficiency_df = efficiency_df.sort_values(
             'Efficiency', ascending=False)
 
-        st.dataframe(efficiency_df, use_container_width=True, hide_index=True)
+        st.dataframe(efficiency_df, width='stretch', hide_index=True)
 
         best_efficiency = efficiency_df.iloc[0]
         st.success(f"""
@@ -828,7 +828,7 @@ processing_time = {best_overall[1]['time']:.2f}
             config_text,
             "reranker_config.toml",
             "text/plain",
-            use_container_width=True
+            width='stretch'
         )
 
 else:

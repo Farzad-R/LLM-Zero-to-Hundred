@@ -1,6 +1,10 @@
 """
 Interactive Cache Testing & Experimentation
 """
+from sentence_transformers import SentenceTransformer
+from cachelab.cache.semantic_match_cache import SemanticCache
+from cachelab.cache.fuzzy_match_cache import FuzzyCache
+from cachelab.cache.exact_match_cache import ExactMatchCache
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,10 +19,7 @@ from typing import List, Dict
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Import cache implementations (these will be filled by user)
-# from src.cache.exact_match_cache import ExactMatchCache
-# from src.cache.fuzzy_match_cache import FuzzyCache
-# from src.cache.semantic_match_cache import SemanticCache
+# Import cache implementations
 
 st.set_page_config(page_title="Cache Testing", page_icon="🧪", layout="wide")
 
@@ -120,10 +121,9 @@ with col1:
     """)
 
 with col2:
-    st.warning("""
-    **⚠️ Note:**
-    Cache classes need to be implemented in `src/cache/` folder.
-    This page will show "NOT IMPLEMENTED" until classes are ready.
+    st.success("""
+    **✅ Ready:**
+    Cache classes loaded from `cachelab` package.
     """)
 
 with col3:
@@ -132,47 +132,7 @@ with col3:
 
 st.markdown("---")
 
-# Mock implementation status (replace with actual imports)
-IMPLEMENTATION_STATUS = {
-    'ExactMatchCache': True,
-    'FuzzyCache': True,
-    'SemanticCache': True
-}
-
-# Try to import classes
-try:
-    from src.cache.exact_match_cache import ExactMatchCache
-    IMPLEMENTATION_STATUS['ExactMatchCache'] = True
-except ImportError:
-    pass
-
-try:
-    from src.cache.fuzzy_match_cache import FuzzyCache
-    IMPLEMENTATION_STATUS['FuzzyCache'] = True
-except ImportError:
-    pass
-
-try:
-    from src.cache.semantic_match_cache import SemanticCache
-    IMPLEMENTATION_STATUS['SemanticCache'] = True
-except ImportError:
-    pass
-
-# Show implementation status
-with st.expander("📋 Implementation Status", expanded=False):
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        status = "✅" if IMPLEMENTATION_STATUS['ExactMatchCache'] else "❌"
-        st.markdown(f"{status} **ExactMatchCache**")
-
-    with col2:
-        status = "✅" if IMPLEMENTATION_STATUS['FuzzyCache'] else "❌"
-        st.markdown(f"{status} **FuzzyCache**")
-
-    with col3:
-        status = "✅" if IMPLEMENTATION_STATUS['SemanticCache'] else "❌"
-        st.markdown(f"{status} **SemanticCache**")
+# All caches are implemented and imported
 
 # Filter test queries
 if query_filter == "Should Hit Only":
@@ -191,6 +151,23 @@ if run_tests:
 
     st.markdown("## 📊 Test Results")
 
+    # Initialize caches with st.spinner
+    with st.spinner("Initializing caches..."):
+
+        # Initialize encoder for semantic cache
+        encoder = SentenceTransformer(embedding_model)
+
+        # Create cache instances
+        exact_cache = ExactMatchCache()
+        fuzzy_cache = FuzzyCache(threshold=fuzzy_threshold)
+        semantic_cache = SemanticCache(
+            encoder, distance_threshold=semantic_threshold)
+
+        # Hydrate all caches
+        exact_cache.hydrate_from_df(ground_truth_df)
+        fuzzy_cache.hydrate_from_df(ground_truth_df)
+        semantic_cache.hydrate_from_df(ground_truth_df)
+
     # Initialize results storage
     results = {
         'query': [],
@@ -202,7 +179,7 @@ if run_tests:
         'semantic_top_matches': []
     }
 
-    # Mock results (replace with actual cache testing)
+    # Run actual cache tests
     with st.spinner("Running cache tests..."):
 
         for idx, row in test_queries_df.iterrows():
@@ -212,34 +189,38 @@ if run_tests:
             results['query'].append(query)
             results['expected_hit'].append(expected_hit)
 
-            # MOCK RESULTS - Replace with actual cache.check() calls
+            # Test exact match cache
             if test_exact:
-                # Mock: exact match only if query exists in ground truth
-                exact_hit = query in ground_truth_df['question'].values
+                exact_result = exact_cache.check(query)
+                exact_hit = exact_result.hit if exact_result else False
                 results['exact_hit'].append(exact_hit)
             else:
                 results['exact_hit'].append(None)
 
+            # Test fuzzy match cache
             if test_fuzzy:
-                # Mock: random hit for demo
-                fuzzy_hit = expected_hit if np.random.random() > 0.3 else False
+                fuzzy_result = fuzzy_cache.check(query)
+                fuzzy_hit = fuzzy_result.hit if fuzzy_result else False
                 results['fuzzy_hit'].append(fuzzy_hit)
             else:
                 results['fuzzy_hit'].append(None)
 
+            # Test semantic cache
             if test_semantic:
-                # Mock: simulate semantic distances
-                semantic_hit = expected_hit if np.random.random() > 0.2 else False
-                semantic_distance = np.random.uniform(
-                    0.1, 0.5) if semantic_hit else np.random.uniform(0.5, 0.9)
+                semantic_result = semantic_cache.check(query)
+                semantic_hit = semantic_result.hit if semantic_result else False
 
-                # Mock top-K matches
-                top_matches = []
-                for k in range(top_k_display):
-                    match_q = ground_truth_df.sample(1)['question'].values[0]
-                    match_dist = np.random.uniform(0.1, 0.8)
-                    top_matches.append((match_q, match_dist))
-                top_matches.sort(key=lambda x: x[1])
+                # Get distance
+                if semantic_result and semantic_result.hit:
+                    semantic_distance = semantic_result.best_match.vector_distance
+                else:
+                    # Query didn't hit, but get distance to closest match anyway
+                    all_distances = semantic_cache.get_all_distances(query)
+                    semantic_distance = all_distances[0][1] if all_distances else 1.0
+
+                # Get top-K matches for analysis
+                all_distances = semantic_cache.get_all_distances(query)
+                top_matches = all_distances[:top_k_display]
 
                 results['semantic_hit'].append(semantic_hit)
                 results['semantic_distance'].append(semantic_distance)
@@ -248,14 +229,6 @@ if run_tests:
                 results['semantic_hit'].append(None)
                 results['semantic_distance'].append(None)
                 results['semantic_top_matches'].append([])
-
-        # TODO: Replace above with actual implementation:
-        if IMPLEMENTATION_STATUS['ExactMatchCache']:
-            exact_cache = ExactMatchCache()
-            exact_cache.hydrate_from_df(ground_truth_df)
-            for query in test_queries:
-                result = exact_cache.check(query)
-                results['exact_hit'].append(result.hit)
 
     results_df = pd.DataFrame(results)
 
@@ -566,46 +539,40 @@ if run_tests:
     This helps determine if the extra latency of semantic matching is worth the improved hit rate.
     """)
 
-    # Mock benchmark function (will be replaced with actual implementation)
-    def benchmark_cache(cache_name: str, num_queries: int) -> Dict:
-        """Benchmark a cache implementation (MOCK - replace with actual)"""
-        # TODO: Replace with actual cache.check_many() timing
+    # Actual benchmark function with timing
+    def benchmark_cache(cache, queries: List[str], name: str) -> Dict:
+        """Benchmark a cache implementation with actual timing."""
+        start = time.time()
+        results = cache.check_many(queries)
+        elapsed = time.time() - start
 
-        # Mock timing based on strategy
-        if cache_name == "Exact Match":
-            avg_time = np.random.uniform(0.1, 0.5)
-            hits = results_df[results_df['exact_hit']
-                              == True].shape[0] if test_exact else 0
-        elif cache_name == "Fuzzy Match":
-            avg_time = np.random.uniform(0.5, 2.0)
-            hits = results_df[results_df['fuzzy_hit']
-                              == True].shape[0] if test_fuzzy else 0
-        else:  # Semantic
-            avg_time = np.random.uniform(2.0, 5.0)
-            hits = results_df[results_df['semantic_hit']
-                              == True].shape[0] if test_semantic else 0
-
-        total_time = avg_time * num_queries
-        hit_rate = hits / num_queries if num_queries > 0 else 0
+        hits = sum(1 for r in results if r.hit)
 
         return {
-            "name": cache_name,
-            "queries": num_queries,
+            "name": name,
+            "queries": len(queries),
             "hits": hits,
-            "hit_rate": hit_rate,
-            "total_time_ms": total_time,
-            "avg_time_ms": avg_time
+            "hit_rate": hits / len(queries),
+            "total_time_ms": elapsed * 1000,
+            "avg_time_ms": (elapsed * 1000) / len(queries)
         }
+
+    # Get list of test queries
+    test_queries_list = test_queries_df['question'].tolist()
 
     # Run benchmarks for enabled strategies
     benchmark_results = []
 
-    if test_exact:
-        benchmark_results.append(benchmark_cache("Exact Match", total_tests))
-    if test_fuzzy:
-        benchmark_results.append(benchmark_cache("Fuzzy Match", total_tests))
-    if test_semantic:
-        benchmark_results.append(benchmark_cache("Semantic", total_tests))
+    with st.spinner("Running performance benchmarks..."):
+        if test_exact:
+            benchmark_results.append(benchmark_cache(
+                exact_cache, test_queries_list, "Exact Match"))
+        if test_fuzzy:
+            benchmark_results.append(benchmark_cache(
+                fuzzy_cache, test_queries_list, "Fuzzy Match"))
+        if test_semantic:
+            benchmark_results.append(benchmark_cache(
+                semantic_cache, test_queries_list, "Semantic"))
 
     if benchmark_results:
         # Display benchmark table

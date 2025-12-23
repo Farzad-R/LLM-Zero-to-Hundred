@@ -1,6 +1,6 @@
 from typing import Callable, Dict, Optional
 import pandas as pd
-from evaluation_result import EvaluationResult
+from cachelab.evaluate.evaluation_result import EvaluationResult
 
 
 class CacheEvaluator:

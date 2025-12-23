@@ -1,6 +1,6 @@
 from typing import Dict, List
 import pandas as pd
-from src.utils.cache_utils import CacheResult, CacheResults
+from cachelab.utils.cache_utils import CacheResult, CacheResults
 
 
 class ExactMatchCache:
