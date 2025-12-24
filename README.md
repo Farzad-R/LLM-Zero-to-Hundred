@@ -6,6 +6,7 @@
 This repository showcases various applications of LLM chatbots and provides comprehensive insights into established methodologies for training and fine-tuning Language Models.
 
 ### List of projects:
+- [x] [Hidden-Technical-Debt-Behind-AI-Agents](#Hidden-Technical-Debt-Behind-AI-Agents)
 - [x] [WebGPT](#WebGPT)
 - [x] [RAG-GPT](#RAG-GPT)
 - [x] [WebRAGQuery](#WebRAGQuery)
@@ -13,8 +14,6 @@ This repository showcases various applications of LLM chatbots and provides comp
 - [x] [RAG-Master LLamaindex vs Langchain](RAGMaster)
 - [x] [open-source-RAG-GEMMA](#Open-Source-RAG-GEMMA)
 - [x] [HUMAIN: Advanced Multimodal, Multitask Chatbot](#Multimodal-ChatBot)
-<!-- - [ ] [PEFT: Parameter-Efficient Finetuning](coming-soon): Will be added soon. -->
-<!-- - [ ] [LLM Pretraining](coming-soon): Will be added soon. -->
 
 ### List of tutorials
 - [x] [LLM Function Calling Tutorial](#LLM-function-calling-tutorial)
@@ -38,6 +37,23 @@ NOTE: This is the general structure of the projects, however there might be smal
 
 ## Project description:
 <!-- ====================================== -->
+<!-- Hidden Technical Debt behind AI Agents -->
+<!-- ====================================== -->
+<a id="Hidden-Technical-Debt-Behind-AI-Agents"></a>
+<h3><a style=" white-space:nowrap; " href="https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/Hidden-Technical-Debt-Behind-AI-Agents"><b>Advanced Multimodal Chatbot:</b></a></h3>
+<p>
+What This Project Covers:
+
+- Agentic Chatbot with LangGraph
+- Real Databases for Production-Style Design
+- Microservice Architecture (Docker Compose)
+- Automated VectorDB Creation (Inside Container)
+- Visual Monitoring with Weave Scope
+- Development Best Practices
+
+**YouTube video:**: [Link](https://youtu.be/9GxOsJ-kQtg?si=jVoVoQTZhT_6EUVp)
+
+<!-- ====================================== -->
 <!-- Advanced Multimodal Chatbot -->
 <!-- ====================================== -->
 <a id="HUMAIN: Advanced Multimodal, Multitask Chatbot"></a>
@@ -59,7 +75,7 @@ Features:
 
 NOTE: This chatbot was built on top of RAG-GPT and WebRAGQuery projects.
 
-**YouTube video:**: To be added
+**YouTube video:**: [Link](https://youtu.be/AAvqscJPXIY?si=Lu7DB07XXDzcFfKG)
 
 <!-- ====================================== -->
 <!-- Open-Source-RAG-GEMMA -->
