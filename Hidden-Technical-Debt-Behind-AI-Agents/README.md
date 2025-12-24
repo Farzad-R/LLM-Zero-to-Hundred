@@ -49,6 +49,8 @@ It’s designed for **developers, learners, and professionals** looking to under
 * Modular file structure
 * Docker best practices for scale and deployment
 
+**YouTube video:** [Link](https://youtu.be/9GxOsJ-kQtg?si=jVoVoQTZhT_6EUVp)
+
 ---
 
 ## 📁 Project Structure
