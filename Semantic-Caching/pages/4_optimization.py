@@ -12,6 +12,7 @@ import numpy as np
 import plotly.graph_objects as go
 import time
 
+
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
 st.title("⚙️ Threshold Optimization & Model Comparison")
@@ -35,7 +36,7 @@ st.info("""
 
 This page helps you:
 - 🎯 Systematically test multiple thresholds
-- 📊 Compare embedding models (sentence-transformers + OpenAI)
+- 📊 Compare embedding models (sentence-transformers)
 - 📈 Visualize precision-recall trade-offs
 - 💡 Get data-driven recommendations for deployment
 """)
@@ -94,22 +95,6 @@ with col2:
     test_multilingual = st.checkbox(
         "paraphrase-multilingual-MiniLM-L12-v2 (Multilingual, 384d)", value=False)
 
-    st.markdown("**OpenAI Embeddings (Requires API Key):**")
-    test_ada = st.checkbox("text-embedding-ada-002 (1536d)", value=False)
-    test_small = st.checkbox("text-embedding-3-small (512-1536d)", value=False)
-    test_large = st.checkbox("text-embedding-3-large (256-3072d)", value=False)
-
-    # Check if OpenAI models selected but no API key
-    openai_models_selected = any([test_ada, test_small, test_large])
-    if openai_models_selected:
-        openai_api_key = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            help="Required for OpenAI embedding models"
-        )
-        if not openai_api_key:
-            st.warning("⚠️ OpenAI API key required for selected models")
-
 # Build model list
 selected_models = []
 if test_minilm:
@@ -124,15 +109,6 @@ if test_paraphrase:
 if test_multilingual:
     selected_models.append(("paraphrase-multilingual-MiniLM-L12-v2",
                            "Multilingual-MiniLM", "sentence-transformers"))
-if test_ada and openai_models_selected and openai_api_key:
-    selected_models.append(("text-embedding-ada-002", "Ada-002", "openai"))
-if test_small and openai_models_selected and openai_api_key:
-    selected_models.append(
-        ("text-embedding-3-small", "Embedding-3-Small", "openai"))
-if test_large and openai_models_selected and openai_api_key:
-    selected_models.append(
-        ("text-embedding-3-large", "Embedding-3-Large", "openai"))
-
 st.info(f"**{len(selected_models)} models** selected for comparison")
 
 st.markdown("---")
