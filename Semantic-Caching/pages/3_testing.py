@@ -8,18 +8,9 @@ from cachelab.cache.exact_match_cache import ExactMatchCache
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import sys
-from pathlib import Path
 import time
 from typing import List, Dict
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import cache implementations
 
 st.set_page_config(page_title="Cache Testing", page_icon="🧪", layout="wide")
 

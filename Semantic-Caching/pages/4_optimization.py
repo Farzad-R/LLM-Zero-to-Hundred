@@ -10,14 +10,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-# import sys
-# from pathlib import Path
 import time
-
-# Add parent directory to path for imports
-# sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import evaluation modules
 
 st.set_page_config(page_title="Optimization", page_icon="⚙️", layout="wide")
 
@@ -30,7 +23,7 @@ st.markdown("---")
 if st.session_state.get('ground_truth_df') is None or st.session_state.get('test_df') is None:
     st.warning("⚠️ Please load data first!")
     if st.button("Go to Data Page"):
-        st.switch_page("pages/2_📊_data.py")
+        st.switch_page("pages/2_data.py")
     st.stop()
 
 ground_truth_df = st.session_state.ground_truth_df

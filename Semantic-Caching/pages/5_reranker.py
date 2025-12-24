@@ -2,29 +2,27 @@
 Reranker Strategies - Advanced Cache Optimization
 Test and compare different reranking approaches to reduce false positives
 """
+from sentence_transformers import SentenceTransformer
+from cachelab.reranker.cross_encoder import CrossEncoder
+from cachelab.evaluate.evaluatable_cache import EvaluatableCache
+from cachelab.evaluate.cache_evaluator import CacheEvaluator
+from cachelab.reranker.reranked_cache import RerankedCache
+from cachelab.reranker.adaptors import (
+    simple_keyword_reranker_adapter,
+    cross_encoder_reranker_adapter,
+    llm_reranker_adapter
+)
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import sys
-from pathlib import Path
 import time
+from dotenv import load_dotenv
 import os
-
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-# Import reranker modules
-# from src.reranker.adaptors import (
-#     simple_keyword_reranker_adapter,
-#     cross_encoder_reranker_adapter,
-#     llm_reranker_adapter
-# )
-# from src.reranker.reranked_cache import RerankedCache
-# from src.evaluate.cache_evaluator import CacheEvaluator
-# from src.evaluate.evaluatable_cache import EvaluatableCache
+load_dotenv()
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+if os.getenv("OPENAI_API_KEY"):
+    openai_api_key = True
 
 st.set_page_config(page_title="Reranker Strategies",
                    page_icon="🎯", layout="wide")
@@ -168,14 +166,14 @@ with st.sidebar:
             help="Number of queries to batch together"
         )
 
-        openai_api_key = st.text_input(
-            "OpenAI API Key",
-            type="password",
-            help="Required for LLM reranker"
-        )
+        # openai_api_key = st.text_input(
+        #     "OpenAI API Key",
+        #     type="password",
+        #     help="Required for LLM reranker"
+        # )
 
-        if openai_api_key:
-            os.environ["OPENAI_API_KEY"] = openai_api_key
+        # if openai_api_key:
+        # os.environ["OPENAI_API_KEY"] = openai_api_key
 
 # Main configuration display
 col1, col2, col3 = st.columns(3)
@@ -197,50 +195,17 @@ with col2:
     - Will test {selected_count} configurations
     """)
 
-with col3:
-    if test_llm and not openai_api_key:
-        st.warning("⚠️ LLM selected but no API key provided")
-    else:
-        st.success("✅ Configuration complete")
+# with col3:
+#     if test_llm and not openai_api_key:
+#         st.warning("⚠️ LLM selected but no API key provided")
+#     else:
+#         st.success("✅ Configuration complete")
 
 st.markdown("---")
 
 # Run button
 run_reranker_test = st.button(
     "🚀 Run Reranker Comparison", type="primary", width='stretch')
-
-# Check implementation status
-IMPLEMENTATION_STATUS = True
-try:
-    from src.reranker.adaptors import (
-        simple_keyword_reranker_adapter,
-        cross_encoder_reranker_adapter,
-        llm_reranker_adapter
-    )
-    from src.reranker.reranked_cache import RerankedCache
-    from src.evaluate.cache_evaluator import CacheEvaluator
-    from src.evaluate.evaluatable_cache import EvaluatableCache
-    IMPLEMENTATION_STATUS = True
-except ImportError:
-    pass
-
-if not IMPLEMENTATION_STATUS:
-    st.warning("""
-    ⚠️ **Reranker modules not implemented yet**
-    
-    Please implement these in `src/reranker/`:
-    - `adaptors.py` - Reranker adapters (simple, cross-encoder, LLM)
-    - `reranked_cache.py` - RerankedCache class
-    
-    And evaluation modules in `src/evaluate/`:
-    - `cache_evaluator.py` - CacheEvaluator
-    - `evaluatable_cache.py` - EvaluatableCache
-    
-    The UI is ready - just add your classes!
-    """)
-
-    if st.checkbox("Show Mock Results (Demo)", value=False):
-        run_reranker_test = True
 
 # Results section
 if run_reranker_test:
@@ -263,6 +228,67 @@ if run_reranker_test:
         st.warning("Please select at least one reranking strategy")
         st.stop()
 
+    # Initialize base cache and evaluator
+    with st.spinner("Initializing base semantic cache..."):
+        # Load embedding model
+        encoder = SentenceTransformer(base_model)
+
+        # Create base evaluatable cache
+        base_cache = EvaluatableCache(
+            encoder, distance_threshold=base_threshold)
+        qa_pairs = list(
+            zip(ground_truth_df["question"], ground_truth_df["answer"]))
+        base_cache.add_many(qa_pairs)
+
+        # Create evaluator
+        evaluator = CacheEvaluator(ground_truth_df, test_df)
+
+    # Initialize rerankers based on selected strategies
+    rerankers = {}
+
+    with st.spinner("Initializing rerankers..."):
+
+        # Simple keyword reranker (always available)
+        if test_simple:
+            rerankers['simple'] = simple_keyword_reranker_adapter
+
+        # Cross-encoder reranker
+        if test_cross_encoder:
+            cross_encoder_model = CrossEncoder(cross_encoder_model)
+            cross_encoder_reranker = cross_encoder_model.create_reranker()
+            cross_encoder_adapter = cross_encoder_reranker_adapter(
+                cross_encoder_reranker)
+            rerankers['cross_encoder'] = cross_encoder_adapter
+
+        # LLM reranker
+        if test_llm and openai_api_key:
+            from cachelab.reranker.llm_reranker import LLMEvaluator, DEFAULT_COMPARE_PROMPT_TEMPLATE
+
+            llm_evaluator = LLMEvaluator.construct_with_gpt(
+                prompt=DEFAULT_COMPARE_PROMPT_TEMPLATE,
+                model=llm_model
+            )
+            llm_reranker = llm_evaluator.create_reranker(
+                batch_size=llm_batch_size)
+            llm_adapter = llm_reranker_adapter(llm_reranker)
+            rerankers['llm'] = llm_adapter
+
+    # Create caches with different reranking strategies
+    caches = {}
+
+    if test_baseline:
+        caches['baseline'] = base_cache
+
+    if test_simple:
+        caches['simple'] = RerankedCache(base_cache, rerankers['simple'])
+
+    if test_cross_encoder:
+        caches['cross_encoder'] = RerankedCache(
+            base_cache, rerankers['cross_encoder'])
+
+    if test_llm and openai_api_key:
+        caches['llm'] = RerankedCache(base_cache, rerankers['llm'])
+
     # Run evaluation
     with st.spinner(f"Testing {len(strategies_to_test)} reranking strategies..."):
 
@@ -272,50 +298,34 @@ if run_reranker_test:
 
         for i, (strategy_name, strategy_type) in enumerate(strategies_to_test):
 
-            # Mock evaluation - Replace with actual implementation
-            # TODO: Initialize cache and reranker, run evaluation
+            # Real evaluation
+            start_time = time.time()
+            cache_instance = caches[strategy_type]
+            result = evaluator.evaluate(cache_instance.check)
+            elapsed = time.time() - start_time
 
-            # Mock timing based on strategy
-            if strategy_type == "baseline":
-                time_taken = np.random.uniform(0.5, 1.0)
-                precision = 0.65 + np.random.uniform(-0.05, 0.05)
-                recall = 0.70 + np.random.uniform(-0.05, 0.05)
-            elif strategy_type == "simple":
-                time_taken = np.random.uniform(0.8, 1.5)
-                precision = 0.75 + np.random.uniform(-0.05, 0.05)
-                recall = 0.68 + np.random.uniform(-0.05, 0.05)
-            elif strategy_type == "cross_encoder":
-                time_taken = np.random.uniform(2.0, 4.0)
-                precision = 0.88 + np.random.uniform(-0.03, 0.03)
-                recall = 0.72 + np.random.uniform(-0.05, 0.05)
-            else:  # llm
-                time_taken = np.random.uniform(8.0, 15.0)
-                precision = 0.95 + np.random.uniform(-0.02, 0.02)
-                recall = 0.70 + np.random.uniform(-0.05, 0.05)
-
-            # Calculate other metrics
-            f1 = 2 * (precision * recall) / (precision + recall)
-            accuracy = (precision + recall) / 2
-            hit_rate = recall * 0.8
-
-            # Mock confusion matrix values
-            total = len(test_df)
-            tp = int(recall * test_df['cache_hit'].sum())
-            fn = test_df['cache_hit'].sum() - tp
-            fp = int((1 - precision) * tp) if tp > 0 else 0
-            tn = total - tp - fn - fp
+            # Extract confusion matrix values
+            tp = sum(
+                1 for p in result.predictions if p['correct'] and p['did_hit'])
+            tn = sum(
+                1 for p in result.predictions if p['correct'] and not p['did_hit'])
+            fp = sum(
+                1 for p in result.predictions if not p['correct'] and p['did_hit'])
+            fn = sum(
+                1 for p in result.predictions if not p['correct'] and not p['did_hit'] and p['should_hit'])
 
             reranking_results[strategy_name] = {
-                'precision': precision,
-                'recall': recall,
-                'f1': f1,
-                'accuracy': accuracy,
-                'hit_rate': hit_rate,
-                'time': time_taken,
+                'precision': result.precision,
+                'recall': result.recall,
+                'f1': result.f1_score,
+                'accuracy': result.accuracy,
+                'hit_rate': result.hit_rate,
+                'time': elapsed,
                 'tp': tp,
                 'tn': tn,
                 'fp': fp,
-                'fn': fn
+                'fn': fn,
+                'result': result
             }
 
             progress_bar.progress((i + 1) / len(strategies_to_test))
@@ -476,7 +486,7 @@ if run_reranker_test:
                     margin=dict(l=20, r=20, t=40, b=20)
                 )
 
-                st.plotly_chart(fig, width='stretch')
+                st.plotly_chart(fig, width='content')
 
                 # Metrics below matrix
                 col_a, col_b = st.columns(2)

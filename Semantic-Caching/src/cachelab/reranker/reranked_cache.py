@@ -1,4 +1,4 @@
-from src.evaluate.evaluatable_cache import EvaluatableCache
+from cachelab.evaluate.evaluatable_cache import EvaluatableCache
 from typing import Callable, Dict, Optional
 import numpy as np
 

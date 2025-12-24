@@ -1,7 +1,7 @@
 from typing import List, Dict
-from simple_keyword_reranker import simple_keyword_reranker
-from cross_encoder import CrossEncoderReranker
-from llm_reranker import LLMReranker
+from cachelab.reranker.simple_keyword_reranker import simple_keyword_reranker
+from cachelab.reranker.cross_encoder import CrossEncoderReranker
+from cachelab.reranker.llm_reranker import LLMReranker
 
 # Create adapter wrappers that normalize the reranker interfaces
 
