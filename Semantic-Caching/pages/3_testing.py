@@ -138,13 +138,26 @@ test_queries_df = filtered_test_df.sample(
     min(num_test_queries, len(filtered_test_df)))
 
 # Run tests section
+# Run tests section
 if run_tests:
+    # Store results in session state
+    st.session_state['test_results'] = None
+    st.session_state['test_config'] = {
+        'fuzzy_threshold': fuzzy_threshold,
+        'semantic_threshold': semantic_threshold,
+        'embedding_model': embedding_model,
+        'top_k_display': top_k_display,
+        'test_exact': test_exact,  # Store which tests were enabled
+        'test_fuzzy': test_fuzzy,
+        'test_semantic': test_semantic,
+        'num_test_queries': num_test_queries,
+        'query_filter': query_filter
+    }
 
     st.markdown("## 📊 Test Results")
 
     # Initialize caches with st.spinner
     with st.spinner("Initializing caches..."):
-
         # Initialize encoder for semantic cache
         encoder = SentenceTransformer(embedding_model)
 
@@ -172,7 +185,6 @@ if run_tests:
 
     # Run actual cache tests
     with st.spinner("Running cache tests..."):
-
         for idx, row in test_queries_df.iterrows():
             query = row['question']
             expected_hit = row['cache_hit']
@@ -198,20 +210,16 @@ if run_tests:
 
             # Test semantic cache
             if test_semantic:
+                # Get ALL distances FIRST (before check, to ensure consistency)
+                all_distances = semantic_cache.get_all_distances(query)
+                top_matches = all_distances[:top_k_display]
+
+                # Then do the check
                 semantic_result = semantic_cache.check(query)
                 semantic_hit = semantic_result.hit if semantic_result else False
 
-                # Get distance
-                if semantic_result and semantic_result.hit:
-                    semantic_distance = semantic_result.best_match.vector_distance
-                else:
-                    # Query didn't hit, but get distance to closest match anyway
-                    all_distances = semantic_cache.get_all_distances(query)
-                    semantic_distance = all_distances[0][1] if all_distances else 1.0
-
-                # Get top-K matches for analysis
-                all_distances = semantic_cache.get_all_distances(query)
-                top_matches = all_distances[:top_k_display]
+                # Get distance - use the first distance from all_distances
+                semantic_distance = all_distances[0][1] if all_distances else 1.0
 
                 results['semantic_hit'].append(semantic_hit)
                 results['semantic_distance'].append(semantic_distance)
@@ -222,6 +230,34 @@ if run_tests:
                 results['semantic_top_matches'].append([])
 
     results_df = pd.DataFrame(results)
+
+    # **CRITICAL: Store in session state**
+    st.session_state['test_results'] = results_df
+    st.session_state['exact_cache'] = exact_cache if test_exact else None
+    st.session_state['fuzzy_cache'] = fuzzy_cache if test_fuzzy else None
+    st.session_state['semantic_cache'] = semantic_cache if test_semantic else None
+    # Store the test queries too
+    st.session_state['test_queries_df'] = test_queries_df
+
+# **NEW: Check if we have stored results**
+if st.session_state.get('test_results') is not None:
+    results_df = st.session_state['test_results']
+
+    # Retrieve config
+    config = st.session_state.get('test_config', {})
+    semantic_threshold = config.get('semantic_threshold', semantic_threshold)
+    top_k_display = config.get('top_k_display', top_k_display)
+
+    # Retrieve which tests were enabled
+    test_exact = config.get('test_exact', test_exact)
+    test_fuzzy = config.get('test_fuzzy', test_fuzzy)
+    test_semantic = config.get('test_semantic', test_semantic)
+
+    # Retrieve cache objects
+    exact_cache = st.session_state.get('exact_cache')
+    fuzzy_cache = st.session_state.get('fuzzy_cache')
+    semantic_cache = st.session_state.get('semantic_cache')
+    test_queries_df = st.session_state.get('test_queries_df')
 
     # Summary metrics
     st.markdown("### 📈 Summary Metrics")
@@ -376,25 +412,32 @@ if run_tests:
     st.markdown("---")
 
     # Detailed query inspection
+    # Detailed query inspection
     st.markdown("### 🔍 Query-Level Inspection")
 
     st.markdown("Click on a query to see its top-K matches and distances:")
 
-    # Query selector
+    # Query selector - ADD A UNIQUE KEY
     selected_query_idx = st.selectbox(
         "Select Query to Inspect",
         range(len(results_df)),
-        format_func=lambda i: f"{i+1}. {results_df.iloc[i]['query'][:50]}..."
+        # Show more text
+        format_func=lambda i: f"{i+1}. {results_df.iloc[i]['query'][:80]}",
+        key="query_selector"  # Add unique key
     )
 
     if selected_query_idx is not None:
         selected_row = results_df.iloc[selected_query_idx]
+        selected_query = selected_row['query']
+
+        # Add debug info to verify query is changing
+        st.caption(f"Selected query index: {selected_query_idx}")
 
         col1, col2 = st.columns([1, 1])
 
         with col1:
             st.markdown("#### Query Details")
-            st.markdown(f"**Query:** {selected_row['query']}")
+            st.markdown(f"**Query:** {selected_query}")
             st.markdown(
                 f"**Expected:** {'✅ Should Hit' if selected_row['expected_hit'] else '❌ Should Miss'}")
 
@@ -413,63 +456,79 @@ if run_tests:
                         f"❌ Distance ({selected_row['semantic_distance']:.4f}) > Threshold ({semantic_threshold})")
 
         with col2:
-            if test_semantic and selected_row['semantic_top_matches']:
+            # **FIX: Recalculate top-K matches on the fly**
+            if test_semantic and semantic_cache is not None:
                 st.markdown("#### Top-K Closest Matches")
 
-                matches_data = []
-                for rank, (match_q, dist) in enumerate(selected_row['semantic_top_matches'], 1):
-                    matches_data.append({
-                        'Rank': rank,
-                        'Match': match_q[:40] + '...' if len(match_q) > 40 else match_q,
-                        'Distance': f"{dist:.4f}",
-                        'Status': '✅' if dist <= semantic_threshold else '❌'
-                    })
+                # CRITICAL: Get fresh top-K matches for the selected query
+                # Use the actual query text, not the index
+                all_distances = semantic_cache.get_all_distances(
+                    selected_query)
+                top_matches = all_distances[:top_k_display]
 
-                matches_df = pd.DataFrame(matches_data)
-                st.dataframe(matches_df, width='stretch',
-                             hide_index=True)
+                # Debug: Show how many matches we got
+                st.caption(
+                    f"Retrieved {len(top_matches)} matches for this query")
+
+                if top_matches:
+                    matches_data = []
+                    for rank, (match_q, dist) in enumerate(top_matches, 1):
+                        matches_data.append({
+                            'Rank': rank,
+                            'Match': match_q[:60] + '...' if len(match_q) > 60 else match_q,
+                            'Distance': f"{dist:.4f}",
+                            'Status': '✅' if dist <= semantic_threshold else '❌'
+                        })
+
+                    matches_df = pd.DataFrame(matches_data)
+                    st.dataframe(matches_df, width='stretch', hide_index=True)
+                else:
+                    st.warning("No matches found for this query")
 
         # Visualization of distances for this query
-        if test_semantic and selected_row['semantic_top_matches']:
+        if test_semantic and semantic_cache is not None:
             st.markdown("#### Distance Visualization")
 
-            ranks = [
-                i+1 for i in range(len(selected_row['semantic_top_matches']))]
-            distances = [d for _, d in selected_row['semantic_top_matches']]
+            # IMPORTANT: Don't call get_all_distances again, reuse the same data
+            if top_matches:
+                ranks = [i+1 for i in range(len(top_matches))]
+                distances = [d for _, d in top_matches]
 
-            fig = go.Figure()
+                fig = go.Figure()
 
-            fig.add_trace(go.Scatter(
-                x=ranks,
-                y=distances,
-                mode='lines+markers',
-                marker=dict(
-                    size=10,
-                    color=distances,
-                    colorscale='RdYlGn_r',
-                    showscale=True,
-                    colorbar=dict(title="Distance")
-                ),
-                line=dict(color='gray', width=2),
-                name='Matches'
-            ))
+                fig.add_trace(go.Scatter(
+                    x=ranks,
+                    y=distances,
+                    mode='lines+markers',
+                    marker=dict(
+                        size=10,
+                        color=distances,
+                        colorscale='RdYlGn_r',
+                        showscale=True,
+                        colorbar=dict(title="Distance")
+                    ),
+                    line=dict(color='gray', width=2),
+                    name='Matches'
+                ))
 
-            fig.add_hline(
-                y=semantic_threshold,
-                line_dash="dash",
-                line_color="red",
-                annotation_text=f"Threshold: {semantic_threshold}",
-                annotation_position="right"
-            )
+                fig.add_hline(
+                    y=semantic_threshold,
+                    line_dash="dash",
+                    line_color="red",
+                    annotation_text=f"Threshold: {semantic_threshold}",
+                    annotation_position="right"
+                )
 
-            fig.update_layout(
-                title=f"Top-{top_k_display} Matches Distance Decay",
-                xaxis_title="Rank",
-                yaxis_title="Cosine Distance",
-                height=300
-            )
+                fig.update_layout(
+                    title=f"Top-{top_k_display} Matches Distance Decay",
+                    xaxis_title="Rank",
+                    yaxis_title="Cosine Distance",
+                    height=300
+                )
 
-            st.plotly_chart(fig, width='stretch')
+                st.plotly_chart(fig, width='stretch')
+            else:
+                st.info("No distance data to visualize")
 
     st.markdown("---")
 
@@ -522,7 +581,6 @@ if run_tests:
 
     st.markdown("---")
 
-    # Performance Benchmark Section
     st.markdown("### ⚡ Performance Benchmark")
 
     st.info("""
@@ -530,40 +588,42 @@ if run_tests:
     This helps determine if the extra latency of semantic matching is worth the improved hit rate.
     """)
 
-    # Actual benchmark function with timing
-    def benchmark_cache(cache, queries: List[str], name: str) -> Dict:
-        """Benchmark a cache implementation with actual timing."""
-        start = time.time()
-        results = cache.check_many(queries)
-        elapsed = time.time() - start
+    # **FIX: Only run benchmarks if we have cache objects**
+    if test_queries_df is not None and any([exact_cache, fuzzy_cache, semantic_cache]):
+        # Actual benchmark function with timing
+        def benchmark_cache(cache, queries: List[str], name: str) -> Dict:
+            """Benchmark a cache implementation with actual timing."""
+            start = time.time()
+            results = cache.check_many(queries)
+            elapsed = time.time() - start
 
-        hits = sum(1 for r in results if r.hit)
+            hits = sum(1 for r in results if r.hit)
 
-        return {
-            "name": name,
-            "queries": len(queries),
-            "hits": hits,
-            "hit_rate": hits / len(queries),
-            "total_time_ms": elapsed * 1000,
-            "avg_time_ms": (elapsed * 1000) / len(queries)
-        }
+            return {
+                "name": name,
+                "queries": len(queries),
+                "hits": hits,
+                "hit_rate": hits / len(queries),
+                "total_time_ms": elapsed * 1000,
+                "avg_time_ms": (elapsed * 1000) / len(queries)
+            }
 
-    # Get list of test queries
-    test_queries_list = test_queries_df['question'].tolist()
+        # Get list of test queries
+        test_queries_list = test_queries_df['question'].tolist()
 
-    # Run benchmarks for enabled strategies
-    benchmark_results = []
+        # Run benchmarks for enabled strategies
+        benchmark_results = []
 
-    with st.spinner("Running performance benchmarks..."):
-        if test_exact:
-            benchmark_results.append(benchmark_cache(
-                exact_cache, test_queries_list, "Exact Match"))
-        if test_fuzzy:
-            benchmark_results.append(benchmark_cache(
-                fuzzy_cache, test_queries_list, "Fuzzy Match"))
-        if test_semantic:
-            benchmark_results.append(benchmark_cache(
-                semantic_cache, test_queries_list, "Semantic"))
+        with st.spinner("Running performance benchmarks..."):
+            if test_exact and exact_cache is not None:
+                benchmark_results.append(benchmark_cache(
+                    exact_cache, test_queries_list, "Exact Match"))
+            if test_fuzzy and fuzzy_cache is not None:
+                benchmark_results.append(benchmark_cache(
+                    fuzzy_cache, test_queries_list, "Fuzzy Match"))
+            if test_semantic and semantic_cache is not None:
+                benchmark_results.append(benchmark_cache(
+                    semantic_cache, test_queries_list, "Semantic"))
 
     if benchmark_results:
         # Display benchmark table
