@@ -35,6 +35,7 @@ with st.expander("📋 Data Format Requirements", expanded=False):
         **File:** `ground_truth.csv`
         
         **Required Columns:**
+        - 'id' - Unique identifier for each FAQ entry
         - `question` - The FAQ question
         - `answer` - The cached answer
         
@@ -57,6 +58,7 @@ with st.expander("📋 Data Format Requirements", expanded=False):
         **Required Columns:**
         - `question` - Test query
         - `answer` - Expected answer
+        - `src_question_id` - ID linking to ground truth question
         - `cache_hit` - True/False (should this hit cache?)
         
         **Purpose:** Test queries that represent your real business needs. Should include:
