@@ -16,6 +16,7 @@ from pyprojroot import here
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+
 # Page config
 st.set_page_config(
     page_title="TaskFlow Assistant",
@@ -24,34 +25,112 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
+# Custom CSS with dark mode support
 st.markdown("""
 <style>
+    /* Cache Hit Box - Green theme */
     .cache-hit {
-        background-color: #d4edda;
+        background-color: rgba(40, 167, 69, 0.15);
         border-left: 5px solid #28a745;
-        padding: 10px;
+        padding: 15px;
         margin: 10px 0;
-        border-radius: 5px;
+        border-radius: 8px;
+        color: inherit; /* Inherit text color from Streamlit theme */
     }
+    
+    .cache-hit h4 {
+        color: #28a745 !important;
+        margin-top: 0;
+        font-size: 1.1em;
+    }
+    
+    .cache-hit p {
+        margin: 5px 0;
+        color: inherit;
+    }
+    
+    .cache-hit strong {
+        color: inherit;
+        font-weight: 600;
+    }
+    
+    /* Cache Miss Box - Yellow/Orange theme */
     .cache-miss {
-        background-color: #fff3cd;
+        background-color: rgba(255, 193, 7, 0.15);
         border-left: 5px solid #ffc107;
-        padding: 10px;
+        padding: 15px;
         margin: 10px 0;
-        border-radius: 5px;
+        border-radius: 8px;
+        color: inherit;
     }
+    
+    .cache-miss h4 {
+        color: #ff9800 !important;
+        margin-top: 0;
+        font-size: 1.1em;
+    }
+    
+    .cache-miss p {
+        margin: 5px 0;
+        color: inherit;
+    }
+    
+    /* Dark mode specific adjustments */
+    @media (prefers-color-scheme: dark) {
+        .cache-hit {
+            background-color: rgba(40, 167, 69, 0.2);
+            border-left-color: #4caf50;
+        }
+        
+        .cache-hit h4 {
+            color: #4caf50 !important;
+        }
+        
+        .cache-miss {
+            background-color: rgba(255, 193, 7, 0.2);
+            border-left-color: #ffb300;
+        }
+        
+        .cache-miss h4 {
+            color: #ffb300 !important;
+        }
+    }
+    
+    /* For Streamlit's dark theme detection */
+    [data-theme="dark"] .cache-hit {
+        background-color: rgba(40, 167, 69, 0.2);
+        border-left-color: #4caf50;
+    }
+    
+    [data-theme="dark"] .cache-hit h4 {
+        color: #4caf50 !important;
+    }
+    
+    [data-theme="dark"] .cache-miss {
+        background-color: rgba(255, 193, 7, 0.2);
+        border-left-color: #ffb300;
+    }
+    
+    [data-theme="dark"] .cache-miss h4 {
+        color: #ffb300 !important;
+    }
+    
+    /* Stats and feedback boxes */
     .stats-box {
-        background-color: #f8f9fa;
+        background-color: rgba(128, 128, 128, 0.1);
         padding: 15px;
         border-radius: 10px;
         margin: 10px 0;
+        color: inherit;
     }
+    
     .feedback-section {
-        background-color: #e7f3ff;
+        background-color: rgba(33, 150, 243, 0.1);
+        border: 1px solid rgba(33, 150, 243, 0.3);
         padding: 15px;
         border-radius: 10px;
         margin: 15px 0;
+        color: inherit;
     }
 </style>
 """, unsafe_allow_html=True)
