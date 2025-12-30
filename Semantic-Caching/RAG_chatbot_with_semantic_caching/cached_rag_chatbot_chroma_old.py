@@ -1,31 +1,24 @@
 """
-RAG Chatbot with Semantic Caching using ChromaDB - FIXED VERSION
+RAG Chatbot with Semantic Caching using ChromaDB
 Uses LangGraph to orchestrate a RAG workflow with semantic caching layer.
-
-FIXES:
-- Added recursion limit configuration
-- Added max retry logic to prevent infinite loops
-- Fallback answer when documents aren't relevant
 """
 
-from typing import Literal, Annotated
+from typing import Literal
+import csv
 from pydantic import BaseModel, Field
 from langgraph.graph import MessagesState, StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage
 from langchain.tools import tool
 from langchain.chat_models import init_chat_model
-import operator
-from pyprojroot import here
-
 from semantic_cache import SemanticCache
 from document_store_chroma import DocumentVectorStore
+from pyprojroot import here
+from dotenv import load_dotenv
+import os
 
-
-# Extended state to track retries
-class ExtendedState(MessagesState):
-    """Extended state with retry counter."""
-    retry_count: Annotated[int, operator.add] = 0
+load_dotenv()
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
 
 class CachedRAGChatbot:
@@ -37,8 +30,7 @@ class CachedRAGChatbot:
         model_name: str = "gpt-4o",
         temperature: float = 0,
         chroma_persist_dir: str = str(here("data/chroma_db")),
-        chroma_collection: str = "taskflow_docs",
-        max_retries: int = 2  # Maximum question rewrites
+        chroma_collection: str = "taskflow_docs"
     ):
         """
         Initialize the cached RAG chatbot.
@@ -49,7 +41,6 @@ class CachedRAGChatbot:
             temperature: Temperature for LLM
             chroma_persist_dir: ChromaDB persistence directory
             chroma_collection: ChromaDB collection name
-            max_retries: Maximum number of question rewrite attempts
         """
         self.cache = SemanticCache(distance_threshold=cache_distance_threshold)
         self.doc_store = DocumentVectorStore(
@@ -59,7 +50,6 @@ class CachedRAGChatbot:
         self.response_model = init_chat_model(
             model_name, temperature=temperature)
         self.grader_model = init_chat_model(model_name, temperature=0)
-        self.max_retries = max_retries
 
         # Will be set when graph is compiled
         self.graph = None
@@ -83,7 +73,7 @@ class CachedRAGChatbot:
 
     def load_cache_from_file(self, filepath: str):
         """Load cache from a CSV file."""
-        import csv
+
         pairs = []
         with open(filepath, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
@@ -100,7 +90,7 @@ class CachedRAGChatbot:
         return self.doc_store.get_stats()
 
     def _setup_graph(self):
-        """Setup the LangGraph workflow with retry logic."""
+        """Setup the LangGraph workflow."""
         # Create retriever tool
         retriever = self.doc_store.get_retriever(k=4)
 
@@ -113,7 +103,7 @@ class CachedRAGChatbot:
         self.retriever_tool = retrieve_documents
 
         # Define node functions
-        def generate_query_or_respond(state: ExtendedState):
+        def generate_query_or_respond(state: MessagesState):
             """Generate a response or decide to retrieve documents."""
             response = (
                 self.response_model
@@ -138,18 +128,11 @@ class CachedRAGChatbot:
             )
 
         def grade_documents(
-            state: ExtendedState,
-        ) -> Literal["generate_answer", "rewrite_question", "generate_fallback"]:
+            state: MessagesState,
+        ) -> Literal["generate_answer", "rewrite_question"]:
             """Determine whether the retrieved documents are relevant to the question."""
             question = state["messages"][0].content
             context = state["messages"][-1].content
-            retry_count = state.get("retry_count", 0)
-
-            # Check if we've hit max retries
-            if retry_count >= self.max_retries:
-                print(
-                    f"⚠️  Max retries ({self.max_retries}) reached. Generating fallback answer...")
-                return "generate_fallback"
 
             prompt = GRADE_PROMPT.format(question=question, context=context)
             response = (
@@ -162,8 +145,6 @@ class CachedRAGChatbot:
             if score == "yes":
                 return "generate_answer"
             else:
-                print(
-                    f"❌ Documents not relevant. Will rewrite question (attempt {retry_count + 1}/{self.max_retries})...")
                 return "rewrite_question"
 
         # Rewrite question
@@ -176,25 +157,14 @@ class CachedRAGChatbot:
             "Formulate an improved question:"
         )
 
-        def rewrite_question(state: ExtendedState):
-            """Rewrite the original user question and increment retry counter."""
+        def rewrite_question(state: MessagesState):
+            """Rewrite the original user question."""
             messages = state["messages"]
             question = messages[0].content
-            retry_count = state.get("retry_count", 0)
-
-            print(
-                f"🔄 Rewriting question (attempt {retry_count + 1}/{self.max_retries})...")
-
             prompt = REWRITE_PROMPT.format(question=question)
             response = self.response_model.invoke(
                 [{"role": "user", "content": prompt}])
-
-            print(f"   New question: {response.content}")
-
-            return {
-                "messages": [HumanMessage(content=response.content)],
-                "retry_count": 1  # Increment by 1
-            }
+            return {"messages": [HumanMessage(content=response.content)]}
 
         # Generate answer
         GENERATE_PROMPT = (
@@ -206,8 +176,8 @@ class CachedRAGChatbot:
             "Context: {context}"
         )
 
-        def generate_answer(state: ExtendedState):
-            """Generate an answer from retrieved context."""
+        def generate_answer(state: MessagesState):
+            """Generate an answer."""
             question = state["messages"][0].content
             context = state["messages"][-1].content
             prompt = GENERATE_PROMPT.format(question=question, context=context)
@@ -215,36 +185,14 @@ class CachedRAGChatbot:
                 [{"role": "user", "content": prompt}])
             return {"messages": [response]}
 
-        # Generate fallback answer when docs aren't relevant
-        FALLBACK_PROMPT = (
-            "You are a helpful TaskFlow assistant. "
-            "A user asked the following question, but we couldn't find relevant information in our documentation.\n"
-            "Question: {question}\n\n"
-            "Provide a helpful response that:\n"
-            "1. Politely acknowledges we don't have specific information about this in our TaskFlow documentation\n"
-            "2. Suggests what they could try (contact support, check our website, rephrase question)\n"
-            "3. If you can infer what they're asking about, provide general helpful context\n"
-            "Keep it brief and friendly."
-        )
-
-        def generate_fallback(state: ExtendedState):
-            """Generate a fallback answer when docs aren't relevant after retries."""
-            question = state["messages"][0].content
-            prompt = FALLBACK_PROMPT.format(question=question)
-            response = self.response_model.invoke(
-                [{"role": "user", "content": prompt}])
-            return {"messages": [response]}
-
         # Build the graph
-        workflow = StateGraph(ExtendedState)
+        workflow = StateGraph(MessagesState)
 
         workflow.add_node("generate_query_or_respond",
                           generate_query_or_respond)
         workflow.add_node("retrieve", ToolNode([self.retriever_tool]))
         workflow.add_node("rewrite_question", rewrite_question)
         workflow.add_node("generate_answer", generate_answer)
-        # New fallback node
-        workflow.add_node("generate_fallback", generate_fallback)
 
         workflow.add_edge(START, "generate_query_or_respond")
 
@@ -260,21 +208,11 @@ class CachedRAGChatbot:
         workflow.add_conditional_edges(
             "retrieve",
             grade_documents,
-            {
-                "generate_answer": "generate_answer",
-                "rewrite_question": "rewrite_question",
-                "generate_fallback": "generate_fallback"  # New fallback path
-            }
         )
         workflow.add_edge("generate_answer", END)
-        workflow.add_edge("generate_fallback", END)  # Fallback ends workflow
         workflow.add_edge("rewrite_question", "generate_query_or_respond")
 
-        # Compile with recursion limit
-        self.graph = workflow.compile(
-            checkpointer=None,
-            debug=False
-        )
+        self.graph = workflow.compile()
 
     def query(self, question: str, verbose: bool = False) -> dict:
         """
@@ -321,44 +259,27 @@ class CachedRAGChatbot:
         if self.graph is None:
             raise ValueError("Graph not initialized. Load vectorstore first.")
 
-        # Run the RAG workflow with recursion limit
-        try:
-            result = None
-            config = {"recursion_limit": 50}  # Set reasonable recursion limit
+        # Run the RAG workflow
+        result = None
+        for chunk in self.graph.stream(
+            {"messages": [{"role": "user", "content": question}]}
+        ):
+            for node, update in chunk.items():
+                if verbose:
+                    print(f"\n📍 Node: {node}")
+                result = update
 
-            for chunk in self.graph.stream(
-                {"messages": [{"role": "user", "content": question}],
-                    "retry_count": 0},
-                config=config
-            ):
-                for node, update in chunk.items():
-                    if verbose:
-                        print(f"\n📍 Node: {node}")
-                    result = update
+        # Extract the final answer
+        answer = result["messages"][-1].content
 
-            # Extract the final answer
-            answer = result["messages"][-1].content
+        if verbose:
+            print(f"\n💬 Answer (from RAG): {answer}\n")
 
-            if verbose:
-                print(f"\n💬 Answer (from RAG): {answer}\n")
-
-            return {
-                "answer": answer,
-                "cache_hit": False,
-                "cache_info": None
-            }
-
-        except Exception as e:
-            # Graceful error handling
-            error_message = str(e)
-            if "recursion" in error_message.lower():
-                return {
-                    "answer": "I encountered an error while searching for an answer. The question might be too complex or outside our documentation scope. Please try:\n• Rephrasing your question\n• Asking about specific TaskFlow features\n• Breaking down complex questions",
-                    "cache_hit": False,
-                    "cache_info": None
-                }
-            else:
-                raise e
+        return {
+            "answer": answer,
+            "cache_hit": False,
+            "cache_info": None
+        }
 
     def add_to_cache(self, question: str, answer: str):
         """
@@ -400,34 +321,19 @@ class CachedRAGChatbot:
         if self.graph is None:
             raise ValueError("Graph not initialized. Load vectorstore first.")
 
-        try:
-            final_answer = None
-            config = {"recursion_limit": 50}
-
-            for chunk in self.graph.stream(
-                {"messages": [{"role": "user", "content": question}],
-                    "retry_count": 0},
-                config=config
-            ):
-                for node, update in chunk.items():
-                    yield {
-                        "type": "node_update",
-                        "node": node,
-                        "messages": update["messages"]
-                    }
-                    final_answer = update["messages"][-1].content
-
-            yield {
-                "type": "complete",
-                "answer": final_answer
-            }
-
-        except Exception as e:
-            error_message = str(e)
-            if "recursion" in error_message.lower():
+        final_answer = None
+        for chunk in self.graph.stream(
+            {"messages": [{"role": "user", "content": question}]}
+        ):
+            for node, update in chunk.items():
                 yield {
-                    "type": "error",
-                    "answer": "I encountered an error while searching. Please try rephrasing your question or asking about specific TaskFlow features."
+                    "type": "node_update",
+                    "node": node,
+                    "messages": update["messages"]
                 }
-            else:
-                raise e
+                final_answer = update["messages"][-1].content
+
+        yield {
+            "type": "complete",
+            "answer": final_answer
+        }

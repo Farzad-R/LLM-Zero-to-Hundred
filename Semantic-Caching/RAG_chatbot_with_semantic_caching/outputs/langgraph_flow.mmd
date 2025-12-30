@@ -1,0 +1,25 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	generate_query_or_respond(generate_query_or_respond)
+	retrieve(retrieve)
+	rewrite_question(rewrite_question)
+	generate_answer(generate_answer)
+	no_relevant_docs(no_relevant_docs)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> generate_query_or_respond;
+	generate_query_or_respond -.-> __end__;
+	generate_query_or_respond -. &nbsp;tools&nbsp; .-> retrieve;
+	retrieve -.-> generate_answer;
+	retrieve -.-> no_relevant_docs;
+	retrieve -.-> rewrite_question;
+	rewrite_question --> generate_query_or_respond;
+	generate_answer --> __end__;
+	no_relevant_docs --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
