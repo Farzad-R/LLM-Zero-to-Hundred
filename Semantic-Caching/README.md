@@ -48,7 +48,11 @@ Production-ready chatbot combining RAG with semantic caching, showing real-time 
 
 ![RAG Chatbot](./documentation/chatbot_screenshot.png)
 
-<img src="./documentation/rag_agent_with_Semantic_caching.png" alt="RAG Chatbot Schema" width="50%">
+<p align="center">
+  <img src="./documentation/rag_agent_with_Semantic_caching.png"
+       alt="RAG Chatbot Schema"
+       width="50%">
+</p>
 
 
 ---
