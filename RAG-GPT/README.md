@@ -1,4 +1,10 @@
-# RAG-GPT: Retrieval Augmented generation (RAG) chatbot using OpenAI GPT Model, Langchain, ChromaDB, and Gradio
+# RAG-GPT: Retrieval Augmented generation (RAG) chatbot 
+
+using OpenAI GPT Model, Langchain, ChromaDB, and Gradio
+
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 
 **RAG-GPT** supports both PDFs and Docs. 
 
@@ -74,8 +80,6 @@ In Terminal 2:
 python src\raggpt_app.py
 ```
 5. Chat with your documents.
-
-**YouTube video: **[Link](https://www.youtube.com/watch?v=1FERFfut4Uw&t=3s)
 
 **Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 

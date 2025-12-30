@@ -5,6 +5,8 @@
 </div>
 This repository showcases various applications of LLM chatbots and provides comprehensive insights into established methodologies for training and fine-tuning Language Models.
 
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
 ### List of projects:
 - [x] [Hidden-Technical-Debt-Behind-AI-Agents](#Hidden-Technical-Debt-Behind-AI-Agents)
 - [x] [WebGPT](#WebGPT)

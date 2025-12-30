@@ -2,6 +2,10 @@
 
 **WebRAGQuery** WebRAGQuery is a powerful chatbot, built with OpenAI GPT model in chainlit user interface, that harnesses the power of GPT agents, function calling, and RAG to offer an enhanced conversational experience. 
 
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=KoWjy5PZdX0&t=266s)
+
 #### Here's how you can make the most of its diverse functionalities:
 **Normal ChatGPT Interaction:**
 Engage in natural conversations as you would with a regular ChatGPT app, experiencing seamless communication.
@@ -99,8 +103,6 @@ Sample prompts for triggring different functionalities of the Chatbot:
 2. To give a full summarization of a website: `summarize this website for me <your desired link>`
 3. To search the web for a specific content (e.g videos): `I am looking for videos that explain how to train a large language model`
 4. To use its own knowledge (e.g debug a python code): `debug the following code <your code and the error>`
-
-**YouTube video:** [Link](https://www.youtube.com/watch?v=KoWjy5PZdX0&t=266s)
 
 **Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 

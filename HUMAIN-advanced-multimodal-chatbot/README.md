@@ -1,6 +1,9 @@
 # Advanced Multimodal Chatbot Readme
 
 Welcome to my advanced multimodal chatbot! Here's a breakdown of what it can do and how to get it up and running.
+
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
 ## HUMAIN multi-modal multi-task chatbot
 <div align="center">
   <img src="images/HUMAIN.png" alt="HUMAIN">

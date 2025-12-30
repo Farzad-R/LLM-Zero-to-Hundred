@@ -2,6 +2,10 @@
 
 We use a fictional company called Cubetriangle and design the pipeline to process its raw data, finetune 3 large language models (LLMs) on it, and design a chatbot using the best model.
 
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
+
 ### The models that I used in this video are:
 * Pythia_70m: https://huggingface.co/EleutherAI/pythia-70m
 * dlite_v2_1.5b: https://huggingface.co/aisquared/dlite-v2-1_5b
@@ -17,8 +21,6 @@ We use a fictional company called Cubetriangle and design the pipeline to proces
 <div align="center">
   <img src="images/chatbot.png" alt="Schema">
 </div>
-
-**YouTube video:** [Link](https://www.youtube.com/watch?v=_g4o21A6AY8&t=1154s)
 
 **Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 

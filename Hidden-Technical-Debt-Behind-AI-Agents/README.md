@@ -7,6 +7,7 @@ This project demonstrates how to build a **real-world, agentic chatbot** using *
 
 It’s designed for **developers, learners, and professionals** looking to understand how to integrate real infrastructure into LLM applications.
 
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
 ---
 
 ## 🚀 What This Project Covers

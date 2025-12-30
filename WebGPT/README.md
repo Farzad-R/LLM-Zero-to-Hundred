@@ -1,5 +1,9 @@
 # Function calling and addressing the LLM knowledge cut-off with real-time web search using GPT models
 
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=55bztmEzAYU&t=295s)
+
 **WebGPT** is a powerful tool enabling users to pose questions that require internet searches. Leveraging GPT models:
 * It identifies and executes the most relevant given Python functions in response to user queries. 
 * The second GPT model generates responses by combining user queries with content retrieved from the web search engine. 
@@ -68,8 +72,6 @@ In Terminal:
 ```
 streamlit run src\webgpt_app.py
 ```
-
-**YouTube video:** [Link](https://www.youtube.com/watch?v=55bztmEzAYU&t=295s)
 
 **Slides:** [Link](https://github.com/Farzad-R/LLM-Zero-to-Hundred/blob/master/presentation/presentation.pdf)
 

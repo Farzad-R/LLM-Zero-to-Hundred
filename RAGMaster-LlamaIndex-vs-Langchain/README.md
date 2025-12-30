@@ -2,7 +2,11 @@
 
 **RAGMaster** is a project where I compare the performance of 5 famous RAG techniques which have been proposed by Langchain and Llama-index. The test is being done on `40` questions on `5` different documents. Moreover, the projects provides `2` separate RAG chatbots that offer `8` RAG techniques from these two frameworks.
 
-* The techniques that are compare in the repository are:
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video:** [Link](https://www.youtube.com/watch?v=nze2ZFj7FCk&t=680s)
+
+The techniques that are compare in the repository are:
 
 1. langchain: with RecursiveCharacterTextSplitter (chunk_size:1500, chunk_overlap:500) and search_type=similarity.
 2. langchain: with RecursiveCharacterTextSplitter (chunk_size:1500, chunk_overlap:500) and search_type=mmr.
@@ -151,9 +155,6 @@ python src\evaluate_rag_techniques\run_gpt_eval.py
 <div align="center">
   <img src="images/RAGMASTER.png" alt="UI">
 </div>
-
-## YouTube video:
-- [Link](https://www.youtube.com/watch?v=nze2ZFj7FCk&t=680s)
 
 
 ## Extra read:

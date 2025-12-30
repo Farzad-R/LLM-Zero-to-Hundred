@@ -1,4 +1,9 @@
-# RAG-Gemma: Retrieval Augmented generation chatbot By Integrating Google Gemma 7B LLM, BAAI/bge-large-en, Langchain, ChromaDB, and Gradio
+# RAG-Gemma: Retrieval Augmented generation chatbot 
+By Integrating Google Gemma 7B LLM, BAAI/bge-large-en, Langchain, ChromaDB, and Gradio
+
+[![YouTube Tutorial](https://img.shields.io/badge/YouTube-Watch%20Tutorial-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/@airoundtable)
+
+**YouTube video: [Link](https://youtu.be/6dyz2M_UWLw?si=E2Ep0dDNYpixzrBS)**
 
 **The chatbot offers versatile usage through two distinct methods:**
 1. **Offline Documents**: Engage with documents that you've pre-processed and vectorized. These documents can be seamlessly integrated into your chat sessions.
@@ -74,8 +79,6 @@ python src\app.py
 ```
 
 5. Chat with your documents.
-
-**YouTube video: [Link](https://youtu.be/6dyz2M_UWLw?si=E2Ep0dDNYpixzrBS) **
 
 Extra read:
 - [RAG-GPT video](https://www.youtube.com/watch?v=1FERFfut4Uw&t=676s)
