@@ -100,7 +100,7 @@ with gr.Blocks() as demo:
                                                rag_with_dropdown, temperature_bar],
                                        outputs=[input_txt,
                                                 chatbot, ref_output],
-                                       queue=False).then(lambda: gr.Textbox(interactive=True),
+                                       queue=False).then(lambda: gr.update(interactive=True),
                                                          None, [input_txt], queue=False)
 
             txt_msg = text_submit_btn.click(fn=ChatBot.respond,
@@ -108,7 +108,7 @@ with gr.Blocks() as demo:
                                                     rag_with_dropdown, temperature_bar],
                                             outputs=[input_txt,
                                                      chatbot, ref_output],
-                                            queue=False).then(lambda: gr.Textbox(interactive=True),
+                                            queue=False).then(lambda: gr.update(interactive=True),
                                                               None, [input_txt], queue=False)
 
 

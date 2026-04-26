@@ -2,34 +2,18 @@ import gradio as gr
 
 
 class UISettings:
-    """
-    Utility class for managing UI settings.
-
-    This class provides static methods for toggling UI components, such as a sidebar.
-    """
     @staticmethod
-    def toggle_sidebar(state):
-        """
-        Toggle the visibility state of a UI component.
-
-        Parameters:
-            state: The current state of the UI component.
-
-        Returns:
-            Tuple: A tuple containing the updated UI component state and the new state.
-        """
+    def toggle_sidebar(state: bool):
         state = not state
         return gr.update(visible=state), state
 
     @staticmethod
-    def feedback(data: gr.LikeData):
-        """
-        Process user feedback on the generated response.
-
-        Parameters:
-            data (gr.LikeData): Gradio LikeData object containing user feedback.
-        """
-        if data.liked:
-            print("You upvoted this response: " + data.value)
+    def feedback(data: gr.LikeData) -> None:
+        # In Gradio 5, data.value is a dict when messages use dict format
+        value = data.value
+        if isinstance(value, dict):
+            content = value.get("value", str(value))
         else:
-            print("You downvoted this response: " + data.value)
+            content = str(value)
+        action = "upvoted" if data.liked else "downvoted"
+        print(f"You {action} this response: {content}")

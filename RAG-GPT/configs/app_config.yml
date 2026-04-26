@@ -22,7 +22,7 @@ llm_config:
     # User question:\n
     New question
     "
-    engine: "gpt-35-turbo"
+    engine: "gpt-4o-mini"
     temperature: 0.0
     max_token: 4096
 
