@@ -49,11 +49,10 @@ with gr.Blocks() as demo:
                     chatbot = gr.Chatbot(
                         [],
                         elem_id="chatbot",
-                        bubble_full_width=False,
+                        type="messages",
                         height=500,
                         avatar_images=(
                             ("images/AI_RT.png"), "images/openai_.png"),
-                        # render=False
                     )
                     # **Adding like/dislike icons
                     chatbot.like(UISettings.feedback, None, None)
