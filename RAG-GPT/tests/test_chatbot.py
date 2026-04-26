@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock
 
 
 def test_respond_missing_vectordb() -> None:
-    """When the vectorDB directory doesn't exist, an error is appended to chat history."""
+    """When chroma.sqlite3 doesn't exist, an error is appended to chat history."""
     from utils.chatbot import ChatBot
 
     chatbot: list = []
@@ -55,7 +55,7 @@ def test_respond_uses_model_from_config(mock_openai_client: MagicMock, mock_vect
 
 
 def test_respond_upload_doc_missing_vectordb() -> None:
-    """When custom vectorDB doesn't exist, an error is appended."""
+    """When custom chroma.sqlite3 doesn't exist, an error is appended."""
     from utils.chatbot import ChatBot
 
     chatbot: list = []

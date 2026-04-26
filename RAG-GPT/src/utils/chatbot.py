@@ -22,7 +22,8 @@ class ChatBot:
         temperature: float = 0.0,
     ) -> Tuple[str, List[dict], str | None]:
         if data_type == "Preprocessed doc":
-            if os.path.exists(APPCFG.persist_directory):
+            db_file = os.path.join(APPCFG.persist_directory, "chroma.sqlite3")
+            if os.path.exists(db_file):
                 vectordb = Chroma(
                     persist_directory=APPCFG.persist_directory,
                     embedding_function=APPCFG.embedding_model,
@@ -35,7 +36,8 @@ class ChatBot:
                 return "", chatbot, None
 
         elif data_type == "Upload doc: Process for RAG":
-            if os.path.exists(APPCFG.custom_persist_directory):
+            db_file = os.path.join(APPCFG.custom_persist_directory, "chroma.sqlite3")
+            if os.path.exists(db_file):
                 vectordb = Chroma(
                     persist_directory=APPCFG.custom_persist_directory,
                     embedding_function=APPCFG.embedding_model,

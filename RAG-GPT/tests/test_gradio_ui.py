@@ -41,6 +41,7 @@ def test_chatbot_error_message_is_dict_format() -> None:
     with patch("utils.chatbot.os.path.exists", return_value=False):
         _, history, _ = ChatBot.respond([], "hi", data_type="Preprocessed doc")
 
+
     assert isinstance(history[0], dict), "Error message must be a dict for Gradio 5"
     assert history[0].get("role") == "assistant"
 

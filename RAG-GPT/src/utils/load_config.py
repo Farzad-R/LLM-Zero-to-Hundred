@@ -44,7 +44,6 @@ class LoadConfig:
         # Memory
         self.number_of_q_a_pairs: int = app_config["memory"]["number_of_q_a_pairs"]
 
-        self.create_directory(self.persist_directory)
         self.remove_directory(self.custom_persist_directory)
 
     def create_directory(self, directory_path: str):
