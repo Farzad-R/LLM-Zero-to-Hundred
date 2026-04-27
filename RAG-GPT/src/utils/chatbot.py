@@ -1,6 +1,5 @@
 import os
 import re
-import ast
 import html
 import time
 from typing import List, Tuple
@@ -50,7 +49,6 @@ class ChatBot:
                 return "", chatbot, None
 
         docs = vectordb.similarity_search(message, k=APPCFG.k)
-        print(docs)
         question = "# User new question:\n" + message
         retrieved_content = ChatBot.clean_references(docs)
 
@@ -62,8 +60,6 @@ class ChatBot:
         ) + "\n\n"
 
         prompt = f"{chat_history}{retrieved_content}{question}"
-        print("========================")
-        print(prompt)
 
         response = APPCFG.openai_client.chat.completions.create(
             model=APPCFG.llm_engine,
@@ -83,36 +79,22 @@ class ChatBot:
     @staticmethod
     def clean_references(documents: List) -> str:
         server_url = "http://localhost:8000"
-        documents = [str(x) + "\n\n" for x in documents]
         markdown_documents = ""
-        counter = 1
-        for doc in documents:
-            content, metadata = re.match(
-                r"page_content=(.*?)( metadata=\{.*\})", doc
-            ).groups()
-            metadata = metadata.split("=", 1)[1]
-            metadata_dict = ast.literal_eval(metadata)
+        for counter, doc in enumerate(documents, start=1):
+            content = doc.page_content
+            source = os.path.basename(doc.metadata.get("source", "unknown"))
+            page = doc.metadata.get("page", "?")
 
-            content = bytes(content, "utf-8").decode("unicode_escape")
-            content = re.sub(r"\\n", "\n", content)
             content = re.sub(r"\s*<EOS>\s*<pad>\s*", " ", content)
             content = re.sub(r"\s+", " ", content).strip()
             content = html.unescape(content)
-            content = content.encode("latin1").decode("utf-8", "ignore")
-            content = re.sub(r"â", "-", content)
-            content = re.sub(r"â", "∈", content)
-            content = re.sub(r"Ã", "×", content)
-            content = re.sub(r"ï¬", "fi", content)
-            content = re.sub(r"Â·", "·", content)
-            content = re.sub(r"ï¬", "fl", content)
 
-            pdf_url = f"{server_url}/{os.path.basename(metadata_dict['source'])}"
+            pdf_url = f"{server_url}/{source}"
             markdown_documents += (
                 f"# Retrieved content {counter}:\n{content}\n\n"
-                f"Source: {os.path.basename(metadata_dict['source'])} | "
-                f"Page number: {metadata_dict['page']} | "
+                f"Source: {source} | "
+                f"Page number: {page} | "
                 f"[View PDF]({pdf_url})\n\n"
             )
-            counter += 1
 
         return markdown_documents
