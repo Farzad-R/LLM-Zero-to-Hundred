@@ -11,6 +11,12 @@ APPCFG = LoadConfig()
 URL = "https://github.com/Farzad-R/LLM-Zero-to-Hundred/tree/master/RAG-GPT"
 hyperlink = f"[RAG-GPT user guideline]({URL})"
 
+CONCISE_SYSTEM_ROLE = (
+    "You are a chatbot. Answer the user's question using ONLY the retrieved content. "
+    "Limit your response to 2-3 sentences containing only the key information. "
+    "Do not include source citations."
+)
+
 
 class ChatBot:
     @staticmethod
@@ -19,6 +25,7 @@ class ChatBot:
         message: str,
         data_type: str = "Preprocessed doc",
         temperature: float = 0.0,
+        response_mode: str = "Detailed",
     ) -> Tuple[str, List[dict], str | None]:
         if data_type == "Preprocessed doc":
             db_file = os.path.join(APPCFG.persist_directory, "chroma.sqlite3")
@@ -61,10 +68,11 @@ class ChatBot:
 
         prompt = f"{chat_history}{retrieved_content}{question}"
 
+        system_role = CONCISE_SYSTEM_ROLE if response_mode == "Concise" else APPCFG.llm_system_role
         response = APPCFG.openai_client.chat.completions.create(
             model=APPCFG.llm_engine,
             messages=[
-                {"role": "system", "content": APPCFG.llm_system_role},
+                {"role": "system", "content": system_role},
                 {"role": "user", "content": prompt},
             ],
             temperature=temperature,
