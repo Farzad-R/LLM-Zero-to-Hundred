@@ -26,7 +26,8 @@ def upload_data_manually() -> None:
         chunk_size=CONFIG.chunk_size,
         chunk_overlap=CONFIG.chunk_overlap,
     )
-    if not len(os.listdir(CONFIG.persist_directory)) != 0:
+    db_file = os.path.join(CONFIG.persist_directory, "chroma.sqlite3")
+    if not os.path.exists(db_file):
         prepare_vectordb_instance.prepare_and_save_vectordb()
     else:
         print(f"VectorDB already exists in {CONFIG.persist_directory}")

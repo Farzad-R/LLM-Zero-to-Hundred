@@ -49,11 +49,10 @@ with gr.Blocks() as demo:
                     chatbot = gr.Chatbot(
                         [],
                         elem_id="chatbot",
-                        bubble_full_width=False,
+                        type="messages",
                         height=500,
                         avatar_images=(
                             ("images/AI_RT.png"), "images/openai_.png"),
-                        # render=False
                     )
                     # **Adding like/dislike icons
                     chatbot.like(UISettings.feedback, None, None)
@@ -88,6 +87,11 @@ with gr.Blocks() as demo:
                                             label="Temperature", info="Choose between 0 and 1")
                 rag_with_dropdown = gr.Dropdown(
                     label="RAG with", choices=["Preprocessed doc", "Upload doc: Process for RAG", "Upload doc: Give Full summary"], value="Preprocessed doc")
+                response_mode = gr.Radio(
+                    choices=["Concise", "Detailed"],
+                    value="Detailed",
+                    label="Response Mode",
+                )
                 clear_button = gr.ClearButton([input_txt, chatbot])
             ##############
             # Process:
@@ -97,18 +101,18 @@ with gr.Blocks() as demo:
 
             txt_msg = input_txt.submit(fn=ChatBot.respond,
                                        inputs=[chatbot, input_txt,
-                                               rag_with_dropdown, temperature_bar],
+                                               rag_with_dropdown, temperature_bar, response_mode],
                                        outputs=[input_txt,
                                                 chatbot, ref_output],
-                                       queue=False).then(lambda: gr.Textbox(interactive=True),
+                                       queue=False).then(lambda: gr.update(interactive=True),
                                                          None, [input_txt], queue=False)
 
             txt_msg = text_submit_btn.click(fn=ChatBot.respond,
                                             inputs=[chatbot, input_txt,
-                                                    rag_with_dropdown, temperature_bar],
+                                                    rag_with_dropdown, temperature_bar, response_mode],
                                             outputs=[input_txt,
                                                      chatbot, ref_output],
-                                            queue=False).then(lambda: gr.Textbox(interactive=True),
+                                            queue=False).then(lambda: gr.update(interactive=True),
                                                               None, [input_txt], queue=False)
 
 
