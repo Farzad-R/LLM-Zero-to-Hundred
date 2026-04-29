@@ -4,6 +4,8 @@ Multimodal-RAG-With-Image-Video-and-Voice
 automation
 Self-RAG
 .chainlit
+.playwright-mcp
+settings.local.json
 =======
 LangGraph
 storage
